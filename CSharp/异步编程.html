@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>异步编程 | Welcome To LifeTech's Blog</title><meta name="author" content="Jackey Zhou"><meta name="copyright" content="Jackey Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="异步编程"><meta name="application-name" content="异步编程"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="website"><meta property="og:title" content="异步编程"><meta property="og:url" content="http://example.com/CSharp/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html"><meta property="og:site_name" content="Welcome To LifeTech's Blog"><meta property="og:description" content="C# 中的异步编程是一种通过非阻塞方式执行任务的编程模型，常用于提高应用程序的性能和响应能力。以下是 C# 异步编程的核心概念、语法以及示例。  1. 异步编程的基础概念1.1 为什么使用异步编程 提升性能：避免阻塞主线程（如 UI 线程），使程序在等待 I&amp;#x2F;O 操作、网络请求等耗时任务时"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Jackey Zhou"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="C# 中的异步编程是一种通过非阻塞方式执行任务的编程模型，常用于提高应用程序的性能和响应能力。以下是 C# 异步编程的核心概念、语法以及示例。  1. 异步编程的基础概念1.1 为什么使用异步编程 提升性能：避免阻塞主线程（如 UI 线程），使程序在等待 I&amp;#x2F;O 操作、网络请求等耗时任务时"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/CSharp/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Jackey Zhou","link":"链接: ","source":"来源: Welcome To LifeTech's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Welcome To LifeTech's Blog',
+  title: '异步编程',
+  postAI: '',
+  pageFillDescription: '1. 异步编程的基础概念, 1.1 为什么使用异步编程, 1.2 同步 vs 异步, 2. C 异步编程核心语法, 2.1 async 和 await, 异步方法定义：, 调用异步方法：, 2.2 返回类型, 示例：, 2.3 异步委托和 Lambda, 3. 常见异步操作, 3.1 异步 Ix2FO, 3.2 异步 HTTP 请求, 3.3 并行异步操作, 4. 错误处理, 4.1 使用 try-catch, 4.2 AggregateException, 5. 使用 ConfigureAwait, 6. 关键点和注意事项, 6.1 异步方法不阻塞主线程, 6.2 避免 async void, 6.3 死锁问题, 7. 综合示例, 总结中的异步编程是一种通过非阻塞方式执行任务的编程模型常用于提高应用程序的性能和响应能力以下是异步编程的核心概念语法以及示例异步编程的基础概念为什么使用异步编程提升性能避免阻塞主线程如线程使程序在等待操作网络请求等耗时任务时仍能继续处理其他任务改善用户体验响应更快避免界面卡顿同步异步同步方法调用会阻塞线程直到任务完成异步方法调用不会阻塞线程任务在后台执行完成后通过回调或继续处理异步编程核心语法和标记一个方法为异步方法等待一个异步操作完成异步方法定义异步等待秒调用异步方法返回类型异步方法支持以下返回类型无返回值的异步操作返回值为类型的异步操作不推荐仅用于事件处理示例无返回值有返回值调用方法异步委托和异步操作可以通过表达式或委托实现常见异步操作异步异步方法常用于文件读写和网络操作异步请求通过执行异步网络请求并行异步操作使用或处理多个异步任务并发执行错误处理使用异步方法中的异常可以通过捕获当多个任务并发执行时异常会被聚合为使用决定是否在原始上下文中恢复任务默认恢复到原始上下文不恢复上下文通常用于库中以提高性能关键点和注意事项异步方法不阻塞主线程即使方法内使用了调用者仍能继续执行后续代码避免尽量避免使用因为它不返回无法被等待或捕获异常死锁问题在应用中使用避免死锁综合示例以下是一个完整的异步程序示例异步读取文件异步网络请求运行效果异步读取文件内容异步从网络获取数据两个任务并行执行总结的异步编程通过和提供了清晰易用的语法避免阻塞主线程提升程序性能支持丰富的异步操作文件网络多任务使用正确的异常处理和并行方法确保代码健壮性结合实际需求灵活使用异步编程能显著优化应用程序的响应能力',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-11-21 21:49:04',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Welcome To LifeTech's Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div class="layout" id="content-inner"><div id="page"><h1 class="page-title">异步编程</h1><div id="article-container"><p>C# 中的异步编程是一种通过非阻塞方式执行任务的编程模型，常用于提高应用程序的性能和响应能力。以下是 C# 异步编程的核心概念、语法以及示例。</p>
+<hr>
+<h2 id="1-异步编程的基础概念"><a href="#1-异步编程的基础概念" class="headerlink" title="1. 异步编程的基础概念"></a><strong>1. 异步编程的基础概念</strong></h2><h3 id="1-1-为什么使用异步编程"><a href="#1-1-为什么使用异步编程" class="headerlink" title="1.1 为什么使用异步编程"></a><strong>1.1 为什么使用异步编程</strong></h3><ul>
+<li><strong>提升性能</strong>：避免阻塞主线程（如 UI 线程），使程序在等待 I&#x2F;O 操作、网络请求等耗时任务时仍能继续处理其他任务。</li>
+<li><strong>改善用户体验</strong>：响应更快，避免界面卡顿。</li>
+</ul>
+<hr>
+<h3 id="1-2-同步-vs-异步"><a href="#1-2-同步-vs-异步" class="headerlink" title="1.2 同步 vs 异步"></a><strong>1.2 同步 vs 异步</strong></h3><ul>
+<li><strong>同步</strong>：方法调用会阻塞线程，直到任务完成。</li>
+<li><strong>异步</strong>：方法调用不会阻塞线程，任务在后台执行，完成后通过回调或 <code>await</code> 继续处理。</li>
+</ul>
+<hr>
+<h2 id="2-C-异步编程核心语法"><a href="#2-C-异步编程核心语法" class="headerlink" title="2. C# 异步编程核心语法"></a><strong>2. C# 异步编程核心语法</strong></h2><h3 id="2-1-async-和-await"><a href="#2-1-async-和-await" class="headerlink" title="2.1 async 和 await"></a><strong>2.1 <code>async</code> 和 <code>await</code></strong></h3><ul>
+<li>**<code>async</code>**：标记一个方法为异步方法。</li>
+<li>**<code>await</code>**：等待一个异步操作完成。</li>
+</ul>
+<h4 id="异步方法定义："><a href="#异步方法定义：" class="headerlink" title="异步方法定义："></a>异步方法定义：</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">MethodAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">await</span> Task.Delay(<span class="number">1000</span>); <span class="comment">// 异步等待 1 秒</span></span><br><span class="line">    Console.WriteLine(<span class="string">&quot;Task Completed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="调用异步方法："><a href="#调用异步方法：" class="headerlink" title="调用异步方法："></a>调用异步方法：</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> MethodAsync();</span><br><span class="line">Console.WriteLine(<span class="string">&quot;After MethodAsync&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-2-返回类型"><a href="#2-2-返回类型" class="headerlink" title="2.2 返回类型"></a><strong>2.2 返回类型</strong></h3><p>异步方法支持以下返回类型：</p>
+<ul>
+<li>**<code>Task</code>**：无返回值的异步操作。</li>
+<li>**<code>Task&lt;T&gt;</code>**：返回值为 <code>T</code> 类型的异步操作。</li>
+<li>**<code>void</code>**：不推荐，仅用于事件处理。</li>
+</ul>
+<h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 无返回值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">DoWorkAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">await</span> Task.Delay(<span class="number">1000</span>);</span><br><span class="line">    Console.WriteLine(<span class="string">&quot;Work Done&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有返回值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">int</span>&gt; <span class="title">GetResultAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">await</span> Task.Delay(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">42</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用方法：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> DoWorkAsync();</span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> result = <span class="keyword">await</span> GetResultAsync();</span><br><span class="line">Console.WriteLine(<span class="string">$&quot;Result: <span class="subst">&#123;result&#125;</span>&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-3-异步委托和-Lambda"><a href="#2-3-异步委托和-Lambda" class="headerlink" title="2.3 异步委托和 Lambda"></a><strong>2.3 异步委托和 Lambda</strong></h3><p>异步操作可以通过 Lambda 表达式或委托实现。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;Task&gt; asyncLambda = <span class="keyword">async</span> () =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">await</span> Task.Delay(<span class="number">1000</span>);</span><br><span class="line">    Console.WriteLine(<span class="string">&quot;Async Lambda Done&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> asyncLambda();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-常见异步操作"><a href="#3-常见异步操作" class="headerlink" title="3. 常见异步操作"></a><strong>3. 常见异步操作</strong></h2><h3 id="3-1-异步-I-O"><a href="#3-1-异步-I-O" class="headerlink" title="3.1 异步 I&#x2F;O"></a><strong>3.1 异步 I&#x2F;O</strong></h3><p>异步方法常用于文件读写和网络操作。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">ReadFileAsync</span>(<span class="params"><span class="built_in">string</span> filePath</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (StreamReader reader = <span class="keyword">new</span> StreamReader(filePath))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> content = <span class="keyword">await</span> reader.ReadToEndAsync();</span><br><span class="line">        Console.WriteLine(content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-2-异步-HTTP-请求"><a href="#3-2-异步-HTTP-请求" class="headerlink" title="3.2 异步 HTTP 请求"></a><strong>3.2 异步 HTTP 请求</strong></h3><p>通过 <code>HttpClient</code> 执行异步网络请求：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">FetchDataAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (HttpClient client = <span class="keyword">new</span> HttpClient())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> data = <span class="keyword">await</span> client.GetStringAsync(<span class="string">&quot;https://example.com&quot;</span>);</span><br><span class="line">        Console.WriteLine(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-3-并行异步操作"><a href="#3-3-并行异步操作" class="headerlink" title="3.3 并行异步操作"></a><strong>3.3 并行异步操作</strong></h3><p>使用 <code>Task.WhenAll</code> 或 <code>Task.WhenAny</code> 处理多个异步任务。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">ExecuteMultipleAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    Task&lt;<span class="built_in">int</span>&gt; task1 = GetResultAsync();</span><br><span class="line">    Task&lt;<span class="built_in">int</span>&gt; task2 = GetResultAsync();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 并发执行</span></span><br><span class="line">    <span class="built_in">int</span>[] results = <span class="keyword">await</span> Task.WhenAll(task1, task2);</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;Results: <span class="subst">&#123;results[<span class="number">0</span>]&#125;</span>, <span class="subst">&#123;results[<span class="number">1</span>]&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-错误处理"><a href="#4-错误处理" class="headerlink" title="4. 错误处理"></a><strong>4. 错误处理</strong></h2><h3 id="4-1-使用-try-catch"><a href="#4-1-使用-try-catch" class="headerlink" title="4.1 使用 try-catch"></a><strong>4.1 使用 <code>try-catch</code></strong></h3><p>异步方法中的异常可以通过 <code>try-catch</code> 捕获。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">SafeExecuteAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">await</span> Task.Delay(<span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException(<span class="string">&quot;An error occurred&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;Caught exception: <span class="subst">&#123;ex.Message&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-AggregateException"><a href="#4-2-AggregateException" class="headerlink" title="4.2 AggregateException"></a><strong>4.2 <code>AggregateException</code></strong></h3><p>当多个任务并发执行时，异常会被聚合为 <code>AggregateException</code>。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">HandleMultipleExceptionsAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    Task task1 = Task.Run(() =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException());</span><br><span class="line">    Task task2 = Task.Run(() =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">await</span> Task.WhenAll(task1, task2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (AggregateException ex)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> inner <span class="keyword">in</span> ex.InnerExceptions)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(inner.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-使用-ConfigureAwait"><a href="#5-使用-ConfigureAwait" class="headerlink" title="5. 使用 ConfigureAwait"></a><strong>5. 使用 <code>ConfigureAwait</code></strong></h2><p><code>ConfigureAwait</code> 决定是否在原始上下文中恢复任务：</p>
+<ul>
+<li><strong><code>true</code>（默认）</strong>：恢复到原始上下文。</li>
+<li>**<code>false</code>**：不恢复上下文，通常用于库中以提高性能。</li>
+</ul>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> Task.Delay(<span class="number">1000</span>).ConfigureAwait(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-关键点和注意事项"><a href="#6-关键点和注意事项" class="headerlink" title="6. 关键点和注意事项"></a><strong>6. 关键点和注意事项</strong></h2><h3 id="6-1-异步方法不阻塞主线程"><a href="#6-1-异步方法不阻塞主线程" class="headerlink" title="6.1 异步方法不阻塞主线程"></a><strong>6.1 异步方法不阻塞主线程</strong></h3><p>即使方法内使用了 <code>await</code>，调用者仍能继续执行后续代码。</p>
+<hr>
+<h3 id="6-2-避免-async-void"><a href="#6-2-避免-async-void" class="headerlink" title="6.2 避免 async void"></a><strong>6.2 避免 <code>async void</code></strong></h3><p>尽量避免使用 <code>async void</code>，因为它不返回 <code>Task</code>，无法被等待或捕获异常。</p>
+<hr>
+<h3 id="6-3-死锁问题"><a href="#6-3-死锁问题" class="headerlink" title="6.3 死锁问题"></a><strong>6.3 死锁问题</strong></h3><p>在 UI 应用中使用 <code>ConfigureAwait(false)</code> 避免死锁。</p>
+<hr>
+<h2 id="7-综合示例"><a href="#7-综合示例" class="headerlink" title="7. 综合示例"></a><strong>7. 综合示例</strong></h2><p>以下是一个完整的异步程序示例：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Net.Http;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Starting...&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 异步读取文件</span></span><br><span class="line">        Task readFileTask = ReadFileAsync(<span class="string">&quot;example.txt&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 异步网络请求</span></span><br><span class="line">        Task fetchDataTask = FetchDataAsync();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> Task.WhenAll(readFileTask, fetchDataTask);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">&quot;All tasks completed.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">ReadFileAsync</span>(<span class="params"><span class="built_in">string</span> filePath</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">using</span> (StreamReader reader = <span class="keyword">new</span> StreamReader(filePath))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">string</span> content = <span class="keyword">await</span> reader.ReadToEndAsync();</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;File Content:&quot;</span>);</span><br><span class="line">            Console.WriteLine(content);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">FetchDataAsync</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">using</span> (HttpClient client = <span class="keyword">new</span> HttpClient())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">string</span> data = <span class="keyword">await</span> client.GetStringAsync(<span class="string">&quot;https://example.com&quot;</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Fetched Data:&quot;</span>);</span><br><span class="line">            Console.WriteLine(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行效果：</p>
+<ol>
+<li>异步读取文件内容。</li>
+<li>异步从网络获取数据。</li>
+<li>两个任务并行执行。</li>
+</ol>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>C# 的异步编程通过 <code>async</code> 和 <code>await</code> 提供了清晰、易用的语法：</p>
+<ol>
+<li>避免阻塞主线程，提升程序性能。</li>
+<li>支持丰富的异步操作（文件、网络、多任务）。</li>
+<li>使用正确的异常处理和并行方法，确保代码健壮性。</li>
+</ol>
+<p>结合实际需求，灵活使用异步编程能显著优化应用程序的响应能力。</p>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">记录技术成长的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget"><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/><div class="card-webinfo"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-item-title"><i class="anzhiyufont anzhiyu-icon-file-lines"></i><div class="item-name">文章总数 :</div></div><div class="item-count">13</div></div><div class="webinfo-item"><div class="webinfo-item-title"><i class="anzhiyufont anzhiyu-icon-stopwatch"></i><div class="item-name">建站天数 :</div></div><div class="item-count" id="runtimeshow" data-publishDate="2021-03-31T16:00:00.000Z"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></div></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="Jackey Zhou" target="_blank">Jackey Zhou</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 0.88rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Jackey Zhou 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="anzhiyu"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

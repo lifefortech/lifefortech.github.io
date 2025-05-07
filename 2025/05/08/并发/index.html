@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>并发 | Welcome To LifeTech's Blog</title><meta name="keywords" content="Rust基础知识"><meta name="author" content="Jackey Zhou"><meta name="copyright" content="Jackey Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="并发"><meta name="application-name" content="并发"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="并发"><meta property="og:url" content="http://example.com/2025/05/08/%E5%B9%B6%E5%8F%91/index.html"><meta property="og:site_name" content="Welcome To LifeTech's Blog"><meta property="og:description" content="并发 (Concurrency) 和多线程 (Multithreading) 是现代软件开发中非常重要的主题，它们能够帮助我们构建响应更快、性能更高的应用程序。Rust 在这方面提供了强大的支持，并以其“无畏并发 (Fearless Concurrency)”而闻名，这意味着 Rust 的类型系统和"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Jackey Zhou"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="并发 (Concurrency) 和多线程 (Multithreading) 是现代软件开发中非常重要的主题，它们能够帮助我们构建响应更快、性能更高的应用程序。Rust 在这方面提供了强大的支持，并以其“无畏并发 (Fearless Concurrency)”而闻名，这意味着 Rust 的类型系统和"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/08/%E5%B9%B6%E5%8F%91/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Jackey Zhou","link":"链接: ","source":"来源: Welcome To LifeTech's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Welcome To LifeTech's Blog',
+  title: '并发',
+  postAI: '',
+  pageFillDescription: '1. 并发 (Concurrency) vs. 并行 (Parallelism), 2. 创建和管理线程 (stdthread), a) threadspawn(), b) 线程的 Panic, 3. 消息传递进行线程间通信 (stdsyncmpsc), 4. 共享状态并发 (Shared-State Concurrency), a) MutexltTgt (互斥锁 x2F Mutual Exclusion), b) RwLockltTgt (读写锁 x2F Read-Write Lock), c) ArcltTgt (原子引用计数) 与锁的结合, 5. Send 和 Sync Trait, 6. 异步编程 (async/await), 7. 其他并发原语和库, 总结并发和多线程是现代软件开发中非常重要的主题它们能够帮助我们构建响应更快性能更高的应用程序在这方面提供了强大的支持并以其无畏并发而闻名这意味着的类型系统和所有权模型能够在编译时捕获许多常见的并发错误如数据竞争让我们详细探讨中的并发和多线程并发并行首先区分这两个概念很重要并发指的是多个任务可以交替执行或重叠执行的能力使得它们看起来像是在同时运行这可以在单个处理器核心上通过时间分片实现或者在多个核心上实现并发更侧重于程序结构的设计使其能够处理多个独立进行的工作单元并行指的是多个任务真正同时执行的能力这通常需要多个处理器核心并行是并发的一种实现方式旨在通过同时执行计算来提高性能提供了创建并发执行代码的工具如果底层硬件支持这些代码可以并行运行创建和管理线程标准库通过模块提供了创建和管理原生操作系统线程的功能函数用于创建一个新线程它接收一个闭包作为参数这个闭包包含了新线程将要执行的代码启动一个新线程闭包是新线程的入口点新线程主线程继续执行主线程等待新线程执行完毕如果没有主线程可能会在新线程完成前退出导致新线程被提前终止返回一个通常需要或处理错误所有线程执行完毕闭包当新线程需要使用其外部作用域例如函数作用域中的数据时你需要使用关键字来强制闭包获取这些数据的所有权这是因为新线程的生命周期可能比创建它的线程更长如果只是借用可能会导致悬垂引用如果没有编译器会报错因为它无法确定在新线程执行时是否仍然有效使用将的所有权移入闭包这是一个来自新线程的如果在这里取消注释会导致编译错误因为的所有权已经移交给新线程返回一个是闭包的返回类型的方法会阻塞当前线程直到它所代表的线程执行完毕如果被的线程了会返回一个线程的如果一个线程了它不会直接导致整个程序崩溃除非它是主线程且未被其他线程会展开该线程的栈并清理其资源你可以通过来捕获子线程的但这通常用于特定的库或框架逻辑而不是常规的错误处理消息传递进行线程间通信推荐使用消息传递的方式在线程间进行通信而不是依赖共享内存这种方式下数据的所有权在线程间通过通道进行传递有助于避免复杂的同步问题模块提供了一个多生产者单消费者的队列实现函数创建一个异步通道返回一个元组发送端用于发送类型的消息它可以被克隆从而允许多个线程向同一个接收端发送消息接收端用于接收消息发送数据方法发送一个值这个操作会转移的所有权接收数据阻塞当前线程直到有消息可用或通道关闭非阻塞版本立即返回一个如果此时没有消息会返回克隆发送端用于第一个子线程第一个发送线程线程线程线程线程发送消息所有权转移第二个发送线程使用原始的线程线程线程线程主线程作为接收者会在内部被调用迭代直到通道关闭主线程收到通道已关闭接收完毕当所有的都离开作用域被后通道会自动关闭此时端的或迭代会结束创建一个同步通道其缓冲区大小是有限的如果缓冲区已满操作会阻塞直到有空间可用共享状态并发虽然消息传递是推荐的方式但有时共享内存状态也是必要的提供了确保共享状态访问安全的机制主要是通过和并通常与结合使用互斥锁确保在任何时候只有一个线程可以访问内部的数据尝试获取互斥锁如果锁未被持有当前线程获得锁并返回一个如果锁已被其他线程持有当前线程会阻塞直到锁被释放如果持有锁的线程了会被标记为被污染后续的调用会返回你可以选择如果认为污染是可接受的或处理这个这是一个智能指针它实现了和允许你访问被保护的数据当离开作用域时它会自动释放锁通过读写锁允许多个线程同时读取数据或者只允许一个线程写入数据获取一个读锁可以有多个读锁同时存在返回获取一个写锁写锁是独占的当持有写锁时不能有其他读锁或写锁返回如果请求的锁与当前持有的锁冲突例如请求写锁时存在读锁或请求读锁时存在写锁则当前线程会阻塞原子引用计数与锁的结合要在多个线程之间共享或本身因为它们管理的数据可能需要在多个线程中被访问你需要使用来包装它们提供了线程安全的共享所有权常见的模式是或允许多个线程拥有对的共享所有权确保对内部的访问是互斥的初始值为为每个线程克隆指针的所有权移入闭包获取锁返回处理可能的通过修改内部数据在这里离开作用域锁被自动释放线程启动当前共享计数器理论值可能未及时更新等待所有线程完成主线程获取锁并打印最终结果最终结果输出最终结果和的并发安全性很大程度上依赖于两个特殊的标记和这些没有方法它们只是用来标记类型是否满足某些并发相关的属性编译器会自动为大多数类型推导它们如果一个类型实现了则意味着类型的值的所有权可以安全地从一个线程转移到另一个线程大多数基本类型如如果是如果是都是和不是因为它们的内部机制不是线程安全的如果一个类型实现了则意味着类型的不可变引用可以安全地在多个线程之间共享换句话说如果是那么就是大多数基本类型都是如果一个类型的所有字段都是那么该类型通常也是和不是因为即使通过不可变引用访问它们也可能导致内部状态的非同步改变是如果是即使它允许内部可变性因为自身提供了同步编译器会利用和来确保你不会在线程间不安全地传递或共享数据例如要求其闭包是并且闭包捕获的任何数据也必须是或者通过转移所有权异步编程对于大量密集型任务如网络请求文件读写创建大量操作系统线程可能会消耗过多资源异步编程提供了一种更轻量级的方式来处理并发它允许单个线程在等待操作完成时执行其他任务而不是阻塞定义一个异步函数异步函数在被调用时不会立即执行而是返回一个实现了的值代表一个未来某个时刻会产生结果的计算在函数或块内部使用用于等待一个完成当一个时如果该尚未准备好例如正在等待网络响应当前任务会被挂起允许执行器运行其他准备好的任务一旦完成任务会从的地方继续执行执行器代码需要一个异步运行时如来轮询并驱动它们完成标准库本身不提供异步运行时这是一个概念性的例子实际运行需要一个异步运行时如实际的网络请求会在这里例如使用库模拟网络延迟会暂停当前任务直到完成使用或可以并发执行多个要运行上面的通常需要在函数上使用或类似宏异步编程是一个庞大的主题涉及到任务调度等更深层次的概念其他并发原语和库提供原子类型如它们支持无锁的原子操作适用于低级并发控制允许多个线程相互等待直到所有线程都到达一个屏障点条件变量与一起使用允许线程在某个条件变为真之前挂起并在条件满足时被唤醒外部库提供了更多高级的并发数据结构如无锁队列和工具提供了简单易用的数据并行库可以将计算密集型任务自动分配到多个核心上并行处理基于工作窃取算法总结通过其所有权系统类型系统特别是和以及标准库提供的工具如为编写安全且高效的并发代码提供了坚实的基础对于数据隔离和避免共享状态的复杂性优先考虑消息传递当确实需要共享状态时使用来共享所有权并使用或来同步对数据的访问对于密集型任务考虑使用和异步运行时',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-08 01:57:29',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Welcome To LifeTech's Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 1.05rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">21</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Rust基础知识</span></a></span></div></div><h1 class="post-title" itemprop="name headline">并发</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-07T17:44:35.000Z" title="发表于 2025-05-08 01:44:35">2025-05-08</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-07T17:57:29.725Z" title="更新于 2025-05-08 01:57:29">2025-05-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为无锡"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>无锡</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/08/%E5%B9%B6%E5%8F%91/"><header><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url">Rust基础知识</a><h1 id="CrawlerTitle" itemprop="name headline">并发</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Jackey Zhou</span><time itemprop="dateCreated datePublished" datetime="2025-05-07T17:44:35.000Z" title="发表于 2025-05-08 01:44:35">2025-05-08</time><time itemprop="dateCreated datePublished" datetime="2025-05-07T17:57:29.725Z" title="更新于 2025-05-08 01:57:29">2025-05-08</time></header><p>并发 (Concurrency) 和多线程 (Multithreading) 是现代软件开发中非常重要的主题，它们能够帮助我们构建响应更快、性能更高的应用程序。Rust 在这方面提供了强大的支持，并以其<strong>“无畏并发 (Fearless Concurrency)”</strong>而闻名，这意味着 Rust 的类型系统和所有权模型能够在编译时捕获许多常见的并发错误，如数据竞争。</p>
+<p>让我们详细探讨 Rust 中的并发和多线程：</p>
+<h3 id="1-并发-Concurrency-vs-并行-Parallelism"><a href="#1-并发-Concurrency-vs-并行-Parallelism" class="headerlink" title="1. 并发 (Concurrency) vs. 并行 (Parallelism)"></a>1. 并发 (Concurrency) vs. 并行 (Parallelism)</h3><p>首先，区分这两个概念很重要：</p>
+<ul>
+<li><strong>并发 (Concurrency)</strong>: 指的是多个任务可以<strong>交替执行</strong>或<strong>重叠执行</strong>的能力，使得它们看起来像是在同时运行。这可以在单个处理器核心上通过时间分片实现，或者在多个核心上实现。并发更侧重于程序结构的设计，使其能够处理多个独立进行的工作单元。</li>
+<li><strong>并行 (Parallelism)</strong>: 指的是多个任务<strong>真正同时执行</strong>的能力，这通常需要多个处理器核心。并行是并发的一种实现方式，旨在通过同时执行计算来提高性能。</li>
+</ul>
+<p>Rust 提供了创建并发执行代码的工具，如果底层硬件支持，这些代码可以并行运行。</p>
+<h3 id="2-创建和管理线程-std-thread"><a href="#2-创建和管理线程-std-thread" class="headerlink" title="2. 创建和管理线程 (std::thread)"></a>2. 创建和管理线程 (<code>std::thread</code>)</h3><p>Rust 标准库通过 <code>std::thread</code> 模块提供了创建和管理原生操作系统线程的功能。</p>
+<h4 id="a-thread-spawn"><a href="#a-thread-spawn" class="headerlink" title="a) thread::spawn()"></a>a) <code>thread::spawn()</code></h4><p><code>thread::spawn()</code> 函数用于创建一个新线程。它接收一个闭包作为参数，这个闭包包含了新线程将要执行的代码。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::thread;</span><br><span class="line"><span class="keyword">use</span> std::time::Duration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 启动一个新线程</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">handle</span> = thread::<span class="title function_ invoke__">spawn</span>(|| &#123; <span class="comment">// 闭包是新线程的入口点</span></span><br><span class="line">        <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="number">1</span>..=<span class="number">5</span> &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;新线程: &#123;&#125;&quot;</span>, i);</span><br><span class="line">            thread::<span class="title function_ invoke__">sleep</span>(Duration::<span class="title function_ invoke__">from_millis</span>(<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主线程继续执行</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="number">1</span>..=<span class="number">3</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;主线程: &#123;&#125;&quot;</span>, i);</span><br><span class="line">        thread::<span class="title function_ invoke__">sleep</span>(Duration::<span class="title function_ invoke__">from_millis</span>(<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待新线程执行完毕</span></span><br><span class="line">    <span class="comment">// 如果没有 join，主线程可能会在新线程完成前退出，导致新线程被提前终止</span></span><br><span class="line">    handle.<span class="title function_ invoke__">join</span>().<span class="title function_ invoke__">unwrap</span>(); <span class="comment">// join() 返回一个 Result，通常需要 unwrap 或处理错误</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;所有线程执行完毕！&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>move</code> 闭包</strong>:<br>当新线程需要使用其外部作用域（例如 <code>main</code> 函数作用域）中的数据时，你需要使用 <code>move</code> 关键字来强制闭包获取这些数据的所有权。这是因为新线程的生命周期可能比创建它的线程更长，如果只是借用，可能会导致悬垂引用。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果没有 `move`，编译器会报错，因为它无法确定 v 在新线程执行时是否仍然有效</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">handle</span> = thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123; <span class="comment">// 使用 move 将 v 的所有权移入闭包</span></span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;这是一个来自新线程的 vector: &#123;:?&#125;&quot;</span>, v);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// drop(v); // 如果在这里取消注释，会导致编译错误，因为 v 的所有权已经移交给新线程</span></span><br><span class="line"></span><br><span class="line">    handle.<span class="title function_ invoke__">join</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>JoinHandle&lt;T&gt;</code></strong>:<br><code>thread::spawn()</code> 返回一个 <code>JoinHandle&lt;T&gt;</code>。<code>T</code> 是闭包的返回类型。<code>JoinHandle</code> 的 <code>join()</code> 方法会阻塞当前线程，直到它所代表的线程执行完毕。如果被 <code>join</code> 的线程 <code>panic!</code> 了，<code>join()</code> 会返回一个 <code>Err</code>。</p>
+<h4 id="b-线程的-Panic"><a href="#b-线程的-Panic" class="headerlink" title="b) 线程的 Panic"></a>b) 线程的 Panic</h4><p>如果一个线程 <code>panic!</code> 了，它不会直接导致整个程序崩溃（除非它是主线程且未被其他线程 <code>join</code>）。Rust 会展开该线程的栈并清理其资源。你可以通过 <code>std::panic::catch_unwind</code> 来捕获子线程的 panic（但这通常用于特定的库或框架逻辑，而不是常规的错误处理）。</p>
+<h3 id="3-消息传递进行线程间通信-std-sync-mpsc"><a href="#3-消息传递进行线程间通信-std-sync-mpsc" class="headerlink" title="3. 消息传递进行线程间通信 (std::sync::mpsc)"></a>3. 消息传递进行线程间通信 (<code>std::sync::mpsc</code>)</h3><p>Rust 推荐使用<strong>消息传递 (message passing)</strong> 的方式在线程间进行通信，而不是依赖共享内存。这种方式下，数据的所有权在线程间通过“通道 (channels)”进行传递，有助于避免复杂的同步问题。</p>
+<p><code>std::sync::mpsc</code> 模块提供了一个多生产者、单消费者 (multiple producer, single consumer) 的 FIFO 队列实现。</p>
+<ul>
+<li><strong><code>channel()</code></strong>: 函数创建一个异步通道，返回一个元组 <code>(Sender&lt;T&gt;, Receiver&lt;T&gt;)</code>。<ul>
+<li><code>Sender&lt;T&gt;</code> (发送端): 用于发送 <code>T</code> 类型的消息。它可以被克隆 (<code>clone()</code>)，从而允许多个线程向同一个接收端发送消息。</li>
+<li><code>Receiver&lt;T&gt;</code> (接收端): 用于接收消息。</li>
+</ul>
+</li>
+<li><strong>发送数据</strong>: <code>sender.send(value: T)</code> 方法发送一个值。这个操作会转移 <code>value</code> 的所有权。</li>
+<li><strong>接收数据</strong>:<ul>
+<li><code>receiver.recv() -&gt; Result&lt;T, RecvError&gt;</code>: 阻塞当前线程，直到有消息可用或通道关闭。</li>
+<li><code>receiver.try_recv() -&gt; Result&lt;T, TryRecvError&gt;</code>: 非阻塞版本，立即返回一个 <code>Result</code>，如果此时没有消息，会返回 <code>Err(TryRecvError::Empty)</code>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::sync::mpsc;</span><br><span class="line"><span class="keyword">use</span> std::thread;</span><br><span class="line"><span class="keyword">use</span> std::time::Duration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> (tx, rx): (mpsc::Sender&lt;<span class="type">String</span>&gt;, mpsc::Receiver&lt;<span class="type">String</span>&gt;) = mpsc::<span class="title function_ invoke__">channel</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">tx1</span> = tx.<span class="title function_ invoke__">clone</span>(); <span class="comment">// 克隆发送端，用于第一个子线程</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一个发送线程</span></span><br><span class="line">    thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">vals</span> = <span class="built_in">vec!</span>[</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程1: Hi&quot;</span>),</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程1: from&quot;</span>),</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程1: the&quot;</span>),</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程1: thread!&quot;</span>),</span><br><span class="line">        ];</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">val</span> <span class="keyword">in</span> vals &#123;</span><br><span class="line">            tx1.<span class="title function_ invoke__">send</span>(val).<span class="title function_ invoke__">unwrap</span>(); <span class="comment">// 发送消息，所有权转移</span></span><br><span class="line">            thread::<span class="title function_ invoke__">sleep</span>(Duration::<span class="title function_ invoke__">from_millis</span>(<span class="number">200</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第二个发送线程 (使用原始的 tx)</span></span><br><span class="line">    thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">vals</span> = <span class="built_in">vec!</span>[</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程2: More&quot;</span>),</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程2: messages&quot;</span>),</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程2: for&quot;</span>),</span><br><span class="line">            <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;线程2: you!&quot;</span>),</span><br><span class="line">        ];</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">val</span> <span class="keyword">in</span> vals &#123;</span><br><span class="line">            tx.<span class="title function_ invoke__">send</span>(val).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">            thread::<span class="title function_ invoke__">sleep</span>(Duration::<span class="title function_ invoke__">from_millis</span>(<span class="number">250</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主线程作为接收者</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">received</span> <span class="keyword">in</span> rx &#123; <span class="comment">// recv() 会在内部被调用，迭代直到通道关闭</span></span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;主线程收到: &#123;&#125;&quot;</span>, received);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;通道已关闭，接收完毕。&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当所有的 <code>Sender</code> 都离开作用域（被 drop）后，通道会自动关闭，此时 <code>Receiver</code> 端的 <code>recv()</code> 或迭代会结束。</p>
+<p><strong><code>sync_channel(bound: usize)</code></strong>: 创建一个同步通道，其缓冲区大小是有限的。如果缓冲区已满，<code>send()</code> 操作会阻塞，直到有空间可用。</p>
+<h3 id="4-共享状态并发-Shared-State-Concurrency"><a href="#4-共享状态并发-Shared-State-Concurrency" class="headerlink" title="4. 共享状态并发 (Shared-State Concurrency)"></a>4. 共享状态并发 (Shared-State Concurrency)</h3><p>虽然消息传递是推荐的方式，但有时共享内存（状态）也是必要的。Rust 提供了确保共享状态访问安全的机制，主要是通过 <code>Mutex&lt;T&gt;</code> 和 <code>RwLock&lt;T&gt;</code>，并通常与 <code>Arc&lt;T&gt;</code> 结合使用。</p>
+<h4 id="a-Mutex-互斥锁-Mutual-Exclusion"><a href="#a-Mutex-互斥锁-Mutual-Exclusion" class="headerlink" title="a) Mutex&lt;T&gt; (互斥锁 &#x2F; Mutual Exclusion)"></a>a) <code>Mutex&lt;T&gt;</code> (互斥锁 &#x2F; Mutual Exclusion)</h4><p><code>Mutex&lt;T&gt;</code> 确保在任何时候只有一个线程可以访问 <code>Mutex</code> 内部的数据 <code>T</code>。</p>
+<ul>
+<li><strong><code>lock()</code></strong>: 尝试获取互斥锁。<ul>
+<li>如果锁未被持有，当前线程获得锁，并返回一个 <code>LockResult&lt;MutexGuard&lt;T&gt;&gt;</code>。</li>
+<li>如果锁已被其他线程持有，当前线程会<strong>阻塞</strong>，直到锁被释放。</li>
+<li>如果持有锁的线程 <code>panic!</code> 了，<code>Mutex</code> 会被标记为“被污染 (poisoned)”，后续的 <code>lock()</code> 调用会返回 <code>Err</code>。你可以选择 <code>unwrap()</code>（如果认为污染是可接受的 bug）或处理这个 <code>Err</code>。</li>
+</ul>
+</li>
+<li><strong><code>MutexGuard&lt;T&gt;</code></strong>: 这是一个智能指针，它实现了 <code>Deref</code> 和 <code>DerefMut</code>，允许你访问被保护的数据。当 <code>MutexGuard&lt;T&gt;</code> 离开作用域时，它会自动释放锁（通过 <code>Drop</code> trait）。</li>
+</ul>
+<h4 id="b-RwLock-读写锁-Read-Write-Lock"><a href="#b-RwLock-读写锁-Read-Write-Lock" class="headerlink" title="b) RwLock&lt;T&gt; (读写锁 &#x2F; Read-Write Lock)"></a>b) <code>RwLock&lt;T&gt;</code> (读写锁 &#x2F; Read-Write Lock)</h4><p><code>RwLock&lt;T&gt;</code> 允许多个线程同时读取数据，或者只允许一个线程写入数据。</p>
+<ul>
+<li><strong><code>read()</code></strong>: 获取一个读锁。可以有多个读锁同时存在。返回 <code>LockResult&lt;RwLockReadGuard&lt;T&gt;&gt;</code>。</li>
+<li><strong><code>write()</code></strong>: 获取一个写锁。写锁是独占的，当持有写锁时，不能有其他读锁或写锁。返回 <code>LockResult&lt;RwLockWriteGuard&lt;T&gt;&gt;</code>。</li>
+<li>如果请求的锁与当前持有的锁冲突（例如，请求写锁时存在读锁，或请求读锁时存在写锁），则当前线程会阻塞。</li>
+</ul>
+<h4 id="c-Arc-原子引用计数-与锁的结合"><a href="#c-Arc-原子引用计数-与锁的结合" class="headerlink" title="c) Arc&lt;T&gt; (原子引用计数) 与锁的结合"></a>c) <code>Arc&lt;T&gt;</code> (原子引用计数) 与锁的结合</h4><p>要在多个线程之间共享 <code>Mutex&lt;T&gt;</code> 或 <code>RwLock&lt;T&gt;</code> 本身（因为它们管理的数据可能需要在多个线程中被访问），你需要使用 <code>Arc&lt;T&gt;</code> 来包装它们。<code>Arc</code> 提供了线程安全的共享所有权。</p>
+<p>常见的模式是 <code>Arc&lt;Mutex&lt;T&gt;&gt;</code> 或 <code>Arc&lt;RwLock&lt;T&gt;&gt;</code>。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::sync::&#123;Arc, Mutex&#125;;</span><br><span class="line"><span class="keyword">use</span> std::thread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// Arc 允许多个线程拥有对 Mutex&lt;i32&gt; 的共享所有权</span></span><br><span class="line">    <span class="comment">// Mutex&lt;i32&gt; 确保对内部 i32 的访问是互斥的</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">counter</span> = Arc::<span class="title function_ invoke__">new</span>(Mutex::<span class="title function_ invoke__">new</span>(<span class="number">0</span>)); <span class="comment">// 初始值为0</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">handles</span> = <span class="built_in">vec!</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">counter_clone</span> = Arc::<span class="title function_ invoke__">clone</span>(&amp;counter); <span class="comment">// 为每个线程克隆 Arc 指针</span></span><br><span class="line">        <span class="keyword">let</span> <span class="variable">handle</span> = thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123;</span><br><span class="line">            <span class="comment">// counter_clone 的所有权移入闭包</span></span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">num</span> = counter_clone.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>(); <span class="comment">// 获取锁，返回 MutexGuard&lt;i32&gt;</span></span><br><span class="line">                                                        <span class="comment">// unwrap() 处理可能的 PoisonError</span></span><br><span class="line">            *num += <span class="number">1</span>; <span class="comment">// 通过 MutexGuard 修改内部数据</span></span><br><span class="line">        &#125;); <span class="comment">// num (MutexGuard) 在这里离开作用域，锁被自动释放</span></span><br><span class="line">        handles.<span class="title function_ invoke__">push</span>(handle);</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;线程 &#123;&#125; 启动，当前共享计数器理论值（可能未及时更新）: inspecting ...&quot;</span>, i);</span><br><span class="line">        <span class="comment">// println!(&quot;Counter value during thread &#123;&#125; spawn (may not be accurate): &#123;&#125;&quot;, i, *counter.lock().unwrap());</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待所有线程完成</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">handle</span> <span class="keyword">in</span> handles &#123;</span><br><span class="line">        handle.<span class="title function_ invoke__">join</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主线程获取锁并打印最终结果</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;最终结果: &#123;&#125;&quot;</span>, *counter.<span class="title function_ invoke__">lock</span>().<span class="title function_ invoke__">unwrap</span>()); <span class="comment">// 输出: 最终结果: 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Send-和-Sync-Trait"><a href="#5-Send-和-Sync-Trait" class="headerlink" title="5. Send 和 Sync Trait"></a>5. <code>Send</code> 和 <code>Sync</code> Trait</h3><p>Rust 的并发安全性很大程度上依赖于两个特殊的**标记 trait (marker traits)**：<code>Send</code> 和 <code>Sync</code>。这些 trait 没有方法，它们只是用来标记类型是否满足某些并发相关的属性。编译器会自动为大多数类型推导它们。</p>
+<ul>
+<li><p><strong><code>Send</code></strong>:</p>
+<ul>
+<li>如果一个类型 <code>T</code> 实现了 <code>Send</code>，则意味着 <code>T</code> 类型的值的<strong>所有权可以安全地从一个线程转移到另一个线程</strong>。</li>
+<li>大多数基本类型（如 <code>i32</code>, <code>bool</code>）、<code>String</code>、<code>Vec&lt;T&gt;</code> (如果 <code>T</code> 是 <code>Send</code>)、<code>Box&lt;T&gt;</code> (如果 <code>T</code> 是 <code>Send</code>) 都是 <code>Send</code>。</li>
+<li><code>Rc&lt;T&gt;</code> 和 <code>RefCell&lt;T&gt;</code> <strong>不是</strong> <code>Send</code>，因为它们的内部机制不是线程安全的。</li>
+</ul>
+</li>
+<li><p><strong><code>Sync</code></strong>:</p>
+<ul>
+<li>如果一个类型 <code>T</code> 实现了 <code>Sync</code>，则意味着 <code>T</code> 类型的<strong>不可变引用 <code>&amp;T</code> 可以安全地在多个线程之间共享</strong>。</li>
+<li>换句话说，如果 <code>T</code> 是 <code>Sync</code>，那么 <code>&amp;T</code> 就是 <code>Send</code>。</li>
+<li>大多数基本类型、<code>String</code>、<code>&amp;&#39;static str</code> 都是 <code>Sync</code>。</li>
+<li>如果一个类型的所有字段都是 <code>Sync</code>，那么该类型通常也是 <code>Sync</code>。</li>
+<li><code>Cell&lt;T&gt;</code> 和 <code>RefCell&lt;T&gt;</code> <strong>不是</strong> <code>Sync</code>，因为即使通过不可变引用访问它们，也可能导致内部状态的非同步改变。</li>
+<li><code>Mutex&lt;T&gt;</code> 是 <code>Sync</code>（如果 <code>T</code> 是 <code>Send</code>），即使它允许内部可变性，因为 <code>Mutex</code> 自身提供了同步。</li>
+</ul>
+</li>
+</ul>
+<p>编译器会利用 <code>Send</code> 和 <code>Sync</code> 来确保你不会在线程间不安全地传递或共享数据。例如，<code>thread::spawn</code> 要求其闭包是 <code>Send</code>，并且闭包捕获的任何数据也必须是 <code>Send</code>（或者通过 <code>move</code> 转移所有权）。</p>
+<h3 id="6-异步编程-async-await"><a href="#6-异步编程-async-await" class="headerlink" title="6. 异步编程 (async/await)"></a>6. 异步编程 (<code>async/await</code>)</h3><p>对于大量 I&#x2F;O 密集型任务（如网络请求、文件读写），创建大量操作系统线程可能会消耗过多资源。<strong>异步编程</strong>提供了一种更轻量级的方式来处理并发，它允许单个线程在等待 I&#x2F;O 操作完成时执行其他任务，而不是阻塞。</p>
+<ul>
+<li><strong><code>async fn</code></strong>: 定义一个异步函数。异步函数在被调用时不会立即执行，而是返回一个实现了 <code>Future</code> trait 的值。<code>Future</code> 代表一个未来某个时刻会产生结果的计算。</li>
+<li><strong><code>.await</code></strong>: 在 <code>async</code> 函数或 <code>async</code> 块内部使用，用于等待一个 <code>Future</code> 完成。当 <code>.await</code> 一个 <code>Future</code> 时，如果该 <code>Future</code> 尚未准备好（例如，正在等待网络响应），当前任务会被挂起，允许执行器 (executor) 运行其他准备好的任务。一旦 <code>Future</code> 完成，任务会从 <code>.await</code> 的地方继续执行。</li>
+<li><strong>执行器 (Executor &#x2F; Runtime)</strong>: <code>async/await</code> 代码需要一个异步运行时（如 <code>tokio</code>, <code>async-std</code>, <code>smol</code>）来轮询 <code>Future</code> 并驱动它们完成。Rust 标准库本身不提供异步运行时。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一个概念性的例子，实际运行需要一个异步运行时如 tokio</span></span><br><span class="line"><span class="comment">// async fn fetch_url(url: &amp;str) -&gt; Result&lt;String, String&gt; &#123;</span></span><br><span class="line"><span class="comment">//     println!(&quot;Fetching &#123;&#125;...&quot;, url);</span></span><br><span class="line"><span class="comment">//     // 实际的网络请求会在这里，例如使用 reqwest 库</span></span><br><span class="line"><span class="comment">//     // tokio::time::sleep(Duration::from_secs(1)).await; // 模拟网络延迟</span></span><br><span class="line"><span class="comment">//     Ok(format!(&quot;Content from &#123;&#125;&quot;, url))</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// async fn main_async() &#123;</span></span><br><span class="line"><span class="comment">//     let future1 = fetch_url(&quot;https://www.example.com&quot;);</span></span><br><span class="line"><span class="comment">//     let future2 = fetch_url(&quot;https://www.rust-lang.org&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//     // .await 会暂停当前任务，直到 future 完成</span></span><br><span class="line"><span class="comment">//     let result1 = future1.await.unwrap_or_default();</span></span><br><span class="line"><span class="comment">//     let result2 = future2.await.unwrap_or_default();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//     println!(&quot;Result 1: &#123;&#125;&quot;, result1);</span></span><br><span class="line"><span class="comment">//     println!(&quot;Result 2: &#123;&#125;&quot;, result2);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//     // 使用 join! 或 FuturesUnordered 可以并发执行多个 future</span></span><br><span class="line"><span class="comment">//     // let (res1, res2) = tokio::join!(</span></span><br><span class="line"><span class="comment">//     //     fetch_url(&quot;https://www.example.com&quot;),</span></span><br><span class="line"><span class="comment">//     //     fetch_url(&quot;https://www.rust-lang.org&quot;)</span></span><br><span class="line"><span class="comment">//     // );</span></span><br><span class="line"><span class="comment">//     // println!(&quot;Concurrent Result 1: &#123;&#125;&quot;, res1.unwrap_or_default());</span></span><br><span class="line"><span class="comment">//     // println!(&quot;Concurrent Result 2: &#123;&#125;&quot;, res2.unwrap_or_default());</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 要运行上面的 main_async，通常需要在 main 函数上使用 #[tokio::main] 或类似宏</span></span><br><span class="line"><span class="comment">// fn main() &#123;</span></span><br><span class="line"><span class="comment">//     // tokio::runtime::Runtime::new().unwrap().block_on(main_async());</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<p>异步编程是一个庞大的主题，涉及到 <code>Future</code> trait、<code>Pin</code>、任务调度等更深层次的概念。</p>
+<h3 id="7-其他并发原语和库"><a href="#7-其他并发原语和库" class="headerlink" title="7. 其他并发原语和库"></a>7. 其他并发原语和库</h3><ul>
+<li><strong><code>std::sync::atomic</code></strong>: 提供原子类型（如 <code>AtomicBool</code>, <code>AtomicIsize</code>, <code>AtomicPtr</code>），它们支持无锁的原子操作，适用于低级并发控制。</li>
+<li><strong><code>std::sync::Barrier</code></strong>: 允许多个线程相互等待，直到所有线程都到达一个屏障点。</li>
+<li><strong><code>std::sync::Condvar</code></strong>: 条件变量，与 <code>Mutex</code> 一起使用，允许线程在某个条件变为真之前挂起，并在条件满足时被唤醒。</li>
+<li><strong>外部库</strong>:<ul>
+<li><strong><code>crossbeam</code></strong>: 提供了更多高级的并发数据结构（如无锁队列、epoch-based GC）和工具。</li>
+<li><strong><code>rayon</code></strong>: 提供了简单易用的数据并行库，可以将计算密集型任务自动分配到多个核心上并行处理（基于工作窃取算法）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Rust 通过其所有权系统、类型系统（特别是 <code>Send</code> 和 <code>Sync</code> trait）以及标准库提供的工具（如 <code>thread</code>, <code>mpsc</code>, <code>Mutex</code>, <code>Arc</code>），为编写安全且高效的并发代码提供了坚实的基础。</p>
+<ul>
+<li>对于数据隔离和避免共享状态的复杂性，优先考虑<strong>消息传递</strong>。</li>
+<li>当确实需要共享状态时，使用 <code>Arc</code> 来共享所有权，并使用 <code>Mutex</code> 或 <code>RwLock</code> 来同步对数据的访问。</li>
+<li>对于 I&#x2F;O 密集型任务，考虑使用 <code>async/await</code> 和异步运行时。</li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Jackey Zhou</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/08/%E5%B9%B6%E5%8F%91/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/08/%E5%B9%B6%E5%8F%91/')">并发</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/08/%E5%B9%B6%E5%8F%91/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=并发&amp;url=http://example.com/2025/05/08/%E5%B9%B6%E5%8F%91/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Welcome To LifeTech's Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Rust基础知识<span class="tagsPageCount">21</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/08/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">智能指针</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/08/%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F%E5%92%8Ccargo/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">模块系统和cargo</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/08/Copy%E5%92%8CMove/" title="Copy和Move"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Copy和Move</div></div></a></div><div><a href="/2025/05/08/FFI/" title="FFI"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">FFI</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用标准库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用第三方库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust异步编程</div></div></a></div><div><a href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust综合案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">记录技术成长的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B9%B6%E5%8F%91-Concurrency-vs-%E5%B9%B6%E8%A1%8C-Parallelism"><span class="toc-number">1.</span> <span class="toc-text">1. 并发 (Concurrency) vs. 并行 (Parallelism)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E5%92%8C%E7%AE%A1%E7%90%86%E7%BA%BF%E7%A8%8B-std-thread"><span class="toc-number">2.</span> <span class="toc-text">2. 创建和管理线程 (std::thread)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-thread-spawn"><span class="toc-number">2.1.</span> <span class="toc-text">a) thread::spawn()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E7%BA%BF%E7%A8%8B%E7%9A%84-Panic"><span class="toc-number">2.2.</span> <span class="toc-text">b) 线程的 Panic</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92%E8%BF%9B%E8%A1%8C%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1-std-sync-mpsc"><span class="toc-number">3.</span> <span class="toc-text">3. 消息传递进行线程间通信 (std::sync::mpsc)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B1%E4%BA%AB%E7%8A%B6%E6%80%81%E5%B9%B6%E5%8F%91-Shared-State-Concurrency"><span class="toc-number">4.</span> <span class="toc-text">4. 共享状态并发 (Shared-State Concurrency)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-Mutex-%E4%BA%92%E6%96%A5%E9%94%81-Mutual-Exclusion"><span class="toc-number">4.1.</span> <span class="toc-text">a) Mutex&lt;T&gt; (互斥锁 &#x2F; Mutual Exclusion)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-RwLock-%E8%AF%BB%E5%86%99%E9%94%81-Read-Write-Lock"><span class="toc-number">4.2.</span> <span class="toc-text">b) RwLock&lt;T&gt; (读写锁 &#x2F; Read-Write Lock)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-Arc-%E5%8E%9F%E5%AD%90%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0-%E4%B8%8E%E9%94%81%E7%9A%84%E7%BB%93%E5%90%88"><span class="toc-number">4.3.</span> <span class="toc-text">c) Arc&lt;T&gt; (原子引用计数) 与锁的结合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Send-%E5%92%8C-Sync-Trait"><span class="toc-number">5.</span> <span class="toc-text">5. Send 和 Sync Trait</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B-async-await"><span class="toc-number">6.</span> <span class="toc-text">6. 异步编程 (async&#x2F;await)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%85%B6%E4%BB%96%E5%B9%B6%E5%8F%91%E5%8E%9F%E8%AF%AD%E5%92%8C%E5%BA%93"><span class="toc-number">7.</span> <span class="toc-text">7. 其他并发原语和库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例">Rust综合案例</a><time datetime="2025-05-07T18:24:47.000Z" title="发表于 2025-05-08 02:24:47">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库">Rust常用第三方库</a><time datetime="2025-05-07T18:12:12.000Z" title="发表于 2025-05-08 02:12:12">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库">Rust常用标准库</a><time datetime="2025-05-07T18:12:04.000Z" title="发表于 2025-05-08 02:12:04">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程">Rust异步编程</a><time datetime="2025-05-07T18:11:50.000Z" title="发表于 2025-05-08 02:11:50">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E5%AE%8FMacros/" title="宏Macros">宏Macros</a><time datetime="2025-05-07T18:09:43.000Z" title="发表于 2025-05-08 02:09:43">2025-05-08</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Jackey Zhou" target="_blank">Jackey Zhou</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 0.88rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 0.88rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Jackey Zhou 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

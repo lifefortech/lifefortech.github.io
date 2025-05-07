@@ -1,0 +1,427 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>unsafe Rust | Welcome To LifeTech's Blog</title><meta name="keywords" content="Rust基础知识"><meta name="author" content="Jackey Zhou"><meta name="copyright" content="Jackey Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="unsafe Rust"><meta name="application-name" content="unsafe Rust"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="unsafe Rust"><meta property="og:url" content="http://example.com/2025/05/08/unsafe-Rust/index.html"><meta property="og:site_name" content="Welcome To LifeTech's Blog"><meta property="og:description" content="unsafe Rust 是 Rust 语言中一个非常重要但也需要非常谨慎使用的部分。它允许你执行一些 Rust 编译器通常会禁止的低级别操作，从而绕过一部分编译器的安全检查。理解 unsafe 对于深入掌握 Rust 以及在特定场景下发挥 Rust 的全部潜力至关重要。 1. 什么是 unsafe"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Jackey Zhou"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="unsafe Rust 是 Rust 语言中一个非常重要但也需要非常谨慎使用的部分。它允许你执行一些 Rust 编译器通常会禁止的低级别操作，从而绕过一部分编译器的安全检查。理解 unsafe 对于深入掌握 Rust 以及在特定场景下发挥 Rust 的全部潜力至关重要。 1. 什么是 unsafe"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/08/unsafe-Rust/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Jackey Zhou","link":"链接: ","source":"来源: Welcome To LifeTech's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Welcome To LifeTech's Blog',
+  title: 'unsafe Rust',
+  postAI: '',
+  pageFillDescription: '1. 什么是 unsafe Rust 以及为什么需要它？, 2. unsafe 的超能力 (Unsafe Superpowers), a) 解引用裸指针 (Dereferencing Raw Pointers), b) 调用不安全的函数或方法 (Calling unsafe Functions or Methods), c) 访问或修改可变的静态变量 (Accessing or Modifying mutable static Variables), d) 实现不安全的 Trait (Implementing an unsafe trait), e) 访问联合体 (union) 的字段, 3. 何时以及为何使用 unsafe, 4. 安全地使用 unsafe 的准则, 5. 避免 unsafe 的滥用, 总结是语言中一个非常重要但也需要非常谨慎使用的部分它允许你执行一些编译器通常会禁止的低级别操作从而绕过一部分编译器的安全检查理解对于深入掌握以及在特定场景下发挥的全部潜力至关重要什么是以及为什么需要它的核心卖点是其强大的内存安全保证这些保证是在编译时通过所有权借用和类型系统强制执行的而且通常不需要运行时开销然而这种静态分析能力是有限的有些操作计算机本身可以执行但编译器无法静态地验证其内存安全性对于这些情况提供了关键字关键字并不会关闭借用检查器或禁用的其他安全检查它只是提供了一个额外的超能力集合允许你执行五类编译器无法保证内存安全的操作当你在代码中使用时你实际上是在向编译器声明相信我我知道我在做什么并且我亲自负责维护这部分代码的内存安全不变量为什么需要与底层硬件交互直接操作内存地址访问硬件寄存器等调用外部语言代码例如调用语言编写的库编译器无法分析和验证外部代码的安全性实现某些需要精细内存控制的低级数据结构或抽象例如标准库中的或为了性能和灵活性其内部实现会使用代码来直接管理内存访问或修改可变静态变量这本质上是全局可变状态存在数据竞争的风险使用联合体联合体的字段共享内存编译器无法跟踪哪个字段当前是有效的并不意味着代码本身就不安全即容易出错或有漏洞而是意味着该段代码的内存安全性由程序员负责保证而不是编译器可以用在两个地方标记整个函数为不安全的调用必须在块中进行创建一个不安全块在块内可以执行不安全操作的超能力在块或函数内部你可以执行以下五类操作这些操作在安全中是不允许的解引用裸指针有两种裸指针类型指向类型数据的不可变裸指针指向类型数据的可变裸指针与引用的区别裸指针可以为裸指针不保证指向有效的内存裸指针没有自动的生命周期或借用规则约束裸指针不保证其指向的数据未被别名或并发修改裸指针不拥有其指向的数据因此不负责自动清理创建裸指针是安全的但解引用它们即访问它们指向的数据则必须在块中进行创建裸指针是安全的从不可变引用创建从可变引用创建解引用裸指针必须在块中修改裸指针指向的数据输出一个任意内存地址危险可能导致段错误调用不安全的函数或方法如果一个函数或方法被声明为那么调用它也必须在块中进行表明该函数有一些调用者必须手动维护的先决条件不变量编译器无法验证这些条件是否得到满足执行危险操作假设这里有一些不安全的操作编译错误调用需要块标准库中也有函数例如不进行边界检查速度更快但如果索引越界则行为未定义未定义行为访问或修改可变的静态变量允许声明静态变量它们在程序的整个生命周期内都存在静态变量可以是可变的但访问或修改可变静态变量是不安全的因为多个线程可能同时访问它导致数据竞争可变的静态变量访问或修改变量需要块输出注意在多线程环境中使用非常危险除非使用额外的同步机制通常推荐使用线程安全的抽象如或原子类型来管理全局可变状态而不是直接使用实现不安全的如果一个被声明为那么实现该也必须使用这表示该的实现者承诺遵守某些编译器无法验证的约定或不变量和是两个特殊的自动派生它们是标记表示类型在并发环境中的安全性在极少数情况下如果编译器无法正确推断你可能需要手动为某个类型或但这需要你非常确定该类型确实满足这些的要求假设我们有一个自定义的裸指针包装类型如果我们确信在特定条件下是线程安全的尽管它包含裸指针通常不是我们可以地实现它们这需要非常小心并且深刻理解的含义方法定义实现需要访问联合体的字段是一种类似于的数据结构但其所有字段共享同一块内存编译器无法保证在任何时候哪个字段的数据是有效的因此访问的字段是不安全的初始化写入字段是安全的如果类型匹配读取写入现在的内容是的位模式读取未定义行为用读取的位模式主要用于与代码进行交互或者在需要极致内存布局控制的低级编程中使用何时以及为何使用外部函数接口调用库函数几乎总是需要因为语言没有的内存安全保证低级系统编程与操作系统内核硬件寄存器内存映射等直接交互构建安全的抽象标准库中的等数据结构为了性能和灵活性其内部实现依赖代码例如手动管理内存分配和指针操作但它们向外提供了安全的这是最重要的用途之一用代码块构建更高层次的安全抽象性能优化在极少数情况下当分析表明安全抽象的开销过大并且你确信可以直接操作内存而不会违反安全规则时可能会使用但这应该是最后的手段并且需要有充分的理由和证据安全地使用的准则编写代码时你承担了保证内存安全的责任以下是一些指导原则最小化的范围将代码块限制在绝对必要且尽可能小的范围内不要将大段代码标记为而是将不安全操作封装在最小的块中封装在安全的抽象中如果你必须使用尽量将其隐藏在一个安全的公共之后这个安全的应该维护所有必要的约束确保即使调用者不知道内部有使用起来也是安全的例子的部分简化内部概念性只有这一小部分是不安全的但整个方法是安全的清晰的文档和注释在代码块附近详细说明为什么这里需要你是如何保证这块代码的内存安全的即你维护了哪些不变量或前提条件彻底的测试对包含代码的模块进行特别严格和全面的测试包括边界情况和潜在的错误条件使用工具一个实验性的解释器可以在编译时无法捕获的某些类型的未定义行为如越界内存访问使用未初始化内存违反借用规则等发生时发出警告与集成的运行时工具可以帮助检测内存错误和数据竞争明确不变量理解并维护代码所依赖的不变量例如如果一个裸指针被解引用你必须确保它指向有效的已初始化的内存并且没有数据竞争避免的滥用不要用来修复编译错误如果编译器因为借用规则或生命周期问题报错首先应该尝试通过修改代码结构来满足安全的要求不是解决这些问题的捷径优先选择安全的替代方案如果有安全的方式可以实现同样的功能即使稍微冗长或性能略低也应该优先选择安全的方式只有在确实没有安全替代方案或者性能瓶颈确实存在且无法通过安全方式解决时才考虑总结是语言设计中一个经过深思熟虑的部分它不是为了鼓励编写不安全的代码而是为了让能够在需要时突破其安全抽象的界限执行所有计算机能做的事情同时将这种突破明确标记出来并要求程序员承担相应的责任核心思想是使用代码块来构建更高层次的安全抽象标准库本身就是这个理念的最好证明通过小心地使用能够提供像这样既安全又高效的数据结构当你遇到需要的情况时务必谨慎行事充分理解其含义和潜在风险并严格遵守安全准则',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-08 02:09:05',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Welcome To LifeTech's Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 1.05rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">21</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Rust基础知识</span></a></span></div></div><h1 class="post-title" itemprop="name headline">unsafe Rust</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-07T18:06:15.000Z" title="发表于 2025-05-08 02:06:15">2025-05-08</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-07T18:09:05.499Z" title="更新于 2025-05-08 02:09:05">2025-05-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为无锡"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>无锡</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/08/unsafe-Rust/"><header><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url">Rust基础知识</a><h1 id="CrawlerTitle" itemprop="name headline">unsafe Rust</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Jackey Zhou</span><time itemprop="dateCreated datePublished" datetime="2025-05-07T18:06:15.000Z" title="发表于 2025-05-08 02:06:15">2025-05-08</time><time itemprop="dateCreated datePublished" datetime="2025-05-07T18:09:05.499Z" title="更新于 2025-05-08 02:09:05">2025-05-08</time></header><p><code>unsafe</code> Rust 是 Rust 语言中一个非常重要但也需要非常谨慎使用的部分。它允许你执行一些 Rust 编译器通常会禁止的低级别操作，从而绕过一部分编译器的安全检查。理解 <code>unsafe</code> 对于深入掌握 Rust 以及在特定场景下发挥 Rust 的全部潜力至关重要。</p>
+<h3 id="1-什么是-unsafe-Rust-以及为什么需要它？"><a href="#1-什么是-unsafe-Rust-以及为什么需要它？" class="headerlink" title="1. 什么是 unsafe Rust 以及为什么需要它？"></a>1. 什么是 <code>unsafe</code> Rust 以及为什么需要它？</h3><p><strong><code>unsafe</code> Rust</strong>:<br>Rust 的核心卖点是其强大的内存安全保证，这些保证是在编译时通过所有权、借用和类型系统强制执行的，而且通常不需要运行时开销。然而，这种静态分析能力是有限的。有些操作，计算机本身可以执行，但 Rust 编译器无法静态地验证其内存安全性。对于这些情况，Rust 提供了 <code>unsafe</code> 关键字。</p>
+<p><code>unsafe</code> 关键字并不会关闭借用检查器或禁用 Rust 的其他安全检查，它只是提供了一个额外的“超能力集合”，允许你执行五类编译器无法保证内存安全的操作。当你在代码中使用 <code>unsafe</code> 时，你实际上是在向编译器声明：“相信我，我知道我在做什么，并且我亲自负责维护这部分代码的内存安全不变量。”</p>
+<p><strong>为什么需要 <code>unsafe</code>？</strong></p>
+<ol>
+<li><strong>与底层硬件交互</strong>: 直接操作内存地址、访问硬件寄存器等。</li>
+<li><strong>调用外部语言代码 (FFI - Foreign Function Interface)</strong>: 例如，调用 C 语言编写的库。Rust 编译器无法分析和验证外部代码的安全性。</li>
+<li><strong>实现某些需要精细内存控制的低级数据结构或抽象</strong>: 例如，标准库中的 <code>Vec&lt;T&gt;</code> 或 <code>String</code> 为了性能和灵活性，其内部实现会使用 <code>unsafe</code> 代码来直接管理内存。</li>
+<li><strong>访问或修改可变静态变量</strong>: 这本质上是全局可变状态，存在数据竞争的风险。</li>
+<li><strong>使用联合体 (<code>union</code>)</strong>: 联合体的字段共享内存，编译器无法跟踪哪个字段当前是有效的。</li>
+</ol>
+<p><code>unsafe</code> 并不意味着代码本身就“不安全”（即容易出错或有漏洞），而是意味着该段代码的内存安全性<strong>由程序员负责保证</strong>，而不是编译器。</p>
+<p><code>unsafe</code> 可以用在两个地方：</p>
+<ul>
+<li><strong><code>unsafe fn</code></strong>: 标记整个函数为不安全的。调用 <code>unsafe fn</code> 必须在 <code>unsafe</code> 块中进行。</li>
+<li><strong><code>unsafe &#123; ... &#125;</code></strong>: 创建一个不安全块，在块内可以执行不安全操作。</li>
+</ul>
+<h3 id="2-unsafe-的“超能力”-Unsafe-Superpowers"><a href="#2-unsafe-的“超能力”-Unsafe-Superpowers" class="headerlink" title="2. unsafe 的“超能力” (Unsafe Superpowers)"></a>2. <code>unsafe</code> 的“超能力” (Unsafe Superpowers)</h3><p>在 <code>unsafe</code> 块或 <code>unsafe</code> 函数内部，你可以执行以下五类操作，这些操作在安全 Rust 中是不允许的：</p>
+<h4 id="a-解引用裸指针-Dereferencing-Raw-Pointers"><a href="#a-解引用裸指针-Dereferencing-Raw-Pointers" class="headerlink" title="a) 解引用裸指针 (Dereferencing Raw Pointers)"></a>a) 解引用裸指针 (Dereferencing Raw Pointers)</h4><p>Rust 有两种裸指针类型：</p>
+<ul>
+<li><code>*const T</code>: 指向 <code>T</code> 类型数据的不可变裸指针。</li>
+<li><code>*mut T</code>: 指向 <code>T</code> 类型数据的可变裸指针。</li>
+</ul>
+<p>与引用 (<code>&amp;T</code>, <code>&amp;mut T</code>) 的区别：</p>
+<ul>
+<li>裸指针可以为 null。</li>
+<li>裸指针不保证指向有效的内存。</li>
+<li>裸指针没有自动的生命周期或借用规则约束。</li>
+<li>裸指针不保证其指向的数据未被别名（aliased）或并发修改。</li>
+<li>裸指针不拥有其指向的数据，因此不负责自动清理。</li>
+</ul>
+<p>创建裸指针是安全的，但解引用它们（即访问它们指向的数据）则必须在 <code>unsafe</code> 块中进行。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">num</span> = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建裸指针是安全的</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">r1</span> = &amp;num <span class="keyword">as</span> *<span class="keyword">const</span> <span class="type">i32</span>; <span class="comment">// 从不可变引用创建 *const</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">r2</span> = &amp;<span class="keyword">mut</span> num <span class="keyword">as</span> *<span class="keyword">mut</span> <span class="type">i32</span>; <span class="comment">// 从可变引用创建 *mut</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解引用裸指针必须在 unsafe 块中</span></span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;r1 is: &#123;&#125;&quot;</span>, *r1);</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;r2 is: &#123;&#125;&quot;</span>, *r2);</span><br><span class="line">        *r2 = <span class="number">10</span>; <span class="comment">// 修改裸指针指向的数据</span></span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;num is now: &#123;&#125;&quot;</span>, num); <span class="comment">// 输出 10</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">address</span> = <span class="number">0x012345usize</span>; <span class="comment">// 一个任意内存地址</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">r_addr</span> = address <span class="keyword">as</span> *<span class="keyword">const</span> <span class="type">i32</span>;</span><br><span class="line">    <span class="comment">// unsafe &#123;</span></span><br><span class="line">    <span class="comment">//     println!(&quot;value at arbitrary address: &#123;&#125;&quot;, *r_addr); // 危险！可能导致段错误</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="b-调用不安全的函数或方法-Calling-unsafe-Functions-or-Methods"><a href="#b-调用不安全的函数或方法-Calling-unsafe-Functions-or-Methods" class="headerlink" title="b) 调用不安全的函数或方法 (Calling unsafe Functions or Methods)"></a>b) 调用不安全的函数或方法 (Calling <code>unsafe</code> Functions or Methods)</h4><p>如果一个函数或方法被声明为 <code>unsafe fn</code>，那么调用它也必须在 <code>unsafe</code> 块中进行。<code>unsafe fn</code> 表明该函数有一些调用者必须手动维护的先决条件（不变量），编译器无法验证这些条件是否得到满足。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsafe</span> <span class="keyword">fn</span> <span class="title function_">dangerous_operation</span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;执行危险操作！&quot;</span>);</span><br><span class="line">    <span class="comment">// 假设这里有一些不安全的操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// dangerous_operation(); // 编译错误！调用 unsafe fn 需要 unsafe 块</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="title function_ invoke__">dangerous_operation</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标准库中也有 unsafe 函数，例如 slice::get_unchecked</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">numbers</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">slice</span> = &amp;<span class="keyword">mut</span> numbers[<span class="number">1</span>..<span class="number">3</span>]; <span class="comment">// [2, 3]</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="comment">// get_unchecked 不进行边界检查，速度更快，但如果索引越界则行为未定义</span></span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;First element (unchecked): &#123;&#125;&quot;</span>, *slice.<span class="title function_ invoke__">get_unchecked</span>(<span class="number">0</span>)); <span class="comment">// 2</span></span><br><span class="line">        <span class="comment">// println!(&quot;Out of bounds (unchecked): &#123;&#125;&quot;, *slice.get_unchecked(5)); // 未定义行为!</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="c-访问或修改可变的静态变量-Accessing-or-Modifying-mutable-static-Variables"><a href="#c-访问或修改可变的静态变量-Accessing-or-Modifying-mutable-static-Variables" class="headerlink" title="c) 访问或修改可变的静态变量 (Accessing or Modifying mutable static Variables)"></a>c) 访问或修改可变的静态变量 (Accessing or Modifying <code>mutable static</code> Variables)</h4><p>Rust 允许声明静态变量 (<code>static</code>)，它们在程序的整个生命周期内都存在。静态变量可以是可变的 (<code>static mut</code>)，但访问或修改可变静态变量是不安全的，因为多个线程可能同时访问它，导致数据竞争。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">mut</span> COUNTER: <span class="type">u32</span> = <span class="number">0</span>; <span class="comment">// 可变的静态变量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">add_to_counter</span>(inc: <span class="type">u32</span>) &#123;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123; <span class="comment">// 访问或修改 static mut 变量需要 unsafe 块</span></span><br><span class="line">        COUNTER += inc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="title function_ invoke__">add_to_counter</span>(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;COUNTER: &#123;&#125;&quot;</span>, COUNTER); <span class="comment">// 输出: COUNTER: 3</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 注意：在多线程环境中使用 static mut 非常危险，除非使用额外的同步机制。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通常推荐使用线程安全的抽象（如 <code>Mutex</code> 或原子类型）来管理全局可变状态，而不是直接使用 <code>static mut</code>。</p>
+<h4 id="d-实现不安全的-Trait-Implementing-an-unsafe-trait"><a href="#d-实现不安全的-Trait-Implementing-an-unsafe-trait" class="headerlink" title="d) 实现不安全的 Trait (Implementing an unsafe trait)"></a>d) 实现不安全的 Trait (Implementing an <code>unsafe trait</code>)</h4><p>如果一个 trait 被声明为 <code>unsafe trait</code>，那么实现该 trait 也必须使用 <code>unsafe impl</code>。这表示该 trait 的实现者承诺遵守某些编译器无法验证的约定或不变量。</p>
+<p><code>Send</code> 和 <code>Sync</code> 是两个特殊的自动派生 trait，它们是标记 trait，表示类型在并发环境中的安全性。在极少数情况下，如果编译器无法正确推断，你可能需要手动为某个类型 <code>unsafe impl Send</code> 或 <code>unsafe impl Sync</code>，但这需要你非常确定该类型确实满足这些 trait 的要求。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设我们有一个自定义的裸指针包装类型</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyRawPointerWrapper</span>&lt;T&gt;(*<span class="keyword">mut</span> T);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果我们确信 MyRawPointerWrapper&lt;T&gt; 在特定条件下是线程安全的，</span></span><br><span class="line"><span class="comment">// 尽管它包含裸指针 (通常不是 Send/Sync)，我们可以 unsafe 地实现它们。</span></span><br><span class="line"><span class="comment">// 这需要非常小心，并且深刻理解 Send/Sync 的含义。</span></span><br><span class="line"><span class="comment">// unsafe impl&lt;T&gt; Send for MyRawPointerWrapper&lt;T&gt; where T: Send &#123;&#125;</span></span><br><span class="line"><span class="comment">// unsafe impl&lt;T&gt; Sync for MyRawPointerWrapper&lt;T&gt; where T: Send + Sync &#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">unsafe</span> <span class="keyword">trait</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line">    <span class="comment">// 方法定义</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">bar</span>(&amp;<span class="keyword">self</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyType</span>;</span><br><span class="line"><span class="keyword">unsafe</span> <span class="keyword">impl</span> <span class="title class_">Foo</span> <span class="keyword">for</span> <span class="title class_">MyType</span> &#123; <span class="comment">// 实现 unsafe trait 需要 unsafe impl</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">bar</span>(&amp;<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;MyType implementing unsafe trait Foo&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="e-访问联合体-union-的字段"><a href="#e-访问联合体-union-的字段" class="headerlink" title="e) 访问联合体 (union) 的字段"></a>e) 访问联合体 (<code>union</code>) 的字段</h4><p><code>union</code> 是一种类似于 <code>struct</code> 的数据结构，但其所有字段共享同一块内存。Rust 编译器无法保证在任何时候哪个字段的数据是有效的。因此，访问 <code>union</code> 的字段是不安全的。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> <span class="title class_">MyUnion</span> &#123;</span><br><span class="line">    f1: <span class="type">u32</span>,</span><br><span class="line">    f2: <span class="type">f32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">u</span> = MyUnion &#123; f1: <span class="number">1</span> &#125;; <span class="comment">// 初始化 f1</span></span><br><span class="line">    <span class="comment">// u.f1 = 2; // 写入 union 字段是安全的 (如果类型匹配)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;f1 as u32: &#123;&#125;&quot;</span>, u.f1); <span class="comment">// 读取 f1 (u32)</span></span><br><span class="line">        u.f2 = <span class="number">2.0</span>; <span class="comment">// 写入 f2 (f32)，现在 f1 的内容是 f2 的位模式</span></span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;f2 as f32: &#123;&#125;&quot;</span>, u.f2); <span class="comment">// 读取 f2 (f32)</span></span><br><span class="line">        <span class="comment">// println!(&quot;f1 after writing f2: &#123;&#125;&quot;, u.f1); // 未定义行为! 用 u32 读取 f32 的位模式</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>union</code> 主要用于与 C 代码进行 FFI 交互，或者在需要极致内存布局控制的低级编程中使用。</p>
+<h3 id="3-何时以及为何使用-unsafe"><a href="#3-何时以及为何使用-unsafe" class="headerlink" title="3. 何时以及为何使用 unsafe"></a>3. 何时以及为何使用 <code>unsafe</code></h3><ul>
+<li><strong>FFI (外部函数接口)</strong>: 调用 C 库函数几乎总是需要 <code>unsafe</code>，因为 C 语言没有 Rust 的内存安全保证。</li>
+<li><strong>低级系统编程</strong>: 与操作系统内核、硬件寄存器、内存映射 I&#x2F;O 等直接交互。</li>
+<li><strong>构建安全的抽象</strong>: 标准库中的 <code>Vec&lt;T&gt;</code>、<code>String</code>、<code>HashMap&lt;K, V&gt;</code> 等数据结构，为了性能和灵活性，其内部实现依赖 <code>unsafe</code> 代码（例如，手动管理内存分配和指针操作）。但它们向外提供了安全的 API。这是 <code>unsafe</code> 最重要的用途之一：<strong>用 <code>unsafe</code> 代码块构建更高层次的安全抽象</strong>。</li>
+<li><strong>性能优化</strong>: 在极少数情况下，当分析表明安全抽象的开销过大，并且你确信可以直接操作内存而不会违反安全规则时，可能会使用 <code>unsafe</code>。但这应该是最后的手段，并且需要有充分的理由和证据。</li>
+</ul>
+<h3 id="4-安全地使用-unsafe-的准则"><a href="#4-安全地使用-unsafe-的准则" class="headerlink" title="4. 安全地使用 unsafe 的准则"></a>4. 安全地使用 <code>unsafe</code> 的准则</h3><p>编写 <code>unsafe</code> 代码时，你承担了保证内存安全的责任。以下是一些指导原则：</p>
+<ol>
+<li><strong>最小化 <code>unsafe</code> 的范围</strong>: 将 <code>unsafe</code> 代码块限制在绝对必要且尽可能小的范围内。不要将大段代码标记为 <code>unsafe</code>，而是将不安全操作封装在最小的 <code>unsafe &#123; ... &#125;</code> 块中。</li>
+<li><strong>封装 <code>unsafe</code> 在安全的抽象中</strong>: 如果你必须使用 <code>unsafe</code>，尽量将其隐藏在一个安全的公共 API 之后。这个安全的 API 应该维护所有必要的约束，确保即使调用者不知道内部有 <code>unsafe</code>，使用起来也是安全的。<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例子：Vec&lt;T&gt; 的部分简化内部 (概念性)</span></span><br><span class="line"><span class="comment">// pub struct Vec&lt;T&gt; &#123;</span></span><br><span class="line"><span class="comment">//     ptr: *mut T,</span></span><br><span class="line"><span class="comment">//     len: usize,</span></span><br><span class="line"><span class="comment">//     capacity: usize,</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// impl&lt;T&gt; Vec&lt;T&gt; &#123;</span></span><br><span class="line"><span class="comment">//     pub fn push(&amp;mut self, value: T) &#123;</span></span><br><span class="line"><span class="comment">//         if self.len == self.capacity &#123; /* reallocate */ &#125;</span></span><br><span class="line"><span class="comment">//         unsafe &#123;</span></span><br><span class="line"><span class="comment">//             // 只有这一小部分是不安全的，但整个 push 方法是安全的 API</span></span><br><span class="line"><span class="comment">//             std::ptr::write(self.ptr.add(self.len), value);</span></span><br><span class="line"><span class="comment">//         &#125;</span></span><br><span class="line"><span class="comment">//         self.len += 1;</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>清晰的文档和注释</strong>: 在 <code>unsafe</code> 代码块附近，详细说明：<ul>
+<li>为什么这里需要 <code>unsafe</code>。</li>
+<li>你是如何保证这块代码的内存安全的（即，你维护了哪些不变量或前提条件）。</li>
+</ul>
+</li>
+<li><strong>彻底的测试</strong>: 对包含 <code>unsafe</code> 代码的模块进行特别严格和全面的测试，包括边界情况和潜在的错误条件。</li>
+<li><strong>使用工具</strong>:<ul>
+<li><code>miri</code>: 一个实验性的 Rust MIR (Mid-level Intermediate Representation) 解释器，可以在编译时无法捕获的某些类型的未定义行为（如越界内存访问、使用未初始化内存、违反借用规则等）发生时发出警告。<code>cargo +nightly miri test</code></li>
+<li><strong>AddressSanitizer, MemorySanitizer, ThreadSanitizer</strong>: 与 LLVM 集成的运行时工具，可以帮助检测内存错误和数据竞争。</li>
+</ul>
+</li>
+<li><strong>明确不变量</strong>: 理解并维护 <code>unsafe</code> 代码所依赖的不变量。例如，如果一个裸指针被解引用，你必须确保它指向有效的、已初始化的内存，并且没有数据竞争。</li>
+</ol>
+<h3 id="5-避免-unsafe-的滥用"><a href="#5-避免-unsafe-的滥用" class="headerlink" title="5. 避免 unsafe 的滥用"></a>5. 避免 <code>unsafe</code> 的滥用</h3><ul>
+<li><strong>不要用 <code>unsafe</code> 来“修复”编译错误</strong>: 如果编译器因为借用规则或生命周期问题报错，首先应该尝试通过修改代码结构来满足安全 Rust 的要求。<code>unsafe</code> 不是解决这些问题的捷径。</li>
+<li><strong>优先选择安全的替代方案</strong>: 如果有安全的方式可以实现同样的功能，即使稍微冗长或性能略低，也应该优先选择安全的方式。只有在确实没有安全替代方案，或者性能瓶颈确实存在且无法通过安全方式解决时，才考虑 <code>unsafe</code>。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>unsafe</code> Rust 是 Rust 语言设计中一个经过深思熟虑的部分。它不是为了鼓励编写不安全的代码，而是为了让 Rust 能够在需要时突破其安全抽象的界限，执行所有计算机能做的事情，同时将这种“突破”明确标记出来，并要求程序员承担相应的责任。</p>
+<p>核心思想是：<strong>使用 <code>unsafe</code> 代码块来构建更高层次的安全抽象</strong>。标准库本身就是这个理念的最好证明。通过小心地使用 <code>unsafe</code>，Rust 能够提供像 <code>Vec&lt;T&gt;</code> 这样既安全又高效的数据结构。</p>
+<p>当你遇到需要 <code>unsafe</code> 的情况时，务必谨慎行事，充分理解其含义和潜在风险，并严格遵守安全准则。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Jackey Zhou</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/08/unsafe-Rust/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/08/unsafe-Rust/')">unsafe Rust</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/08/unsafe-Rust/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=unsafe Rust&amp;url=http://example.com/2025/05/08/unsafe-Rust/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Welcome To LifeTech's Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Rust基础知识<span class="tagsPageCount">21</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/08/%E6%B5%8B%E8%AF%95/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">测试</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/08/FFI/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">FFI</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/08/Copy%E5%92%8CMove/" title="Copy和Move"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Copy和Move</div></div></a></div><div><a href="/2025/05/08/FFI/" title="FFI"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">FFI</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用标准库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用第三方库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust异步编程</div></div></a></div><div><a href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust综合案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">记录技术成长的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-unsafe-Rust-%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%AE%83%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1. 什么是 unsafe Rust 以及为什么需要它？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-unsafe-%E7%9A%84%E2%80%9C%E8%B6%85%E8%83%BD%E5%8A%9B%E2%80%9D-Unsafe-Superpowers"><span class="toc-number">2.</span> <span class="toc-text">2. unsafe 的“超能力” (Unsafe Superpowers)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E8%A7%A3%E5%BC%95%E7%94%A8%E8%A3%B8%E6%8C%87%E9%92%88-Dereferencing-Raw-Pointers"><span class="toc-number">2.1.</span> <span class="toc-text">a) 解引用裸指针 (Dereferencing Raw Pointers)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E8%B0%83%E7%94%A8%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%87%BD%E6%95%B0%E6%88%96%E6%96%B9%E6%B3%95-Calling-unsafe-Functions-or-Methods"><span class="toc-number">2.2.</span> <span class="toc-text">b) 调用不安全的函数或方法 (Calling unsafe Functions or Methods)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E8%AE%BF%E9%97%AE%E6%88%96%E4%BF%AE%E6%94%B9%E5%8F%AF%E5%8F%98%E7%9A%84%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F-Accessing-or-Modifying-mutable-static-Variables"><span class="toc-number">2.3.</span> <span class="toc-text">c) 访问或修改可变的静态变量 (Accessing or Modifying mutable static Variables)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-%E5%AE%9E%E7%8E%B0%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84-Trait-Implementing-an-unsafe-trait"><span class="toc-number">2.4.</span> <span class="toc-text">d) 实现不安全的 Trait (Implementing an unsafe trait)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#e-%E8%AE%BF%E9%97%AE%E8%81%94%E5%90%88%E4%BD%93-union-%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="toc-number">2.5.</span> <span class="toc-text">e) 访问联合体 (union) 的字段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%95%E6%97%B6%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BD%95%E4%BD%BF%E7%94%A8-unsafe"><span class="toc-number">3.</span> <span class="toc-text">3. 何时以及为何使用 unsafe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E5%85%A8%E5%9C%B0%E4%BD%BF%E7%94%A8-unsafe-%E7%9A%84%E5%87%86%E5%88%99"><span class="toc-number">4.</span> <span class="toc-text">4. 安全地使用 unsafe 的准则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%81%BF%E5%85%8D-unsafe-%E7%9A%84%E6%BB%A5%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">5. 避免 unsafe 的滥用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例">Rust综合案例</a><time datetime="2025-05-07T18:24:47.000Z" title="发表于 2025-05-08 02:24:47">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库">Rust常用第三方库</a><time datetime="2025-05-07T18:12:12.000Z" title="发表于 2025-05-08 02:12:12">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库">Rust常用标准库</a><time datetime="2025-05-07T18:12:04.000Z" title="发表于 2025-05-08 02:12:04">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程">Rust异步编程</a><time datetime="2025-05-07T18:11:50.000Z" title="发表于 2025-05-08 02:11:50">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E5%AE%8FMacros/" title="宏Macros">宏Macros</a><time datetime="2025-05-07T18:09:43.000Z" title="发表于 2025-05-08 02:09:43">2025-05-08</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Jackey Zhou" target="_blank">Jackey Zhou</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 0.88rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 0.88rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Jackey Zhou 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

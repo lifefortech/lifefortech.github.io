@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>FFI | Welcome To LifeTech's Blog</title><meta name="keywords" content="Rust基础知识"><meta name="author" content="Jackey Zhou"><meta name="copyright" content="Jackey Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="FFI"><meta name="application-name" content="FFI"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="FFI"><meta property="og:url" content="http://example.com/2025/05/08/FFI/index.html"><meta property="og:site_name" content="Welcome To LifeTech's Blog"><meta property="og:description" content="外部函数接口 (Foreign Function Interface, FFI) 是 Rust 语言中一个非常重要的特性，它允许你的 Rust 代码与其他编程语言（主要是那些遵循 C 语言应用程序二进制接口 ABI 的语言）进行交互。这意味着你可以：  从 Rust 代码中调用其他语言编写的函数（例"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Jackey Zhou"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="外部函数接口 (Foreign Function Interface, FFI) 是 Rust 语言中一个非常重要的特性，它允许你的 Rust 代码与其他编程语言（主要是那些遵循 C 语言应用程序二进制接口 ABI 的语言）进行交互。这意味着你可以：  从 Rust 代码中调用其他语言编写的函数（例"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/08/FFI/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Jackey Zhou","link":"链接: ","source":"来源: Welcome To LifeTech's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Welcome To LifeTech's Blog',
+  title: 'FFI',
+  postAI: '',
+  pageFillDescription: '1. Rust 调用外部代码 (主要是 C 语言函数), a) 声明外部函数 (extern C 块), b) 链接到外部库, c) 数据类型转换 (Marshaling), d) 内存管理, 2. 将 Rust 代码暴露给外部 (主要是 C 语言), a) 定义可供外部调用的 Rust 函数, b) 编译 Rust 代码为库, c) C 代码中调用 Rust 函数, d) 处理 Panic, 3. FFI 的安全性和注意事项, 4. FFI 辅助工具和 Crate, 总结外部函数接口是语言中一个非常重要的特性它允许你的代码与其他编程语言主要是那些遵循语言应用程序二进制接口的语言进行交互这意味着你可以从代码中调用其他语言编写的函数例如复用一个用语言编写的成熟库将代码编译成库供其他语言调用例如用编写高性能模块然后在或项目中使用本质上是的因为编译器无法验证外部语言代码的内存安全保证或其行为是否符合的规则因此在使用时你需要承担保证交互边界安全的责任调用外部代码主要是语言函数当你想在中使用一个用语言或其他兼容的语言编写的库时你需要做以下几步声明外部函数块你需要告诉编译器外部函数的签名名称参数类型返回类型这通过块来完成表示使用语言的调用约定和假设我们要调用一个库中的函数在中声明这些函数外部函数通常被认为是的因为编译器无法保证其内部实现字符串是调用外部函数必须在块中返回注意或如果使用是与语言类型对应的类型语言中的字符串通常是空终止的字符数组在中用于创建这种与兼容的字符串而用于包装从接收到的空终止字符串指针链接到外部库仅仅声明外部函数是不够的你还需要告诉编译器以及链接器在哪里找到这些函数的实际实现属性你可以使用属性来指定要链接的库名假设库文件名为或等默认会尝试动态链接如果需要静态链接可以使用构建脚本对于更复杂的场景例如需要编译代码配置链接器路径或根据不同平台选择不同库时通常会使用构建脚本构建脚本是一个位于项目根目录的文件会在编译你的包之前先编译并运行它你可以使用像这样的辅助库来方便地编译汇编代码并链接旧式写法现在通常在的中声明指定要编译的文件输出的库名代码中时会用到如果文件改变则重新运行构建脚本然后在中添加构建依赖指定构建脚本数据类型转换在和之间传递数据时需要确保类型兼容基本数值类型的通常可以直接对应中的使用例如或中的类型别名可以提高可移植性和明确性指针的对应的的对应的的引用在边界上传递时如果生命周期管理正确可以转换为裸指针字符串使用创建一个包含空终止符的兼容字符串使用获取注意的生命周期必须覆盖外部函数使用该指针的整个期间否则会导致悬垂指针如果字符串指针是有效的且空终止的可以使用创建一个然后使用返回或返回转换为字符串结构体默认情况下编译器可能会为了优化而重排结构体字段的内存布局编译器也有其自己的布局规则为了确保结构体与结构体在内存布局上兼容结构体需要使用属性保证与兼容的内存布局枚举风格的枚举只包含判别式可以映射到的整数类型如果枚举带有数据则没有直接的等价物需要手动转换或定义更复杂的接口使用或可以控制枚举的内存表示函数指针如果函数期望一个回调函数作为参数你需要在中定义一个兼容的函数通常也需要调用约定然后将其作为函数指针传递代码现在可以调用了内存管理当通过在和代码之间传递拥有内存的指针时例如函数返回一个需要释放的字符串指针或者将的指针传递给必须明确哪一方负责分配和释放内存分配释放如果函数分配了内存它通常应该也提供一个对应的释放函数代码需要通过调用这个释放函数分配释放不推荐因为和可能使用不同的内存分配器最好是分配释放如果必须让释放需要提供一个的释放函数该函数接收指针并正确地重建的数据结构如或以便分配释放临时使用这是最安全的模式分配数据将指针传递给使用完后负责释放将代码暴露给外部主要是语言你也可以将函数编译成库让或其他语言调用定义可供外部调用的函数使用来声明函数使其具有使用属性来阻止编译器对函数名进行修饰这样代码就可以通过原始函数名找到它函数我们希望从调用它禁用名称修饰处理并将其指针返回给需要端负责释放注意这是一个更高级且容易出错的模式需要非常小心地管理内存转移的所有权给调用者代码代码现在负责使用匹配的来释放它从裸指针重建的所有权然后的会自动释放内存编译代码为库在中你需要指定类型为兼容的库生成动态链接库例如或者生成静态链接库例如然后运行或会在或目录下生成相应的库文件和通常一个头文件如果使用等工具代码中调用函数你需要一个头文件来声明函数的签名然后在代码中包含这个头文件并链接到生成的库可以手动创建或使用生成包含头文件非常重要释放分配的内存编译代码时需要链接生成的库具体命令取决于操作系统和库类型处理默认情况下如果代码在边界发生行为是未定义的通常会导致程序中止这是非常不希望的你应该在函数的边界处使用来捕获并将其转换为一个错误码或其他兼容的错误表示方式返回给调用者返回错误码可能会的代码返回一个错误码的安全性和注意事项是核心所有调用几乎都涉及因为编译器无法验证外部代码数据类型和内存布局确保用于结构体并正确映射类型字符串处理和是你的朋友注意空终止符和编码问题所有权和内存管理明确哪一方负责分配和释放内存避免内存泄漏和悬垂指针错误处理的和需要转换为兼容的错误码或约定回调函数确保回调函数的生命周期和传递给它的任何数据的生命周期是正确的传递给的数据如果回调函数会访问它通常需要是或者由调用者保证其在回调期间有效空指针检查函数可能会返回空指针或期望空指针作为哨兵值代码需要妥善处理线程安全如果你调用的库不是线程安全的你需要在端确保同步访问如果库要被多线程的程序调用代码本身也需要是线程安全的或者提供线程安全的接口辅助工具和提供了标准库中许多类型和函数的声明例如一个非常有用的工具通常作为构建脚本的一部分或命令行工具使用它可以自动从头文件生成的绑定与相反它可以从你的库代码生成兼容的头文件方便其他语言调用你的库旨在帮助编写更类型安全更符合人体工程学的绑定特定语言的库用于平台调用总结是与现有代码世界连接的桥梁它使得能够逐步被采用并利用数十年来积累的成熟库然而要求开发者对两种语言的底层机制都有深入的理解并承担起维护边界内存安全的责任通过块仔细的数据类型转换明确的内存管理约定以及等工具可以构建出相对健壮的接口',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-08 02:08:02',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Welcome To LifeTech's Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 1.05rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">21</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Rust基础知识</span></a></span></div></div><h1 class="post-title" itemprop="name headline">FFI</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-07T18:06:30.000Z" title="发表于 2025-05-08 02:06:30">2025-05-08</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-07T18:08:02.852Z" title="更新于 2025-05-08 02:08:02">2025-05-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为无锡"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>无锡</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/08/FFI/"><header><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url">Rust基础知识</a><h1 id="CrawlerTitle" itemprop="name headline">FFI</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Jackey Zhou</span><time itemprop="dateCreated datePublished" datetime="2025-05-07T18:06:30.000Z" title="发表于 2025-05-08 02:06:30">2025-05-08</time><time itemprop="dateCreated datePublished" datetime="2025-05-07T18:08:02.852Z" title="更新于 2025-05-08 02:08:02">2025-05-08</time></header><p>外部函数接口 (Foreign Function Interface, FFI) 是 Rust 语言中一个非常重要的特性，它允许你的 Rust 代码与其他编程语言（主要是那些遵循 C 语言应用程序二进制接口 ABI 的语言）进行交互。这意味着你可以：</p>
+<ol>
+<li><strong>从 Rust 代码中调用其他语言编写的函数</strong>（例如，复用一个用 C 语言编写的成熟库）。</li>
+<li><strong>将 Rust 代码编译成库，供其他语言调用</strong>（例如，用 Rust 编写高性能模块，然后在 Python 或 Node.js 项目中使用）。</li>
+</ol>
+<p>FFI 本质上是 <code>unsafe</code> 的，因为 Rust 编译器无法验证外部语言代码的内存安全保证或其行为是否符合 Rust 的规则。因此，在使用 FFI 时，你需要承担保证交互边界安全的责任。</p>
+<h3 id="1-Rust-调用外部代码-主要是-C-语言函数"><a href="#1-Rust-调用外部代码-主要是-C-语言函数" class="headerlink" title="1. Rust 调用外部代码 (主要是 C 语言函数)"></a>1. Rust 调用外部代码 (主要是 C 语言函数)</h3><p>当你想在 Rust 中使用一个用 C 语言（或其他兼容 C ABI 的语言）编写的库时，你需要做以下几步：</p>
+<h4 id="a-声明外部函数-extern-C-块"><a href="#a-声明外部函数-extern-C-块" class="headerlink" title="a) 声明外部函数 (extern &quot;C&quot; 块)"></a>a) 声明外部函数 (<code>extern &quot;C&quot;</code> 块)</h4><p>你需要告诉 Rust 编译器外部函数的签名（名称、参数类型、返回类型）。这通过 <code>extern &quot;C&quot;</code> 块来完成。”C” 表示使用 C 语言的调用约定和 ABI。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设我们要调用一个 C 库中的函数：</span></span><br><span class="line"><span class="comment">// int add_numbers(int a, int b);</span></span><br><span class="line"><span class="comment">// void print_message(const char* msg);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Rust 中声明这些函数</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="comment">// 外部函数通常被认为是 unsafe 的，因为 Rust 编译器无法保证其内部实现</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">add_numbers</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span>;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">print_message</span>(msg: *<span class="keyword">const</span> std::os::raw::c_char); <span class="comment">// C 字符串是 *const c_char</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">sum</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">message</span> = std::ffi::CString::<span class="title function_ invoke__">new</span>(<span class="string">&quot;Hello from Rust via FFI!&quot;</span>).<span class="title function_ invoke__">expect</span>(<span class="string">&quot;CString::new failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用外部函数必须在 unsafe 块中</span></span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        sum = <span class="title function_ invoke__">add_numbers</span>(<span class="number">5</span>, <span class="number">7</span>);</span><br><span class="line">        <span class="title function_ invoke__">print_message</span>(message.<span class="title function_ invoke__">as_ptr</span>()); <span class="comment">// CString::as_ptr() 返回 *const c_char</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The sum from C is: &#123;&#125;&quot;</span>, sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>:</p>
+<ul>
+<li><code>std::os::raw::c_char</code> (或 <code>libc::c_char</code>，如果使用 <code>libc</code> crate) 是与 C 语言 <code>char</code> 类型对应的 Rust 类型。</li>
+<li>C 语言中的字符串通常是空终止 (null-terminated) 的字符数组。在 Rust 中，<code>std::ffi::CString</code> 用于创建这种与 C 兼容的字符串，而 <code>std::ffi::CStr</code> 用于包装从 C 接收到的空终止字符串指针。</li>
+</ul>
+<h4 id="b-链接到外部库"><a href="#b-链接到外部库" class="headerlink" title="b) 链接到外部库"></a>b) 链接到外部库</h4><p>仅仅声明外部函数是不够的，你还需要告诉 Rust 编译器（以及链接器）在哪里找到这些函数的实际实现。</p>
+<ol>
+<li><p><strong><code>#[link]</code> 属性</strong>:<br>你可以使用 <code>#[link(name = &quot;libraryname&quot;)]</code> 属性来指定要链接的库名。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[link(name = <span class="string">&quot;my_c_library&quot;</span>)]</span> <span class="comment">// 假设库文件名为 libmy_c_library.so 或 my_c_library.dll 等</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">some_c_function</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Cargo 默认会尝试动态链接。如果需要静态链接，可以使用 <code>#[link(name = &quot;libraryname&quot;, kind = &quot;static&quot;)]</code>。</p>
+</li>
+<li><p><strong>构建脚本 (<code>build.rs</code>)</strong>:<br>对于更复杂的场景，例如需要编译 C 代码、配置链接器路径或根据不同平台选择不同库时，通常会使用构建脚本 (<code>build.rs</code>)。<br>构建脚本是一个位于项目根目录的 Rust 文件，Cargo 会在编译你的包之前先编译并运行它。<br>你可以使用像 <code>cc</code> crate 这样的辅助库来方便地编译 C&#x2F;C++&#x2F;汇编代码并链接。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// build.rs</span></span><br><span class="line"><span class="comment">// extern crate cc; // 旧式写法，现在通常在 Cargo.toml 的 [build-dependencies] 中声明</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    cc::Build::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">file</span>(<span class="string">&quot;src/c_code/my_c_functions.c&quot;</span>) <span class="comment">// 指定要编译的 C 文件</span></span><br><span class="line">        .<span class="title function_ invoke__">compile</span>(<span class="string">&quot;my_c_library&quot;</span>); <span class="comment">// 输出的库名，Rust 代码中 link 时会用到</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;cargo:rerun-if-changed=src/c_code/my_c_functions.c&quot;</span>); <span class="comment">// 如果C文件改变则重新运行构建脚本</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在 <code>Cargo.toml</code> 中添加构建依赖：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;my_rust_project&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">build</span> = <span class="string">&quot;build.rs&quot;</span> <span class="comment"># 指定构建脚本</span></span><br><span class="line"></span><br><span class="line"><span class="section">[build-dependencies]</span></span><br><span class="line"><span class="attr">cc</span> = <span class="string">&quot;1.0&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="c-数据类型转换-Marshaling"><a href="#c-数据类型转换-Marshaling" class="headerlink" title="c) 数据类型转换 (Marshaling)"></a>c) 数据类型转换 (Marshaling)</h4><p>在 Rust 和 C 之间传递数据时，需要确保类型兼容。</p>
+<ul>
+<li><strong>基本数值类型</strong>:<ul>
+<li>Rust 的 <code>i8</code>, <code>u8</code>, <code>i16</code>, <code>u16</code>, <code>i32</code>, <code>u32</code>, <code>i64</code>, <code>u64</code>, <code>f32</code>, <code>f64</code> 通常可以直接对应 C 中的 <code>int8_t</code>, <code>uint8_t</code>, <code>int16_t</code>, <code>uint16_t</code>, <code>int32_t</code>, <code>uint32_t</code>, <code>int64_t</code>, <code>uint64_t</code>, <code>float</code>, <code>double</code>。</li>
+<li>使用 <code>std::os::raw</code> (例如 <code>c_int</code>, <code>c_char</code>, <code>c_double</code>) 或 <code>libc</code> crate 中的类型别名可以提高可移植性和明确性。</li>
+</ul>
+</li>
+<li><strong>指针</strong>:<ul>
+<li>Rust 的 <code>*const T</code> 对应 C 的 <code>const T*</code>。</li>
+<li>Rust 的 <code>*mut T</code> 对应 C 的 <code>T*</code>。</li>
+<li>Rust 的引用 (<code>&amp;T</code>, <code>&amp;mut T</code>) 在 FFI 边界上传递时，如果生命周期管理正确，可以转换为裸指针。</li>
+</ul>
+</li>
+<li><strong>字符串</strong>:<ul>
+<li><strong>Rust <code>String</code> &#x2F; <code>&amp;str</code> -&gt; C <code>const char*</code></strong>:<ol>
+<li>使用 <code>std::ffi::CString::new(rust_string)</code> 创建一个包含空终止符的 C 兼容字符串。</li>
+<li>使用 <code>cstring.as_ptr()</code> 获取 <code>*const c_char</code>。</li>
+<li><strong>注意</strong>: <code>CString</code> 的生命周期必须覆盖外部函数使用该指针的整个期间，否则会导致悬垂指针。</li>
+</ol>
+</li>
+<li><strong>C <code>const char*</code> -&gt; Rust <code>&amp;str</code> &#x2F; <code>String</code></strong>:<ol>
+<li>如果 C 字符串指针是有效的且空终止的，可以使用 <code>unsafe &#123; std::ffi::CStr::from_ptr(c_ptr) &#125;</code> 创建一个 <code>&amp;CStr</code>。</li>
+<li>然后使用 <code>c_str.to_str()?</code> (返回 <code>Result&lt;&amp;str, Utf8Error&gt;</code>) 或 <code>c_str.to_string_lossy()</code> (返回 <code>Cow&lt;str&gt;</code>) 转换为 Rust 字符串。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>结构体 (<code>struct</code>)</strong>:<ul>
+<li>默认情况下，Rust 编译器可能会为了优化而重排结构体字段的内存布局。C 编译器也有其自己的布局规则。</li>
+<li>为了确保 Rust 结构体与 C 结构体在内存布局上兼容，Rust 结构体需要使用 <code>#[repr(C)]</code> 属性。  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C code:</span></span><br><span class="line"><span class="comment">// struct MyCStruct &#123;</span></span><br><span class="line"><span class="comment">//     int a;</span></span><br><span class="line"><span class="comment">//     double b;</span></span><br><span class="line"><span class="comment">// &#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Rust code:</span></span><br><span class="line"><span class="meta">#[repr(C)]</span> <span class="comment">// 保证与 C 兼容的内存布局</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyRustStruct</span> &#123;</span><br><span class="line">    a: std::os::raw::c_int,</span><br><span class="line">    b: std::os::raw::c_double,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><strong>枚举 (<code>enum</code>)</strong>:<ul>
+<li>C 风格的枚举（只包含判别式）可以映射到 Rust 的整数类型。</li>
+<li>如果 Rust 枚举带有数据，则没有直接的 C 等价物，需要手动转换或定义更复杂的 FFI 接口。</li>
+<li>使用 <code>#[repr(C)]</code> 或 <code>#[repr(IntType)]</code> 可以控制 Rust 枚举的内存表示。</li>
+</ul>
+</li>
+<li><strong>函数指针 (Callbacks)</strong>:<ul>
+<li>如果 C 函数期望一个回调函数作为参数，你需要在 Rust 中定义一个兼容的函数（通常也需要 <code>extern &quot;C&quot;</code> 调用约定），然后将其作为函数指针传递。  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C: typedef void (*callback_fn)(int);</span></span><br><span class="line"><span class="comment">// C: void register_callback(callback_fn cb);</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">my_rust_callback</span>(value: <span class="type">i32</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Rust callback called with: &#123;&#125;&quot;</span>, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">register_callback</span>(cb: <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="title function_ invoke__">fn</span>(<span class="type">i32</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="title function_ invoke__">register_callback</span>(my_rust_callback);</span><br><span class="line">        <span class="comment">// C 代码现在可以调用 my_rust_callback 了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="d-内存管理"><a href="#d-内存管理" class="headerlink" title="d) 内存管理"></a>d) 内存管理</h4><p>当通过 FFI 在 Rust 和 C 代码之间传递拥有内存的指针时（例如，C 函数返回一个需要释放的字符串指针，或者 Rust 将 <code>CString</code> 的指针传递给 C），必须明确哪一方负责分配和释放内存。</p>
+<ul>
+<li><strong>C 分配，Rust 释放</strong>: 如果 C 函数分配了内存，它通常应该也提供一个对应的释放函数，Rust 代码需要通过 FFI 调用这个释放函数。</li>
+<li><strong>Rust 分配，C 释放</strong>: 不推荐，因为 Rust 和 C 可能使用不同的内存分配器。最好是 Rust 分配，Rust 释放。如果必须让 C 释放，Rust 需要提供一个 <code>extern &quot;C&quot;</code> 的释放函数，该函数接收指针并正确地重建 Rust 的数据结构（如 <code>Box</code> 或 <code>CString</code>）以便 <code>drop</code>。</li>
+<li><strong>Rust 分配，Rust 释放，C 临时使用</strong>: 这是最安全的模式。Rust 分配数据，将指针传递给 C，C 使用完后，Rust 负责释放。</li>
+</ul>
+<h3 id="2-将-Rust-代码暴露给外部-主要是-C-语言"><a href="#2-将-Rust-代码暴露给外部-主要是-C-语言" class="headerlink" title="2. 将 Rust 代码暴露给外部 (主要是 C 语言)"></a>2. 将 Rust 代码暴露给外部 (主要是 C 语言)</h3><p>你也可以将 Rust 函数编译成库，让 C 或其他语言调用。</p>
+<h4 id="a-定义可供外部调用的-Rust-函数"><a href="#a-定义可供外部调用的-Rust-函数" class="headerlink" title="a) 定义可供外部调用的 Rust 函数"></a>a) 定义可供外部调用的 Rust 函数</h4><ul>
+<li>使用 <code>pub extern &quot;C&quot;</code> 来声明函数，使其具有 C ABI。</li>
+<li>使用 <code>#[no_mangle]</code> 属性来阻止 Rust 编译器对函数名进行修饰 (name mangling)，这样 C 代码就可以通过原始函数名找到它。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Rust 函数，我们希望从 C 调用它</span></span><br><span class="line"><span class="meta">#[no_mangle]</span> <span class="comment">// 禁用名称修饰</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">rust_add</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">    a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">rust_greet</span>(name: *<span class="keyword">const</span> std::os::raw::c_char) &#123;</span><br><span class="line">    <span class="keyword">if</span> name.<span class="title function_ invoke__">is_null</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">c_str</span> = <span class="keyword">unsafe</span> &#123; std::ffi::CStr::<span class="title function_ invoke__">from_ptr</span>(name) &#125;;</span><br><span class="line">    <span class="keyword">match</span> c_str.<span class="title function_ invoke__">to_str</span>() &#123;</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(s) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Hello from Rust, &#123;&#125;!&quot;</span>, s),</span><br><span class="line">        <span class="title function_ invoke__">Err</span>(_) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Hello from Rust, (invalid UTF-8 name)!&quot;</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理 Rust String 并将其指针返回给 C (需要 C 端负责释放)</span></span><br><span class="line"><span class="comment">// 注意：这是一个更高级且容易出错的模式，需要非常小心地管理内存。</span></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">rust_create_greeting</span>(name: *<span class="keyword">const</span> std::os::raw::c_char) <span class="punctuation">-&gt;</span> *<span class="keyword">mut</span> std::os::raw::c_char &#123;</span><br><span class="line">    <span class="keyword">if</span> name.<span class="title function_ invoke__">is_null</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> std::ptr::<span class="title function_ invoke__">null_mut</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">c_str</span> = <span class="keyword">unsafe</span> &#123; std::ffi::CStr::<span class="title function_ invoke__">from_ptr</span>(name) &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">rust_name</span> = <span class="keyword">match</span> c_str.<span class="title function_ invoke__">to_str</span>() &#123;</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(s) =&gt; s,</span><br><span class="line">        <span class="title function_ invoke__">Err</span>(_) =&gt; <span class="string">&quot;invalid_utf8_name&quot;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">greeting</span> = <span class="built_in">format!</span>(<span class="string">&quot;Hello, &#123;&#125; from Rust!&quot;</span>, rust_name);</span><br><span class="line">    <span class="keyword">match</span> std::ffi::CString::<span class="title function_ invoke__">new</span>(greeting) &#123;</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(c_string) =&gt; c_string.<span class="title function_ invoke__">into_raw</span>(), <span class="comment">// 转移 CString 的所有权给调用者 (C 代码)</span></span><br><span class="line">                                             <span class="comment">// C 代码现在负责使用匹配的 rust_free_string 来释放它</span></span><br><span class="line">        <span class="title function_ invoke__">Err</span>(_) =&gt; std::ptr::<span class="title function_ invoke__">null_mut</span>(),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">rust_free_string</span>(s: *<span class="keyword">mut</span> std::os::raw::c_char) &#123;</span><br><span class="line">    <span class="keyword">if</span> s.<span class="title function_ invoke__">is_null</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="comment">// 从裸指针重建 CString 的所有权，然后 CString 的 drop 会自动释放内存</span></span><br><span class="line">        <span class="keyword">let</span> <span class="variable">_</span> = std::ffi::CString::<span class="title function_ invoke__">from_raw</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="b-编译-Rust-代码为库"><a href="#b-编译-Rust-代码为库" class="headerlink" title="b) 编译 Rust 代码为库"></a>b) 编译 Rust 代码为库</h4><p>在 <code>Cargo.toml</code> 中，你需要指定 crate 类型为 C 兼容的库：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;my_rust_lib&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[lib]</span></span><br><span class="line"><span class="attr">crate-type</span> = [<span class="string">&quot;cdylib&quot;</span>] <span class="comment"># 生成 C 动态链接库 (例如 .so, .dll, .dylib)</span></span><br><span class="line"><span class="comment"># 或者 crate-type = [&quot;staticlib&quot;] # 生成 C 静态链接库 (例如 .a, .lib)</span></span><br></pre></td></tr></table></figure>
+<p>然后运行 <code>cargo build</code> (或 <code>cargo build --release</code>)。Cargo 会在 <code>target/debug</code> 或 <code>target/release</code> 目录下生成相应的库文件和（通常）一个 C 头文件（如果使用 <code>cbindgen</code> 等工具）。</p>
+<h4 id="c-C-代码中调用-Rust-函数"><a href="#c-C-代码中调用-Rust-函数" class="headerlink" title="c) C 代码中调用 Rust 函数"></a>c) C 代码中调用 Rust 函数</h4><p>你需要一个头文件来声明 Rust 函数的签名，然后在 C 代码中包含这个头文件并链接到 Rust 生成的库。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_rust_lib.h (可以手动创建，或使用 cbindgen 生成)</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span> <span class="comment">// For int32_t etc.</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> MY_RUST_LIB_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MY_RUST_LIB_H</span></span><br><span class="line"></span><br><span class="line"><span class="type">int32_t</span> <span class="title function_">rust_add</span><span class="params">(<span class="type">int32_t</span> a, <span class="type">int32_t</span> b)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">rust_greet</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* name)</span>;</span><br><span class="line"><span class="type">char</span>* <span class="title function_">rust_create_greeting</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* name)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">rust_free_string</span><span class="params">(<span class="type">char</span>* s)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// MY_RUST_LIB_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;my_rust_lib.h&quot;</span> <span class="comment">// 包含头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> sum = rust_add(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Sum from Rust: %d\n&quot;</span>, sum);</span><br><span class="line"></span><br><span class="line">    rust_greet(<span class="string">&quot;World&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span>* greeting = rust_create_greeting(<span class="string">&quot;C User&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (greeting) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Greeting from Rust: %s\n&quot;</span>, greeting);</span><br><span class="line">        rust_free_string(greeting); <span class="comment">// 非常重要：释放 Rust 分配的内存</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译 C 代码时，需要链接 Rust 生成的库：<br><code>gcc main.c -L/path/to/rust_target_dir -lmy_rust_lib -o main_c_app</code> (具体命令取决于操作系统和库类型)</p>
+<h4 id="d-处理-Panic"><a href="#d-处理-Panic" class="headerlink" title="d) 处理 Panic"></a>d) 处理 Panic</h4><p>默认情况下，如果 Rust 代码在 FFI 边界发生 panic，行为是未定义的 (通常会导致程序中止)。这是非常不希望的。<br>你应该在 <code>extern &quot;C&quot;</code> 函数的边界处使用 <code>std::panic::catch_unwind</code> 来捕获 panic，并将其转换为一个错误码或其他 C 兼容的错误表示方式返回给调用者。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::panic;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="keyword">fn</span> <span class="title function_">safe_rust_operation</span>(input: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123; <span class="comment">// 返回错误码</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">result</span> = panic::<span class="title function_ invoke__">catch_unwind</span>(|| &#123;</span><br><span class="line">        <span class="comment">// 可能会 panic 的 Rust 代码</span></span><br><span class="line">        <span class="keyword">if</span> input &lt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">panic!</span>(<span class="string">&quot;Input cannot be negative!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        input * <span class="number">2</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">match</span> result &#123;</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(value) =&gt; value,</span><br><span class="line">        <span class="title function_ invoke__">Err</span>(_) =&gt; &#123;</span><br><span class="line">            <span class="built_in">eprintln!</span>(<span class="string">&quot;Rust function panicked!&quot;</span>);</span><br><span class="line">            -<span class="number">1</span> <span class="comment">// 返回一个错误码</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-FFI-的安全性和注意事项"><a href="#3-FFI-的安全性和注意事项" class="headerlink" title="3. FFI 的安全性和注意事项"></a>3. FFI 的安全性和注意事项</h3><ul>
+<li><strong><code>unsafe</code> 是核心</strong>: 所有 FFI 调用几乎都涉及 <code>unsafe</code>，因为编译器无法验证外部代码。</li>
+<li><strong>数据类型和内存布局</strong>: 确保 <code>#[repr(C)]</code> 用于结构体，并正确映射类型。</li>
+<li><strong>字符串处理</strong>: <code>CString</code> 和 <code>CStr</code> 是你的朋友。注意空终止符和 UTF-8 编码问题。</li>
+<li><strong>所有权和内存管理</strong>: 明确哪一方负责分配和释放内存。避免内存泄漏和悬垂指针。</li>
+<li><strong>错误处理</strong>: Rust 的 <code>Result</code> 和 <code>panic!</code> 需要转换为 C 兼容的错误码或约定。</li>
+<li><strong>回调函数</strong>: 确保回调函数的生命周期和传递给它的任何数据的生命周期是正确的。传递给 C 的数据（如果回调函数会访问它）通常需要是 <code>&#39;static</code>，或者由调用者保证其在回调期间有效。</li>
+<li><strong>空指针检查</strong>: C 函数可能会返回空指针，或期望空指针作为哨兵值。Rust 代码需要妥善处理。</li>
+<li><strong>线程安全</strong>: 如果你调用的 C 库不是线程安全的，你需要在 Rust 端确保同步访问。如果 Rust 库要被多线程的 C 程序调用，Rust 代码本身也需要是线程安全的，或者提供线程安全的接口。</li>
+</ul>
+<h3 id="4-FFI-辅助工具和-Crate"><a href="#4-FFI-辅助工具和-Crate" class="headerlink" title="4. FFI 辅助工具和 Crate"></a>4. FFI 辅助工具和 Crate</h3><ul>
+<li><strong><code>libc</code></strong>: 提供了 C 标准库中许多类型和函数的 Rust 声明 (例如 <code>libc::c_char</code>, <code>libc::size_t</code>, <code>libc::malloc</code>)。</li>
+<li><strong><code>bindgen</code></strong>: 一个非常有用的工具（通常作为构建脚本的一部分或命令行工具使用），它可以自动从 C&#x2F;C++ 头文件生成 Rust 的 FFI 绑定。</li>
+<li><strong><code>cbindgen</code></strong>: 与 <code>bindgen</code> 相反，它可以从你的 Rust 库代码生成 C&#x2F;C++ 兼容的头文件，方便其他语言调用你的 Rust 库。</li>
+<li><strong><code>safer_ffi</code></strong>: 旨在帮助编写更类型安全、更符合人体工程学的 FFI 绑定。</li>
+<li><strong>特定语言的 FFI 库</strong>:<ul>
+<li><strong>Python</strong>: <code>PyO3</code>, <code>rust-cpython</code></li>
+<li><strong>Node.js&#x2F;JavaScript</strong>: <code>Neon</code>, <code>wasm-bindgen</code> (用于 WebAssembly)</li>
+<li><strong>Ruby</strong>: <code>Magnus</code>, <code>Rutie</code>, <code>rb-sys</code></li>
+<li><strong>Java&#x2F;JVM</strong>: <code>JNI</code> crate</li>
+<li><strong>C#&#x2F;.NET</strong>: P&#x2F;Invoke (平台调用)</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>FFI 是 Rust 与现有代码世界连接的桥梁。它使得 Rust 能够逐步被采用，并利用数十年来积累的成熟库。然而，FFI 要求开发者对两种语言的底层机制都有深入的理解，并承担起维护 FFI 边界内存安全的责任。通过 <code>unsafe</code> 块、仔细的数据类型转换、明确的内存管理约定以及 <code>std::panic::catch_unwind</code> 等工具，可以构建出相对健壮的 FFI 接口。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Jackey Zhou</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/08/FFI/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/08/FFI/')">FFI</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/08/FFI/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=FFI&amp;url=http://example.com/2025/05/08/FFI/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Welcome To LifeTech's Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Rust基础知识<span class="tagsPageCount">21</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/08/unsafe-Rust/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">unsafe Rust</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/08/%E5%AE%8FMacros/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">宏Macros</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/08/Copy%E5%92%8CMove/" title="Copy和Move"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Copy和Move</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用标准库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用第三方库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust异步编程</div></div></a></div><div><a href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust综合案例</div></div></a></div><div><a href="/2025/05/08/for%E5%BE%AA%E7%8E%AF/" title="for循环"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">for循环</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">记录技术成长的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Rust-%E8%B0%83%E7%94%A8%E5%A4%96%E9%83%A8%E4%BB%A3%E7%A0%81-%E4%B8%BB%E8%A6%81%E6%98%AF-C-%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">1. Rust 调用外部代码 (主要是 C 语言函数)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E5%A3%B0%E6%98%8E%E5%A4%96%E9%83%A8%E5%87%BD%E6%95%B0-extern-C-%E5%9D%97"><span class="toc-number">1.1.</span> <span class="toc-text">a) 声明外部函数 (extern &quot;C&quot; 块)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E9%93%BE%E6%8E%A5%E5%88%B0%E5%A4%96%E9%83%A8%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">b) 链接到外部库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-Marshaling"><span class="toc-number">1.3.</span> <span class="toc-text">c) 数据类型转换 (Marshaling)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">d) 内存管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B0%86-Rust-%E4%BB%A3%E7%A0%81%E6%9A%B4%E9%9C%B2%E7%BB%99%E5%A4%96%E9%83%A8-%E4%B8%BB%E8%A6%81%E6%98%AF-C-%E8%AF%AD%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">2. 将 Rust 代码暴露给外部 (主要是 C 语言)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E5%AE%9A%E4%B9%89%E5%8F%AF%E4%BE%9B%E5%A4%96%E9%83%A8%E8%B0%83%E7%94%A8%E7%9A%84-Rust-%E5%87%BD%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text">a) 定义可供外部调用的 Rust 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E7%BC%96%E8%AF%91-Rust-%E4%BB%A3%E7%A0%81%E4%B8%BA%E5%BA%93"><span class="toc-number">2.2.</span> <span class="toc-text">b) 编译 Rust 代码为库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-C-%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%B0%83%E7%94%A8-Rust-%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">c) C 代码中调用 Rust 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-%E5%A4%84%E7%90%86-Panic"><span class="toc-number">2.4.</span> <span class="toc-text">d) 处理 Panic</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-FFI-%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.</span> <span class="toc-text">3. FFI 的安全性和注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-FFI-%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E5%92%8C-Crate"><span class="toc-number">4.</span> <span class="toc-text">4. FFI 辅助工具和 Crate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例">Rust综合案例</a><time datetime="2025-05-07T18:24:47.000Z" title="发表于 2025-05-08 02:24:47">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库">Rust常用第三方库</a><time datetime="2025-05-07T18:12:12.000Z" title="发表于 2025-05-08 02:12:12">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库">Rust常用标准库</a><time datetime="2025-05-07T18:12:04.000Z" title="发表于 2025-05-08 02:12:04">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程">Rust异步编程</a><time datetime="2025-05-07T18:11:50.000Z" title="发表于 2025-05-08 02:11:50">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E5%AE%8FMacros/" title="宏Macros">宏Macros</a><time datetime="2025-05-07T18:09:43.000Z" title="发表于 2025-05-08 02:09:43">2025-05-08</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Jackey Zhou" target="_blank">Jackey Zhou</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 0.88rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 0.88rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Jackey Zhou 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

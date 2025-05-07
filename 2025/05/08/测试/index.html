@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>测试 | Welcome To LifeTech's Blog</title><meta name="keywords" content="Rust基础知识"><meta name="author" content="Jackey Zhou"><meta name="copyright" content="Jackey Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="测试"><meta name="application-name" content="测试"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="测试"><meta property="og:url" content="http://example.com/2025/05/08/%E6%B5%8B%E8%AF%95/index.html"><meta property="og:site_name" content="Welcome To LifeTech's Blog"><meta property="og:description" content="测试 (Testing) 是软件开发中确保代码质量、正确性和可维护性的关键环节。Rust 语言及其工具链 Cargo 对测试提供了强大且易于使用的一等公民支持。 1. 为什么测试如此重要？ 缺陷预防与早期发现: 在开发早期捕获 bug，修复成本更低。 防止回归 (Regression Prevent"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Jackey Zhou"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="测试 (Testing) 是软件开发中确保代码质量、正确性和可维护性的关键环节。Rust 语言及其工具链 Cargo 对测试提供了强大且易于使用的一等公民支持。 1. 为什么测试如此重要？ 缺陷预防与早期发现: 在开发早期捕获 bug，修复成本更低。 防止回归 (Regression Prevent"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/08/%E6%B5%8B%E8%AF%95/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Jackey Zhou","link":"链接: ","source":"来源: Welcome To LifeTech's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Welcome To LifeTech's Blog',
+  title: '测试',
+  postAI: '',
+  pageFillDescription: '1. 为什么测试如此重要？, 2. Rust 中的测试类型和组织, 3. 如何编写测试函数, a) [test] 属性, b) 断言宏 (Assertion Macros), c) 期望 Panic 的测试 [should_panic], d) 返回 ResultltT Egt 的测试, 4. 使用 Cargo 运行测试, 5. 单元测试的组织 (mod tests), 6. 集成测试的组织 (tests 目录), 7. 文档测试, 8. 测试最佳实践测试是软件开发中确保代码质量正确性和可维护性的关键环节语言及其工具链对测试提供了强大且易于使用的一等公民支持为什么测试如此重要缺陷预防与早期发现在开发早期捕获修复成本更低防止回归确保代码修改或新功能添加后现有功能仍然按预期工作改进设计编写可测试的代码通常会引导你设计出更模块化更清晰的文档作用测试用例可以作为代码如何使用的具体示例提升信心良好的测试覆盖率让你能够更自信地进行重构和功能迭代的测试哲学是让测试变得简单直接易于编写和运行中的测试类型和组织主要支持以下几种类型的测试单元测试目的测试代码库中最小的可测试单元通常是单个函数或模块目标是隔离地验证其行为位置通常与被测试的代码放在同一个文件的目录下位于一个名为的子模块中并使用属性进行标注这使得单元测试可以访问其父模块中的私有项特点快速运行关注局部逻辑的正确性集成测试目的测试你的库的多个部分是否能正确地协同工作或者你的库的公共是否按预期运行它们从外部调用你的库代码就像其他使用者一样位置在项目的根目录下创建一个名为的独立目录与目录同级会将这个目录中的每个文件视为一个单独的进行编译和测试特点只能测试库的公共更接近真实使用场景文档测试目的确保你的文档注释中的代码示例是正确且最新的位置直接写在代码文件或的文档注释中使用或开头并在代码块前加上特点会自动执行这些示例代码验证它们能否编译通过并按预期运行如果包含等如何编写测试函数属性要将一个普通函数标记为测试函数只需在其上方添加属性仅在运行时编译此模块习惯上模块名为引入外部父模块的所有项方便测试这是一个测试函数使用断言宏验证结果测试逻辑断言宏标准库提供了几个有用的宏来在测试中声明条件如果的计算结果为则测试通过如果为则测试失败这会导致测试失败比较和是否相等如果不相等则并打印出和的值方便调试和表达式的类型必须实现和会失败并打印比较和是否不相等如果相等则同样需要和自定义失败消息所有断言宏都可以接受一个可选的自定义失败消息参数它可以是一个格式化字符串和任意数量的后续参数与类似期望的测试有时你需要测试代码在特定情况下是否会如预期那样可以使用属性来实现这个测试期望发生期望消息包含特定文本也可以只检查部分文本如果带有的测试函数没有发生或者发生的消息与参数不符则测试失败返回的测试测试函数也可以返回类型其中是任何实现了的类型这使得在测试函数内部可以方便地使用运算符来传播错误如果测试函数返回则测试通过如果测试函数返回则测试失败测试通过测试失败如果返回测试会失败这会导致测试失败使用运行测试提供了简单一致的方式来运行所有类型的测试在项目根目录下运行此命令会编译你的代码包括测试代码并运行所有标记为的函数它会并行运行测试默认情况下并捕获测试函数的标准输出等对于通过的测试它通常只显示一个简短的对于失败的测试它会显示详细信息控制测试的运行按名称过滤测试只运行名称中包含指定子字符串的测试函数运行特定模块下的特定测试函数运行特定模块下的所有测试单线程运行测试有时如果测试依赖共享状态或外部资源并行运行可能导致问题显示测试输出默认情况下成功测试的输出会被隐藏此选项会显示所有测试的输出忽略某些测试有些测试可能非常耗时或者需要在特定环境下运行你可以用属性标记它们的测试默认不会被执行只运行被标记的测试运行所有测试包括被忽略的可以提供忽略的原因测试特定包或目标在工作空间中测试特定的包只测试库只测试指定的二进制只运行目录下的特定集成测试文件单元测试的组织如前所述单元测试通常放在被测试代码所在文件的底部在一个名为的子模块中或任何其他文件私有函数通常通过其公共接口间接测试但也可以直接单元测试这个属性告诉仅在运行时编译和运行测试代码导入外部父模块的所有内容以便访问和可以测试私有函数确保测试代码不会包含在最终的发布构建中集成测试的组织目录集成测试用于测试你的库的公共在你的项目根目录与目录同级创建一个目录在目录中创建文件每个文件都会被视为一个单独的在这些测试文件中你需要像其他外部用户一样你的库假设你的包名为并且包含你可以在中这样写导入你的库的公共函数你不需要在目录下的测试文件中使用因为整个目录只有在运行时才会被处理如果你的集成测试需要共享一些代码你可以在目录下创建一个子模块例如或然后在其他集成测试文件中通过和来使用它文档测试非常重视文档并且能够测试文档中的代码示例在你的函数结构体等的文档注释中以或开头你可以包含代码块会自动提取这些代码块将它们编译并作为测试运行假设你的名是这个会如果会溢出这行无法编译会运行标记为的代码块如果代码块应该可以使用如果代码块不应该编译通过可以使用如果想暂时忽略某个文档测试可以使用测试最佳实践清晰命名测试函数名应清楚地描述它在测试什么以及预期的结果单一职责每个测试函数应专注于测试一个特定的行为或场景设置测试所需的数据和状态执行被测试的代码验证结果是否符合预期测试边界情况和错误条件不仅仅测试快乐路径还要测试无效输入边缘情况和预期的错误行为保持测试独立测试之间不应该相互依赖或影响快速运行单元测试应该非常快以便频繁运行耗时的测试可以标记为的内置测试框架为开发者提供了一套强大而便捷的工具以确保代码的质量和可靠性通过结合单元测试集成测试和文档测试你可以构建出更健壮更易于维护的应用程序和库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-08 01:57:38',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Welcome To LifeTech's Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 1.05rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">21</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Rust基础知识</span></a></span></div></div><h1 class="post-title" itemprop="name headline">测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-07T17:44:51.000Z" title="发表于 2025-05-08 01:44:51">2025-05-08</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-07T17:57:38.437Z" title="更新于 2025-05-08 01:57:38">2025-05-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为无锡"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>无锡</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/08/%E6%B5%8B%E8%AF%95/"><header><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url">Rust基础知识</a><h1 id="CrawlerTitle" itemprop="name headline">测试</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Jackey Zhou</span><time itemprop="dateCreated datePublished" datetime="2025-05-07T17:44:51.000Z" title="发表于 2025-05-08 01:44:51">2025-05-08</time><time itemprop="dateCreated datePublished" datetime="2025-05-07T17:57:38.437Z" title="更新于 2025-05-08 01:57:38">2025-05-08</time></header><p>测试 (Testing) 是软件开发中确保代码质量、正确性和可维护性的关键环节。Rust 语言及其工具链 Cargo 对测试提供了强大且易于使用的一等公民支持。</p>
+<h3 id="1-为什么测试如此重要？"><a href="#1-为什么测试如此重要？" class="headerlink" title="1. 为什么测试如此重要？"></a>1. 为什么测试如此重要？</h3><ul>
+<li><strong>缺陷预防与早期发现</strong>: 在开发早期捕获 bug，修复成本更低。</li>
+<li><strong>防止回归 (Regression Prevention)</strong>: 确保代码修改或新功能添加后，现有功能仍然按预期工作。</li>
+<li><strong>改进设计</strong>: 编写可测试的代码通常会引导你设计出更模块化、更清晰的 API。</li>
+<li><strong>文档作用</strong>: 测试用例可以作为代码如何使用的具体示例。</li>
+<li><strong>提升信心</strong>: 良好的测试覆盖率让你能够更自信地进行重构和功能迭代。</li>
+</ul>
+<p>Rust 的测试哲学是让测试变得简单直接，易于编写和运行。</p>
+<h3 id="2-Rust-中的测试类型和组织"><a href="#2-Rust-中的测试类型和组织" class="headerlink" title="2. Rust 中的测试类型和组织"></a>2. Rust 中的测试类型和组织</h3><p>Rust 主要支持以下几种类型的测试：</p>
+<ul>
+<li><p><strong>单元测试 (Unit Tests)</strong>:</p>
+<ul>
+<li><strong>目的</strong>: 测试代码库中最小的可测试单元，通常是单个函数或模块，目标是隔离地验证其行为。</li>
+<li><strong>位置</strong>: 通常与被测试的代码放在<strong>同一个文件</strong>的 <code>src</code> 目录下，位于一个名为 <code>tests</code> 的子模块中，并使用 <code>#[cfg(test)]</code> 属性进行标注。这使得单元测试可以访问其父模块中的私有项。</li>
+<li><strong>特点</strong>: 快速运行，关注局部逻辑的正确性。</li>
+</ul>
+</li>
+<li><p><strong>集成测试 (Integration Tests)</strong>:</p>
+<ul>
+<li><strong>目的</strong>: 测试你的库的多个部分是否能正确地协同工作，或者你的库的公共 API 是否按预期运行。它们从外部调用你的库代码，就像其他使用者一样。</li>
+<li><strong>位置</strong>: 在项目的根目录下创建一个名为 <code>tests</code> 的<strong>独立目录</strong> (与 <code>src</code> 目录同级)。Cargo 会将这个 <code>tests</code> 目录中的每个 <code>.rs</code> 文件视为一个单独的 Crate 进行编译和测试。</li>
+<li><strong>特点</strong>: 只能测试库的公共 API，更接近真实使用场景。</li>
+</ul>
+</li>
+<li><p><strong>文档测试 (Documentation Tests)</strong>:</p>
+<ul>
+<li><strong>目的</strong>: 确保你的文档注释中的代码示例是正确且最新的。</li>
+<li><strong>位置</strong>: 直接写在 Rust 代码文件（<code>src/*.rs</code> 或 <code>tests/*.rs</code>）的文档注释中 (使用 <code>///</code> 或 <code>//!</code> 开头，并在代码块前加上 &#96;&#96;&#96;&#96;rust&#96;)。</li>
+<li><strong>特点</strong>: <code>cargo test</code> 会自动执行这些示例代码，验证它们能否编译通过并按预期运行（如果包含 <code>assert!</code> 等）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-如何编写测试函数"><a href="#3-如何编写测试函数" class="headerlink" title="3. 如何编写测试函数"></a>3. 如何编写测试函数</h3><h4 id="a-test-属性"><a href="#a-test-属性" class="headerlink" title="a) #[test] 属性"></a>a) <code>#[test]</code> 属性</h4><p>要将一个普通函数标记为测试函数，只需在其上方添加 <code>#[test]</code> 属性。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[cfg(test)]</span> <span class="comment">// 仅在运行 cargo test 时编译此模块</span></span><br><span class="line"><span class="keyword">mod</span> tests_module_name &#123; <span class="comment">// 习惯上模块名为 tests</span></span><br><span class="line">    <span class="keyword">use</span> super::*; <span class="comment">// 引入外部（父）模块的所有项，方便测试</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span> <span class="comment">// 这是一个测试函数</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">it_works</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">result</span> = <span class="number">2</span> + <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">assert_eq!</span>(result, <span class="number">4</span>); <span class="comment">// 使用断言宏验证结果</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">another_test</span>() &#123;</span><br><span class="line">        <span class="comment">// ... 测试逻辑 ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="b-断言宏-Assertion-Macros"><a href="#b-断言宏-Assertion-Macros" class="headerlink" title="b) 断言宏 (Assertion Macros)"></a>b) 断言宏 (Assertion Macros)</h4><p>Rust 标准库提供了几个有用的宏来在测试中声明条件：</p>
+<ul>
+<li><p><strong><code>assert!(expression)</code></strong>:</p>
+<ul>
+<li>如果 <code>expression</code> 的计算结果为 <code>true</code>，则测试通过。</li>
+<li>如果为 <code>false</code>，则 <code>panic!</code>，测试失败。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">exploration</span>() &#123;</span><br><span class="line">    <span class="built_in">assert!</span>(<span class="literal">true</span>);</span><br><span class="line">    <span class="comment">// assert!(false); // 这会导致测试失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>assert_eq!(left, right)</code></strong>:</p>
+<ul>
+<li>比较 <code>left</code> 和 <code>right</code> 是否相等 (<code>left == right</code>)。</li>
+<li>如果不相等，则 <code>panic!</code> 并打印出 <code>left</code> 和 <code>right</code> 的值，方便调试。</li>
+<li><code>left</code> 和 <code>right</code> 表达式的类型必须实现 <code>PartialEq</code> 和 <code>Debug</code> trait。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">equality_test</span>() &#123;</span><br><span class="line">    <span class="built_in">assert_eq!</span>(<span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>), <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>));</span><br><span class="line">    <span class="comment">// assert_eq!(5, 6); // 会失败并打印 &quot;assertion failed: `(left == right)` left: `5`, right: `6`&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>assert_ne!(left, right)</code></strong>:</p>
+<ul>
+<li>比较 <code>left</code> 和 <code>right</code> 是否不相等 (<code>left != right</code>)。</li>
+<li>如果相等，则 <code>panic!</code>。</li>
+<li>同样需要 <code>PartialEq</code> 和 <code>Debug</code>。</li>
+</ul>
+</li>
+<li><p><strong>自定义失败消息</strong>:<br>所有断言宏都可以接受一个可选的自定义失败消息参数，它可以是一个格式化字符串和任意数量的后续参数，与 <code>println!</code> 类似。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">greeting_contains_name</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">result</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, Rust!&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">name</span> = <span class="string">&quot;Rust&quot;</span>;</span><br><span class="line">    <span class="built_in">assert!</span>(</span><br><span class="line">        result.<span class="title function_ invoke__">contains</span>(name),</span><br><span class="line">        <span class="string">&quot;Greeting did not contain name, value was `&#123;&#125;`&quot;</span>, result</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="c-期望-Panic-的测试-should-panic"><a href="#c-期望-Panic-的测试-should-panic" class="headerlink" title="c) 期望 Panic 的测试: #[should_panic]"></a>c) 期望 Panic 的测试: <code>#[should_panic]</code></h4><p>有时你需要测试代码在特定情况下是否会如预期那样 <code>panic!</code>。可以使用 <code>#[should_panic]</code> 属性来实现。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">Guess</span> &#123;</span><br><span class="line">    value: <span class="type">i32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Guess</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">new</span>(value: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> Guess &#123;</span><br><span class="line">        <span class="keyword">if</span> value &lt; <span class="number">1</span> || value &gt; <span class="number">100</span> &#123;</span><br><span class="line">            <span class="built_in">panic!</span>(<span class="string">&quot;Guess value must be between 1 and 100, got &#123;&#125;.&quot;</span>, value);</span><br><span class="line">        &#125;</span><br><span class="line">        Guess &#123; value &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(test)]</span></span><br><span class="line"><span class="keyword">mod</span> tests &#123;</span><br><span class="line">    <span class="keyword">use</span> super::*;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="meta">#[should_panic]</span> <span class="comment">// 这个测试期望发生 panic</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">greater_than_100</span>() &#123;</span><br><span class="line">        Guess::<span class="title function_ invoke__">new</span>(<span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="meta">#[should_panic(expected = <span class="string">&quot;Guess value must be between 1 and 100&quot;</span>)]</span> <span class="comment">// 期望 panic 消息包含特定文本</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">less_than_1</span>() &#123;</span><br><span class="line">        Guess::<span class="title function_ invoke__">new</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="meta">#[should_panic(expected = <span class="string">&quot;got 200&quot;</span>)]</span> <span class="comment">// 也可以只检查部分文本</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">specific_panic_message_content</span>() &#123;</span><br><span class="line">        Guess::<span class="title function_ invoke__">new</span>(<span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果带有 <code>#[should_panic]</code> 的测试函数没有发生 panic，或者发生的 panic 消息与 <code>expected</code> 参数不符，则测试失败。</p>
+<h4 id="d-返回-Result-的测试"><a href="#d-返回-Result-的测试" class="headerlink" title="d) 返回 Result&lt;T, E&gt; 的测试"></a>d) 返回 <code>Result&lt;T, E&gt;</code> 的测试</h4><p>测试函数也可以返回 <code>Result&lt;(), E&gt;</code> 类型（其中 <code>E</code> 是任何实现了 <code>std::error::Error</code> trait 的类型）。这使得在测试函数内部可以方便地使用 <code>?</code> 运算符来传播错误。</p>
+<ul>
+<li>如果测试函数返回 <code>Ok(())</code>，则测试通过。</li>
+<li>如果测试函数返回 <code>Err(e)</code>，则测试失败。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[cfg(test)]</span></span><br><span class="line"><span class="keyword">mod</span> tests &#123;</span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">test_returns_result</span>() <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;(), <span class="type">String</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="number">2</span> + <span class="number">2</span> == <span class="number">4</span> &#123;</span><br><span class="line">            <span class="title function_ invoke__">Ok</span>(()) <span class="comment">// 测试通过</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_ invoke__">Err</span>(<span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;two plus two does not equal four&quot;</span>)) <span class="comment">// 测试失败</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// fn might_fail(should_fail: bool) -&gt; Result&lt;(), String&gt; &#123;</span></span><br><span class="line">    <span class="comment">//     if should_fail &#123; Err(String::from(&quot;Intentional failure&quot;)) &#125; else &#123; Ok(()) &#125;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// #[test]</span></span><br><span class="line">    <span class="comment">// fn test_with_question_mark() -&gt; Result&lt;(), String&gt; &#123;</span></span><br><span class="line">    <span class="comment">//     might_fail(false)?; // 如果 might_fail 返回 Err, 测试会失败</span></span><br><span class="line">    <span class="comment">//     might_fail(true)?;  // 这会导致测试失败</span></span><br><span class="line">    <span class="comment">//     Ok(())</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-使用-Cargo-运行测试"><a href="#4-使用-Cargo-运行测试" class="headerlink" title="4. 使用 Cargo 运行测试"></a>4. 使用 Cargo 运行测试</h3><p>Cargo 提供了简单一致的方式来运行所有类型的测试。</p>
+<ul>
+<li><p><strong><code>cargo test</code></strong>:</p>
+<ul>
+<li>在项目根目录下运行此命令，Cargo 会编译你的代码（包括测试代码）并运行所有标记为 <code>#[test]</code> 的函数。</li>
+<li>它会并行运行测试（默认情况下），并捕获测试函数的标准输出（<code>println!</code> 等）。</li>
+<li>对于通过的测试，它通常只显示一个简短的 <code>ok</code>。对于失败的测试，它会显示详细信息。</li>
+</ul>
+</li>
+<li><p><strong>控制测试的运行</strong>:</p>
+<ul>
+<li><strong>按名称过滤测试</strong>:<ul>
+<li><code>cargo test test_function_name_substring</code>: 只运行名称中包含指定子字符串的测试函数。</li>
+<li><code>cargo test tests_module_name::test_function_name</code>: 运行特定模块下的特定测试函数。</li>
+<li><code>cargo test tests_module_name</code>: 运行特定模块下的所有测试。</li>
+</ul>
+</li>
+<li><strong>单线程运行测试</strong>:<ul>
+<li><code>cargo test -- --test-threads=1</code></li>
+<li>有时，如果测试依赖共享状态或外部资源，并行运行可能导致问题。</li>
+</ul>
+</li>
+<li><strong>显示测试输出</strong>:<ul>
+<li><code>cargo test -- --show-output</code></li>
+<li>默认情况下，成功测试的 <code>println!</code> 输出会被隐藏。此选项会显示所有测试的输出。</li>
+</ul>
+</li>
+<li><strong>忽略某些测试 (<code>#[ignore]</code>)</strong>:<ul>
+<li>有些测试可能非常耗时，或者需要在特定环境下运行。你可以用 <code>#[ignore]</code> 属性标记它们。</li>
+<li><code>#[ignore]</code> 的测试默认不会被 <code>cargo test</code> 执行。</li>
+<li><code>cargo test -- --ignored</code>: 只运行被 <code>#[ignore]</code> 标记的测试。</li>
+<li><code>cargo test -- --include-ignored</code>: 运行所有测试，包括被忽略的。<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="meta">#[ignore = <span class="string">&quot;this test is very slow&quot;</span>]</span> <span class="comment">// 可以提供忽略的原因</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">expensive_test</span>() &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>测试特定包或目标</strong>:</p>
+<ul>
+<li><code>cargo test -p &lt;package_name&gt;</code>: 在工作空间中测试特定的包。</li>
+<li><code>cargo test --lib</code>: 只测试库 crate。</li>
+<li><code>cargo test --bin &lt;binary_name&gt;</code>: 只测试指定的二进制 crate。</li>
+<li><code>cargo test --test &lt;integration_test_name&gt;</code>: 只运行 <code>tests</code> 目录下的特定集成测试文件。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-单元测试的组织-mod-tests"><a href="#5-单元测试的组织-mod-tests" class="headerlink" title="5. 单元测试的组织 (mod tests)"></a>5. 单元测试的组织 (<code>mod tests</code>)</h3><p>如前所述，单元测试通常放在被测试代码所在文件的底部，在一个名为 <code>tests</code> 的子模块中。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/adder.rs (或任何其他 .rs 文件)</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">add</span>(left: <span class="type">usize</span>, right: <span class="type">usize</span>) <span class="punctuation">-&gt;</span> <span class="type">usize</span> &#123;</span><br><span class="line">    left + right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 私有函数，通常通过其公共接口间接测试，但也可以直接单元测试</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">internal_adder</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">    a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(test)]</span> <span class="comment">// 这个属性告诉 Rust 仅在运行 `cargo test` 时编译和运行测试代码</span></span><br><span class="line"><span class="keyword">mod</span> tests &#123;</span><br><span class="line">    <span class="keyword">use</span> super::*; <span class="comment">// 导入外部（父）模块的所有内容，以便访问 add 和 internal_adder</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">it_adds</span>() &#123;</span><br><span class="line">        <span class="built_in">assert_eq!</span>(<span class="title function_ invoke__">add</span>(<span class="number">2</span>, <span class="number">2</span>), <span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">internal</span>() &#123;</span><br><span class="line">        <span class="built_in">assert_eq!</span>(<span class="title function_ invoke__">internal_adder</span>(<span class="number">2</span>, <span class="number">2</span>), <span class="number">4</span>); <span class="comment">// 可以测试私有函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>#[cfg(test)]</code> (configuration flag) 确保测试代码不会包含在最终的发布构建中。</p>
+<h3 id="6-集成测试的组织-tests-目录"><a href="#6-集成测试的组织-tests-目录" class="headerlink" title="6. 集成测试的组织 (tests 目录)"></a>6. 集成测试的组织 (<code>tests</code> 目录)</h3><p>集成测试用于测试你的库的公共 API。</p>
+<ol>
+<li>在你的项目根目录（与 <code>src</code> 目录同级）创建一个 <code>tests</code> 目录。</li>
+<li>在 <code>tests</code> 目录中创建 <code>.rs</code> 文件。每个文件都会被 Cargo 视为一个单独的 Crate。</li>
+<li>在这些测试文件中，你需要像其他外部用户一样 <code>use</code> 你的库 Crate。</li>
+</ol>
+<p>假设你的包名为 <code>my_crate</code>，并且 <code>src/lib.rs</code> 包含：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/lib.rs</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">add_two</span>(a: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">    a + <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以在 <code>tests/integration_test.rs</code> 中这样写：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tests/integration_test.rs</span></span><br><span class="line"><span class="keyword">use</span> my_crate::add_two; <span class="comment">// 导入你的库 crate 的公共函数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">it_adds_two_integration</span>() &#123;</span><br><span class="line">    <span class="built_in">assert_eq!</span>(<span class="title function_ invoke__">add_two</span>(<span class="number">5</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你不需要在 <code>tests</code> 目录下的测试文件中使用 <code>#[cfg(test)]</code>，因为整个 <code>tests</code> 目录只有在运行 <code>cargo test</code> 时才会被处理。</p>
+<p>如果你的集成测试需要共享一些代码，你可以在 <code>tests</code> 目录下创建一个子模块，例如 <code>tests/common/mod.rs</code> (或 <code>tests/common.rs</code>)，然后在其他集成测试文件中通过 <code>mod common;</code> 和 <code>use common::setup;</code> 来使用它。</p>
+<h3 id="7-文档测试"><a href="#7-文档测试" class="headerlink" title="7. 文档测试"></a>7. 文档测试</h3><p>Rust 非常重视文档，并且能够测试文档中的代码示例。<br>在你的函数、结构体等的文档注释中 (以 <code>///</code> 或 <code>//!</code> 开头)，你可以包含 Rust 代码块。<code>cargo test</code> 会自动提取这些代码块，将它们编译并作为测试运行。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/lib.rs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/// Adds one to the number given.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// # Examples</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// ```</span></span><br><span class="line"><span class="comment">/// let arg = 5;</span></span><br><span class="line"><span class="comment">/// let answer = my_crate::add_one(arg); // 假设你的 crate 名是 my_crate</span></span><br><span class="line"><span class="comment">/// assert_eq!(6, answer);</span></span><br><span class="line"><span class="comment">/// ```</span></span><br><span class="line"><span class="comment">/// ```should_panic</span></span><br><span class="line"><span class="comment">/// // my_crate::add_one(std::i32::MAX); // 这个会 panic (如果 add_one 会溢出 panic)</span></span><br><span class="line"><span class="comment">/// ```</span></span><br><span class="line"><span class="comment">/// ```compile_fail</span></span><br><span class="line"><span class="comment">/// // let x: &amp;str = my_crate::add_one(5); // 这行无法编译</span></span><br><span class="line"><span class="comment">/// ```</span></span><br><span class="line"><span class="comment">/// ```ignore</span></span><br><span class="line"><span class="comment">/// // println!(&quot;This example is ignored in tests&quot;);</span></span><br><span class="line"><span class="comment">/// ```</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">add_one</span>(x: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">    x + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>cargo test</code> 会运行标记为 <code>rust` 的代码块。如果代码块应该 panic，可以使用 </code>should_panic<code>。如果代码块不应该编译通过，可以使用 ````compile_fail</code>。如果想暂时忽略某个文档测试，可以使用 &#96;&#96;&#96;&#96;ignore&#96;。</p>
+<h3 id="8-测试最佳实践"><a href="#8-测试最佳实践" class="headerlink" title="8. 测试最佳实践"></a>8. 测试最佳实践</h3><ul>
+<li><strong>清晰命名</strong>: 测试函数名应清楚地描述它在测试什么以及预期的结果。</li>
+<li><strong>单一职责</strong>: 每个测试函数应专注于测试一个特定的行为或场景。</li>
+<li><strong>Arrange-Act-Assert (AAA)</strong>:<ul>
+<li><strong>Arrange</strong>: 设置测试所需的数据和状态。</li>
+<li><strong>Act</strong>: 执行被测试的代码。</li>
+<li><strong>Assert</strong>: 验证结果是否符合预期。</li>
+</ul>
+</li>
+<li><strong>测试边界情况和错误条件</strong>: 不仅仅测试“快乐路径”，还要测试无效输入、边缘情况和预期的错误行为。</li>
+<li><strong>保持测试独立</strong>: 测试之间不应该相互依赖或影响。</li>
+<li><strong>快速运行</strong>: 单元测试应该非常快，以便频繁运行。耗时的测试可以标记为 <code>#[ignore]</code>。</li>
+</ul>
+<p>Rust 的内置测试框架为开发者提供了一套强大而便捷的工具，以确保代码的质量和可靠性。通过结合单元测试、集成测试和文档测试，你可以构建出更健壮、更易于维护的 Rust 应用程序和库。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Jackey Zhou</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/08/%E6%B5%8B%E8%AF%95/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/08/%E6%B5%8B%E8%AF%95/')">测试</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/08/%E6%B5%8B%E8%AF%95/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=测试&amp;url=http://example.com/2025/05/08/%E6%B5%8B%E8%AF%95/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Welcome To LifeTech's Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Rust基础知识<span class="tagsPageCount">21</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/08/%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F%E5%92%8Ccargo/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">模块系统和cargo</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/08/unsafe-Rust/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">unsafe Rust</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/08/Copy%E5%92%8CMove/" title="Copy和Move"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Copy和Move</div></div></a></div><div><a href="/2025/05/08/FFI/" title="FFI"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">FFI</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用标准库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust常用第三方库</div></div></a></div><div><a href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust异步编程</div></div></a></div><div><a href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-08</div><div class="title">Rust综合案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">记录技术成长的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B5%8B%E8%AF%95%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1. 为什么测试如此重要？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Rust-%E4%B8%AD%E7%9A%84%E6%B5%8B%E8%AF%95%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BB%84%E7%BB%87"><span class="toc-number">2.</span> <span class="toc-text">2. Rust 中的测试类型和组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">3. 如何编写测试函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-test-%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.</span> <span class="toc-text">a) #[test] 属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E6%96%AD%E8%A8%80%E5%AE%8F-Assertion-Macros"><span class="toc-number">3.2.</span> <span class="toc-text">b) 断言宏 (Assertion Macros)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E6%9C%9F%E6%9C%9B-Panic-%E7%9A%84%E6%B5%8B%E8%AF%95-should-panic"><span class="toc-number">3.3.</span> <span class="toc-text">c) 期望 Panic 的测试: #[should_panic]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-%E8%BF%94%E5%9B%9E-Result-%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="toc-number">3.4.</span> <span class="toc-text">d) 返回 Result&lt;T, E&gt; 的测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-Cargo-%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">4. 使用 Cargo 运行测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%BB%84%E7%BB%87-mod-tests"><span class="toc-number">5.</span> <span class="toc-text">5. 单元测试的组织 (mod tests)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95%E7%9A%84%E7%BB%84%E7%BB%87-tests-%E7%9B%AE%E5%BD%95"><span class="toc-number">6.</span> <span class="toc-text">6. 集成测试的组织 (tests 目录)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%96%87%E6%A1%A3%E6%B5%8B%E8%AF%95"><span class="toc-number">7.</span> <span class="toc-text">7. 文档测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%B5%8B%E8%AF%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">8.</span> <span class="toc-text">8. 测试最佳实践</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" title="Rust综合案例">Rust综合案例</a><time datetime="2025-05-07T18:24:47.000Z" title="发表于 2025-05-08 02:24:47">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Rust常用第三方库">Rust常用第三方库</a><time datetime="2025-05-07T18:12:12.000Z" title="发表于 2025-05-08 02:12:12">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%B8%B8%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93/" title="Rust常用标准库">Rust常用标准库</a><time datetime="2025-05-07T18:12:04.000Z" title="发表于 2025-05-08 02:12:04">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/Rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="Rust异步编程">Rust异步编程</a><time datetime="2025-05-07T18:11:50.000Z" title="发表于 2025-05-08 02:11:50">2025-05-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E5%AE%8FMacros/" title="宏Macros">宏Macros</a><time datetime="2025-05-07T18:09:43.000Z" title="发表于 2025-05-08 02:09:43">2025-05-08</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Jackey Zhou" target="_blank">Jackey Zhou</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">Rust基础知识<sup>21</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 0.88rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 0.88rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Jackey Zhou 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

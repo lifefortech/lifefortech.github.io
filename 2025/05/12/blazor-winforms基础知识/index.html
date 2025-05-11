@@ -1,0 +1,631 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>blazor winforms基础知识 | Welcome To LifeTech's Blog</title><meta name="keywords" content="csharp相关学习"><meta name="author" content="Jackey Zhou"><meta name="copyright" content="Jackey Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="blazor winforms基础知识"><meta name="application-name" content="blazor winforms基础知识"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="blazor winforms基础知识"><meta property="og:url" content="http://example.com/2025/05/12/blazor-winforms%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html"><meta property="og:site_name" content="Welcome To LifeTech's Blog"><meta property="og:description" content="目录 Blazor WinForms Hybrid Learning Directory 简介 Windows Forms (WinForms) 概述 Blazor Hybrid 概述 Blazor WinForms Hybrid 的核心思想   为何选择 Blazor WinForms Hybri"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Jackey Zhou"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="目录 Blazor WinForms Hybrid Learning Directory 简介 Windows Forms (WinForms) 概述 Blazor Hybrid 概述 Blazor WinForms Hybrid 的核心思想   为何选择 Blazor WinForms Hybri"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/12/blazor-winforms%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Jackey Zhou","link":"链接: ","source":"来源: Welcome To LifeTech's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Welcome To LifeTech's Blog',
+  title: 'blazor winforms基础知识',
+  postAI: '',
+  pageFillDescription: 'Blazor WinForms Hybrid Learning Directory, 1. 简介, Windows Forms (WinForms) 概述, Blazor Hybrid 概述, Blazor WinForms Hybrid 的核心思想, 2. 为何选择 Blazor WinForms Hybrid? (优势), 3. 搭建开发环境, 4. 创建第一个 Blazor WinForms 应用, 使用 Visual Studio (推荐), 手动将 Blazor Hybrid 添加到现有 WinForms 项目 (高级), 项目结构解析, 5. 核心控件 Microsoft.AspNetCore.Components.WebView.WindowsForms.BlazorWebView, 在窗体上添加 BlazorWebView, HostPage 属性, RootComponents 集合, Services 属性 (依赖注入作用域), 6. 配置服务 (Program.cs 或窗体初始化), 主 Program.cs 设置, 在 BlazorWebView 实例上配置服务, 7. 使用 Blazor 构建用户界面, Razor 组件 (.razor), 布局 (Layouts), 路由 (Routing), 数据绑定与事件处理, 依赖注入 (DI), 8. 与 Windows Forms 及原生 Windows API 交互, 从 Blazor 调用 WinFormsx2F原生功能, 方法 1 通过注入的服务, 示例 从 Blazor 显示 WinForms MessageBox, 示例 从 Blazor 打开 WinForms OpenFileDialog, 示例 访问 Windows 注册表 (简化), 使用 Px2FInvoke 调用原生 Windows API, 从 WinForms 调用 Blazor 组件方法 (高级), 9. JavaScript 互操作 (JS Interop), 10. 样式化应用, 全局 CSS (wwwroot/css), 组件作用域 CSS (.razor.css), 11. 代码共享策略, 12. 线程注意事项, 13. WebView2 运行时, 14. 调试, 15. 部署, 16. Blazor WinForms Hybrid 适用场景, 17. 局限性与考量, 18. 总结目录简介概述概述的核心思想为何选择优势搭建开发环境创建第一个应用使用推荐手动将添加到现有项目高级项目结构解析核心控件在窗体上添加属性集合属性依赖注入作用域配置服务或窗体初始化主设置在实例上配置服务使用构建用户界面组件布局路由数据绑定与事件处理依赖注入与及原生交互从调用原生功能方法通过注入的服务示例从显示示例从打开示例访问注册表简化使用调用原生从调用组件方法高级互操作样式化应用全局组件作用域代码共享策略线程注意事项运行时调试部署适用场景局限性与考量总结简介概述是一个成熟的框架用于构建桌面应用程序它提供了一套丰富的可视化控件事件驱动编程模型以及对操作系统的深度集成许多企业仍拥有大量基于构建的关键业务应用程序概述是一种技术它允许开发者将一个使用构建交互式客户端的框架嵌入到原生客户端应用程序框架中这意味着可以在桌面或移动应用内部渲染通过技术构建的的核心思想的核心思想是在传统的应用程序中承载开发者可以使用现代的组件模型和技术来创建应用程序的用户界面或部分界面同时仍然能够完全访问桌面框架的功能以及底层的这为现代化现有应用或使用技术构建新的桌面应用提供了一条有效途径为何选择优势现代化现有应用可以在不完全重写整个应用的前提下逐步引入基于的现代化模块用现代替换老旧难以维护的界面部分利用开发技能拥有开发背景的团队可以更轻松地参与桌面应用的开发可以使用丰富的组件库和框架代码重用如果同时拥有应用和桌面应用的需求可以在它们之间共享组件布局和部分逻辑访问完整的桌面能力代码在进程中本地运行可以直接访问所有如文件系统网络多线程和特有功能如注册表调用丰富的可能性结合控件的稳定性和的灵活性与美观性更平滑的迁移路径对于希望从传统桌面技术转向更现代技术栈的团队提供了一个过渡方案搭建开发环境安装最新版本的推荐或更高版本为佳因其为且对支持更完善或更高版本确保安装了工作负载运行时依赖于运行时较新的版本某些版本及通常已内置对于旧版系统或未安装的情况应用部署时可能需要分发或引导用户安装运行时或创建第一个应用使用推荐打开选择创建新项目搜索并选择模板注意不是版本配置项目名称和位置选择或更高版本作为目标框架然后点击创建添加包右键单击项目管理程序包搜索并安装手动配置如果模板不直接提供创建一个文件夹在项目根目录并在其中添加和必要的文件创建组件文件存放的文件夹例如和添加对于及以后版本可能会直接提供模板这将简化初始设置如果没有上述步骤是关键手动将添加到现有项目高级确保项目是风格的项目并以为目标添加必要的引用到文件将更改为很重要创建文件夹并在其中放置创建文件在项目根目录或组件文件夹的根目录你的项目命名空间如果有布局创建组件例如一个简单的页面项目结构解析应用程序的入口点配置应用的启动特定的服务通常在这里或在的属性中配置或你的主窗体承载控件的窗体或你选择的名称存放组件布局组件如页面组件如定义路由和默认布局包含静态资源图像应用的宿主页面全局全局指令文件项目配置文件核心控件是一个控件用于在应用程序中托管内容在窗体上添加通过设计器打开你的目标窗体如的设计视图打开工具箱控件应该出现在工具箱中通常在常规或所有部分可能需要构建项目后才显示将其拖放到窗体上并调整其大小和属性通常设为通过代码在窗体的构造函数或事件中动态创建和添加控件确保路径正确注意的路径分隔符可能是或但使用或确保正确定位文件夹更可靠通常如果内容设置为则路径相对于可执行文件属性字符串类型指定作为应用宿主的静态文件的路径相对于应用程序的根目录或内容根目录通常是集合类型用于定义哪些根组件将被加载到中添加一个根组件要渲染的根组件的类型一个选择器指定中根组件应渲染到的元素通常是添加一个预配置的实例允许传递参数属性依赖注入作用域类型这是非常重要的属性它定义了实例内运行的组件的依赖注入服务作用域你必须为此属性提供一个配置了所有必要服务包括和你的应用服务的每个实例都有其自己的服务提供者这意味着它们有隔离的服务作用域配置服务或窗体初始化主设置在应用中通常很简单对于不像应用那样有一个集中的或来配置所有服务服务配置更倾向于与实例关联在实例上配置服务如上面通过代码添加的示例所示你需要创建一个添加和你自己的服务然后构建并将其分配给属性使用构建用户界面这部分与或标准应用非常相似组件由可重用的组件构成布局使用等布局组件路由使用指令和组件通常在中进行导航数据绑定与事件处理等标准指令均可使用依赖注入使用将通过注册的服务注入到组件中与及原生交互这是的核心价值所在从调用原生功能方法通过注入的服务这是推荐的方式创建一个服务类该类封装了与或原生的交互逻辑然后将此服务注册到中并注入到需要它的组件中示例从显示创建服务在窗体中注册服务时传递窗体实例在组件中使用示例从打开类似地创建一个服务来封装逻辑确保在线程上执行然后从调用注意某些对话框如需要在单线程单元线程上创建和显示如果的调用尤其是在方法之后不在线程上则需要如上所示显式地在新线程上运行对话框逻辑或者如果服务方法总是从的同步上下文中调用不太可能在操作后则可以直接在中执行示例访问注册表简化使用调用原生对于未直接封装的可以使用从调用组件方法高级这通常不直接发生更常见和推荐的模式是更新一个共享服务状态对象组件观察这个服务状态对象例如通过事件或定期检查并相应地更新其调用如果需要如果确实需要直接调用理论上可以在时如果能获取到根组件的实例引用这不直接支持或者通过互操作调用再通过调用组件的方法这种反向通信通常更复杂应优先考虑基于共享服务的模式互操作与或应用中的工作方式完全相同注入到组件使用或调用中或全局可用的函数可以使用调用组件中标记为的静态方法样式化应用全局在文件夹下组织你的文件如并在中引用它们可以使用等标准框架组件作用域的隔离功能在中同样有效为组件创建匹配的文件样式将仅应用于该组件这些样式会被捆绑到中代码共享策略类库将共享的组件布局和静态资源项目中的放入中然后应用应用或应用都可以引用此标准类库共享业务逻辑模型和服务不含的纯代码线程注意事项具有严格的单线程模型所有与控件的交互都必须在创建这些控件的线程上进行从组件的代码尤其是在之后或后台线程回调中与控件如通过服务调用或修改窗体属性交互时必须将调用封送到线程组件自身的状态更新和渲染由的同步上下文处理通常不需要担心但一旦跨越到对象线程规则就必须遵守提供了一个服务可以注入并用于在的同步上下文中执行代码如果需要从非线程更新但这主要用于从外部线程更新而不是更新运行时依赖于运行时分发推荐这是一个小型安装程序会下载并安装与用户系统匹配的最新版运行时如果尚未安装包含特定位数的完整运行时将特定版本的运行时文件与你的应用程序一起打包应用尺寸会增大但能确保运行时版本的一致性检查安装你的应用可以在启动时检查是否已安装并引导用户安装如果需要调试代码提供了对组件代码和代码的完整调试支持断点单步执行等内容确保在服务配置中调用了运行应用后通常可以在控件上右键单击如果上下文菜单启用或使用键盘快捷键如但这可能不总是在中直接映射来尝试打开的开发者工具更可靠的方式是当应用和运行时打开浏览器导航到你应该能在那里看到你的应用进程中的实例并可以附加调试器部署部署应用与标准应用类似部署直接复制目录下的文件一种部署技术允许自动更新打包现代应用打包格式支持通过或其他方式分发确保包含运行时或引导用户安装它除非使用部署适用场景逐步现代化大型旧有应用用组件替换单个窗体或用户控件具有开发技能的团队构建桌面应用复用现有技能和组件库需要丰富现代但仍需深度集成的应用提供灵活性提供原生访问内部业务线应用对原生观感要求不高但对功能和快速开发要求较高局限性与考量平台中心主要为设计虽然在上通过等有一定兼容性但对的依赖使其主要面向性能本身性能优越但复杂的或大量的仍可能影响感知性能尤其是在资源受限的机器上内存占用同时运行框架运行时以及内嵌的进程内存占用可能高于纯或纯应用原生观感与体验始终与平台原生控件在观感和行为上有所差异混合使用时可能需要精心设计以保持一致性需要同时考虑内容和桌面应用如的可访问性标准打包与依赖需要处理运行时的依赖总结为拥有大量现有应用或希望使用技术构建功能强大的桌面应用的团队提供了一条极具吸引力的路径它成功地将现代化的开发能力与对和原生功能的完全访问权限结合起来通过仔细规划服务架构线程处理和原生交互开发者可以创建出既现代又功能强大的桌面应用程序同时最大限度地提高代码重用率并利用现有的开发技能',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-12 02:29:16',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Welcome To LifeTech's Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">Rust基础知识<sup>21</sup></a><a href="/tags/csharp%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">csharp相关学习<sup>5</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/python%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">python相关学习<sup>4</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 1.05rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">30</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/csharp%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>csharp相关学习</span></a></span></div></div><h1 class="post-title" itemprop="name headline">blazor winforms基础知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-11T18:16:19.000Z" title="发表于 2025-05-12 02:16:19">2025-05-12</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-11T18:29:16.670Z" title="更新于 2025-05-12 02:29:16">2025-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为无锡"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>无锡</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/12/blazor-winforms%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><header><a href="/tags/csharp%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" tabindex="-1" itemprop="url">csharp相关学习</a><h1 id="CrawlerTitle" itemprop="name headline">blazor winforms基础知识</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Jackey Zhou</span><time itemprop="dateCreated datePublished" datetime="2025-05-11T18:16:19.000Z" title="发表于 2025-05-12 02:16:19">2025-05-12</time><time itemprop="dateCreated datePublished" datetime="2025-05-11T18:29:16.670Z" title="更新于 2025-05-12 02:29:16">2025-05-12</time></header><p><strong>目录</strong></p>
+<h1 id="Blazor-WinForms-Hybrid-Learning-Directory"><a href="#Blazor-WinForms-Hybrid-Learning-Directory" class="headerlink" title="Blazor WinForms Hybrid Learning Directory"></a>Blazor WinForms Hybrid Learning Directory</h1><ol>
+<li><a href="#1-%E7%AE%80%E4%BB%8B">简介</a><ul>
+<li><a href="#windows-forms-winforms-%E6%A6%82%E8%BF%B0">Windows Forms (WinForms) 概述</a></li>
+<li><a href="#blazor-hybrid-%E6%A6%82%E8%BF%B0">Blazor Hybrid 概述</a></li>
+<li><a href="#blazor-winforms-hybrid-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3">Blazor WinForms Hybrid 的核心思想</a></li>
+</ul>
+</li>
+<li><a href="#2-%E4%B8%BA%E4%BD%95%E9%80%89%E6%8B%A9-blazor-winforms-hybrid-%E4%BC%98%E5%8A%BF">为何选择 Blazor WinForms Hybrid? (优势)</a></li>
+<li><a href="#3-%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">搭建开发环境</a></li>
+<li><a href="#4-%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA-blazor-winforms-%E5%BA%94%E7%94%A8">创建第一个 Blazor WinForms 应用</a><ul>
+<li><a href="#%E4%BD%BF%E7%94%A8-visual-studio-%E6%8E%A8%E8%8D%90">使用 Visual Studio (推荐)</a></li>
+<li><a href="#%E6%89%8B%E5%8A%A8%E5%B0%86-blazor-hybrid-%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%8E%B0%E6%9C%89-winforms-%E9%A1%B9%E7%9B%AE-%E9%AB%98%E7%BA%A7">手动将 Blazor Hybrid 添加到现有 WinForms 项目 (高级)</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90">项目结构解析</a></li>
+</ul>
+</li>
+<li><a href="#5-%E6%A0%B8%E5%BF%83%E6%8E%A7%E4%BB%B6-microsoftaspnetcorecomponentswebviewwindowsformsblazorwebview">核心控件: <code>Microsoft.AspNetCore.Components.WebView.WindowsForms.BlazorWebView</code></a><ul>
+<li><a href="#%E5%9C%A8%E7%AA%97%E4%BD%93%E4%B8%8A%E6%B7%BB%E5%8A%A0-blazorwebview">在窗体上添加 <code>BlazorWebView</code></a></li>
+<li><a href="#hostpage-%E5%B1%9E%E6%80%A7"><code>HostPage</code> 属性</a></li>
+<li><a href="#rootcomponents-%E9%9B%86%E5%90%88"><code>RootComponents</code> 集合</a></li>
+<li><a href="#services-%E5%B1%9E%E6%80%A7-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E4%BD%9C%E7%94%A8%E5%9F%9F"><code>Services</code> 属性 (依赖注入作用域)</a></li>
+</ul>
+</li>
+<li><a href="#6-%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1-programcs-%E6%88%96%E7%AA%97%E4%BD%93%E5%88%9D%E5%A7%8B%E5%8C%96">配置服务 (<code>Program.cs</code> 或窗体初始化)</a><ul>
+<li><a href="#%E4%B8%BB-programcs-%E8%AE%BE%E7%BD%AE">主 <code>Program.cs</code> 设置</a></li>
+<li><a href="#%E5%9C%A8-blazorwebview-%E5%AE%9E%E4%BE%8B%E4%B8%8A%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1">在 <code>BlazorWebView</code> 实例上配置服务</a></li>
+</ul>
+</li>
+<li><a href="#7-%E4%BD%BF%E7%94%A8-blazor-%E6%9E%84%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2">使用 Blazor 构建用户界面</a><ul>
+<li><a href="#razor-%E7%BB%84%E4%BB%B6-razor">Razor 组件 (<code>.razor</code>)</a></li>
+<li><a href="#%E5%B8%83%E5%B1%80-layouts">布局 (Layouts)</a></li>
+<li><a href="#%E8%B7%AF%E7%94%B1-routing">路由 (Routing)</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">数据绑定与事件处理</a></li>
+<li><a href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-di">依赖注入 (DI)</a></li>
+</ul>
+</li>
+<li><a href="#8-%E4%B8%8E-windows-forms-%E5%8F%8A%E5%8E%9F%E7%94%9F-windows-api-%E4%BA%A4%E4%BA%92">与 Windows Forms 及原生 Windows API 交互</a><ul>
+<li><a href="#%E4%BB%8E-blazor-%E8%B0%83%E7%94%A8-winforms%E5%8E%9F%E7%94%9F%E5%8A%9F%E8%83%BD">从 Blazor 调用 WinForms&#x2F;原生功能</a><ul>
+<li><a href="#%E6%96%B9%E6%B3%951-%E9%80%9A%E8%BF%87%E6%B3%A8%E5%85%A5%E7%9A%84%E6%9C%8D%E5%8A%A1">方法 1: 通过注入的服务</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B-%E4%BB%8E-blazor-%E6%98%BE%E7%A4%BA-winforms-messagebox">示例: 从 Blazor 显示 WinForms <code>MessageBox</code></a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B-%E4%BB%8E-blazor-%E6%89%93%E5%BC%80-winforms-openfiledialog">示例: 从 Blazor 打开 WinForms <code>OpenFileDialog</code></a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B-%E8%AE%BF%E9%97%AE-windows-%E6%B3%A8%E5%86%8C%E8%A1%A8-%E7%AE%80%E5%8C%96">示例: 访问 Windows 注册表 (简化)</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-pinvoke-%E8%B0%83%E7%94%A8%E5%8E%9F%E7%94%9F-windows-api">使用 P&#x2F;Invoke 调用原生 Windows API</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BB%8E-winforms-%E8%B0%83%E7%94%A8-blazor-%E7%BB%84%E4%BB%B6%E6%96%B9%E6%B3%95-%E9%AB%98%E7%BA%A7">从 WinForms 调用 Blazor 组件方法 (高级)</a></li>
+</ul>
+</li>
+<li><a href="#9-javascript-%E4%BA%92%E6%93%8D%E4%BD%9C-js-interop">JavaScript 互操作 (JS Interop)</a></li>
+<li><a href="#10-%E6%A0%B7%E5%BC%8F%E5%8C%96%E5%BA%94%E7%94%A8">样式化应用</a><ul>
+<li><a href="#%E5%85%A8%E5%B1%80-css-wwwrootcss">全局 CSS (<code>wwwroot/css</code>)</a></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F-css-razorcss">组件作用域 CSS (<code>.razor.css</code>)</a></li>
+</ul>
+</li>
+<li><a href="#11-%E4%BB%A3%E7%A0%81%E5%85%B1%E4%BA%AB%E7%AD%96%E7%95%A5">代码共享策略</a></li>
+<li><a href="#12-%E7%BA%BF%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">线程注意事项</a></li>
+<li><a href="#13-webview2-%E8%BF%90%E8%A1%8C%E6%97%B6">WebView2 运行时</a></li>
+<li><a href="#14-%E8%B0%83%E8%AF%95">调试</a></li>
+<li><a href="#15-%E9%83%A8%E7%BD%B2">部署</a></li>
+<li><a href="#16-blazor-winforms-hybrid-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">Blazor WinForms Hybrid 适用场景</a></li>
+<li><a href="#17-%E5%B1%80%E9%99%90%E6%80%A7%E4%B8%8E%E8%80%83%E9%87%8F">局限性与考量</a></li>
+<li><a href="#18-%E6%80%BB%E7%BB%93">总结</a></li>
+</ol>
+<hr>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><h3 id="Windows-Forms-WinForms-概述"><a href="#Windows-Forms-WinForms-概述" class="headerlink" title="Windows Forms (WinForms) 概述"></a>Windows Forms (WinForms) 概述</h3><p>Windows Forms 是一个成熟的 .NET UI 框架，用于构建 Windows 桌面应用程序。它提供了一套丰富的可视化控件、事件驱动编程模型以及对 Windows 操作系统的深度集成。许多企业仍拥有大量基于 WinForms 构建的关键业务应用程序。</p>
+<h3 id="Blazor-Hybrid-概述"><a href="#Blazor-Hybrid-概述" class="headerlink" title="Blazor Hybrid 概述"></a>Blazor Hybrid 概述</h3><p>Blazor Hybrid 是一种技术，它允许开发者将 Blazor (一个使用 .NET 构建交互式客户端 Web UI 的框架) 嵌入到原生客户端应用程序框架中。这意味着可以在桌面或移动应用内部渲染通过 Web 技术 (HTML, CSS, C# via Blazor) 构建的 UI。</p>
+<h3 id="Blazor-WinForms-Hybrid-的核心思想"><a href="#Blazor-WinForms-Hybrid-的核心思想" class="headerlink" title="Blazor WinForms Hybrid 的核心思想"></a>Blazor WinForms Hybrid 的核心思想</h3><p>Blazor WinForms Hybrid 的核心思想是<strong>在传统的 Windows Forms 应用程序中承载 Blazor Web UI</strong>。开发者可以使用现代的 Blazor 组件模型和 Web 技术来创建应用程序的用户界面或部分界面，同时仍然能够完全访问 .NET 桌面框架的功能以及底层的 Windows API。这为现代化现有 WinForms 应用或使用 Web 技术构建新的桌面应用提供了一条有效途径。</p>
+<h2 id="2-为何选择-Blazor-WinForms-Hybrid-优势"><a href="#2-为何选择-Blazor-WinForms-Hybrid-优势" class="headerlink" title="2. 为何选择 Blazor WinForms Hybrid? (优势)"></a>2. 为何选择 Blazor WinForms Hybrid? (优势)</h2><ul>
+<li><strong>现代化现有 WinForms 应用</strong>:<ul>
+<li>可以在不完全重写整个应用的前提下，逐步引入基于 Blazor 的现代化 UI 模块。</li>
+<li>用现代 Web UI 替换老旧、难以维护的 WinForms 界面部分。</li>
+</ul>
+</li>
+<li><strong>利用 Web 开发技能</strong>:<ul>
+<li>拥有 Web 开发背景（HTML, CSS, JavaScript, Blazor&#x2F;Razor）的团队可以更轻松地参与桌面应用的 UI 开发。</li>
+<li>可以使用丰富的 Web UI 组件库和 CSS 框架。</li>
+</ul>
+</li>
+<li><strong>代码重用</strong>:<ul>
+<li>如果同时拥有 Blazor Web 应用和桌面应用的需求，可以在它们之间共享 Blazor 组件、布局和部分逻辑。</li>
+</ul>
+</li>
+<li><strong>访问完整的 .NET 桌面能力</strong>:<ul>
+<li>Blazor 代码在 WinForms 进程中本地运行，可以直接访问所有 .NET API（如文件系统、网络、多线程）和 Windows 特有功能（如注册表、P&#x2F;Invoke 调用 Windows API）。</li>
+</ul>
+</li>
+<li><strong>丰富的 UI 可能性</strong>:<ul>
+<li>结合 WinForms 控件的稳定性和 Blazor UI 的灵活性与美观性。</li>
+</ul>
+</li>
+<li><strong>更平滑的迁移路径</strong>:<ul>
+<li>对于希望从传统桌面技术转向更现代 Web 技术栈的团队，Blazor WinForms Hybrid 提供了一个过渡方案。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-搭建开发环境"><a href="#3-搭建开发环境" class="headerlink" title="3. 搭建开发环境"></a>3. 搭建开发环境</h2><ol>
+<li><strong>.NET SDK</strong>: 安装最新版本的 .NET SDK (推荐 .NET 6 或更高版本，.NET 8 为佳，因其为 LTS 且对 Hybrid 支持更完善)。</li>
+<li><strong>Visual Studio 2022 (或更高版本)</strong>:<ul>
+<li>确保安装了 “.NET desktop development” 工作负载。</li>
+<li>WebView2 运行时：BlazorWebView 依赖于 Microsoft Edge WebView2 运行时。较新的 Windows 版本 (Windows 10 某些版本及 Windows 11) 通常已内置。对于旧版系统或未安装的情况，应用部署时可能需要分发或引导用户安装 WebView2 运行时（Evergreen Bootstrapper 或 Fixed Version）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-创建第一个-Blazor-WinForms-应用"><a href="#4-创建第一个-Blazor-WinForms-应用" class="headerlink" title="4. 创建第一个 Blazor WinForms 应用"></a>4. 创建第一个 Blazor WinForms 应用</h2><h3 id="使用-Visual-Studio-推荐"><a href="#使用-Visual-Studio-推荐" class="headerlink" title="使用 Visual Studio (推荐)"></a>使用 Visual Studio (推荐)</h3><ol>
+<li>打开 Visual Studio 2022。</li>
+<li>选择 “创建新项目”。</li>
+<li>搜索并选择 “Windows Forms App (.NET)” 模板。<strong>注意：不是 “.NET Framework” 版本。</strong></li>
+<li>配置项目名称和位置，选择 .NET 6.0 或更高版本作为目标框架，然后点击 “创建”。</li>
+<li><strong>添加 BlazorWebView NuGet 包</strong>:<br>右键单击项目 -&gt; “管理 NuGet 程序包…” -&gt; 搜索并安装 <code>Microsoft.AspNetCore.Components.WebView.WindowsForms</code>。</li>
+<li><strong>手动配置 (如果模板不直接提供 Blazor Hybrid)</strong>:<ul>
+<li>创建一个 <code>wwwroot</code> 文件夹在项目根目录，并在其中添加 <code>index.html</code> 和必要的 CSS 文件。</li>
+<li>创建 Blazor 组件 (<code>.razor</code> 文件) 存放的文件夹，例如 <code>Components/Pages</code> 和 <code>Components/Layout</code>。</li>
+<li>添加 <code>_Imports.razor</code>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>对于 .NET 8 及以后版本，Visual Studio 可能会直接提供 “Windows Forms Blazor App” 模板，这将简化初始设置。如果没有，上述步骤是关键。</strong></p>
+<h3 id="手动将-Blazor-Hybrid-添加到现有-WinForms-项目-高级"><a href="#手动将-Blazor-Hybrid-添加到现有-WinForms-项目-高级" class="headerlink" title="手动将 Blazor Hybrid 添加到现有 WinForms 项目 (高级)"></a>手动将 Blazor Hybrid 添加到现有 WinForms 项目 (高级)</h3><ol>
+<li><p><strong>确保项目是 .NET SDK 风格的项目，并以 .NET 6+ 为目标。</strong></p>
+</li>
+<li><p><strong>添加必要的 SDK 引用到 <code>.csproj</code> 文件：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">Sdk</span>=<span class="string">&quot;Microsoft.NET.Sdk.Razor&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">OutputType</span>&gt;</span>WinExe<span class="tag">&lt;/<span class="name">OutputType</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">TargetFramework</span>&gt;</span>net8.0-windows<span class="tag">&lt;/<span class="name">TargetFramework</span>&gt;</span> <span class="tag">&lt;<span class="name">Nullable</span>&gt;</span>enable<span class="tag">&lt;/<span class="name">Nullable</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">UseWindowsForms</span>&gt;</span>true<span class="tag">&lt;/<span class="name">UseWindowsForms</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ImplicitUsings</span>&gt;</span>enable<span class="tag">&lt;/<span class="name">ImplicitUsings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">EnableDefaultCssItems</span>&gt;</span>false<span class="tag">&lt;/<span class="name">EnableDefaultCssItems</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ItemGroup</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">PackageReference</span> <span class="attr">Include</span>=<span class="string">&quot;Microsoft.AspNetCore.Components.WebView.WindowsForms&quot;</span> <span class="attr">Version</span>=<span class="string">&quot;8.0.x&quot;</span> /&gt;</span> <span class="tag">&lt;/<span class="name">ItemGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ItemGroup</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Content</span> <span class="attr">Update</span>=<span class="string">&quot;wwwroot\**&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CopyToOutputDirectory</span>&gt;</span>PreserveNewest<span class="tag">&lt;/<span class="name">CopyToOutputDirectory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ItemGroup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将 <code>Microsoft.NET.Sdk</code> 更改为 <code>Microsoft.NET.Sdk.Razor</code> 很重要。</p>
+</li>
+<li><p><strong>创建 <code>wwwroot</code> 文件夹</strong>，并在其中放置 <code>index.html</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>MyWinFormsBlazorApp<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">&quot;/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/app.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;MyWinFormsBlazorApp.styles.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;blazor-error-ui&quot;</span>&gt;</span></span><br><span class="line">      An unhandled error has occurred.</span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;reload&quot;</span>&gt;</span>Reload<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dismiss&quot;</span>&gt;</span>🗙<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;_framework/blazor.webview.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>创建 <code>_Imports.razor</code> 文件</strong> 在项目根目录或组件文件夹的根目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@using System.Net.Http</span><br><span class="line">@using Microsoft.AspNetCore.Components.Forms</span><br><span class="line">@using Microsoft.AspNetCore.Components.Routing</span><br><span class="line">@using Microsoft.AspNetCore.Components.Web</span><br><span class="line">@using Microsoft.JSInterop</span><br><span class="line">@using MyWinFormsBlazorApp // 你的项目命名空间</span><br><span class="line">@using MyWinFormsBlazorApp.Components.Layout // 如果有布局</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>创建 Razor 组件</strong> (例如，一个简单的 <code>Counter.razor</code> 页面)。</p>
+</li>
+</ol>
+<h3 id="项目结构解析"><a href="#项目结构解析" class="headerlink" title="项目结构解析"></a>项目结构解析</h3><ul>
+<li><strong><code>Program.cs</code></strong>: 应用程序的入口点，配置 WinForms 应用的启动。Blazor 特定的服务通常在这里或在 <code>BlazorWebView</code> 的 <code>Services</code> 属性中配置。</li>
+<li><strong><code>Form1.cs</code> (或你的主窗体)</strong>: 承载 <code>BlazorWebView</code> 控件的 Windows 窗体。</li>
+<li><strong><code>Components/</code></strong> (或你选择的名称): 存放 <code>.razor</code> 组件。<ul>
+<li><strong><code>Layout/</code></strong>: Blazor 布局组件 (如 <code>MainLayout.razor</code>)。</li>
+<li><strong><code>Pages/</code></strong>: Blazor 页面组件 (如 <code>Home.razor</code>, <code>Counter.razor</code>)。</li>
+<li><strong><code>Routes.razor</code></strong>: (.NET 8+) 定义 Blazor 路由和默认布局。</li>
+</ul>
+</li>
+<li><strong><code>wwwroot/</code></strong>: 包含静态 Web 资源 (HTML, CSS, JS, 图像)。<ul>
+<li><code>index.html</code>: Blazor 应用的宿主 HTML 页面。</li>
+<li><code>css/app.css</code>: 全局 CSS。</li>
+</ul>
+</li>
+<li><strong><code>_Imports.razor</code></strong>: 全局 Razor <code>@using</code> 指令。</li>
+<li><strong><code>.csproj</code> 文件</strong>: 项目配置文件。</li>
+</ul>
+<h2 id="5-核心控件-Microsoft-AspNetCore-Components-WebView-WindowsForms-BlazorWebView"><a href="#5-核心控件-Microsoft-AspNetCore-Components-WebView-WindowsForms-BlazorWebView" class="headerlink" title="5. 核心控件: Microsoft.AspNetCore.Components.WebView.WindowsForms.BlazorWebView"></a>5. 核心控件: <code>Microsoft.AspNetCore.Components.WebView.WindowsForms.BlazorWebView</code></h2><p><code>BlazorWebView</code> 是一个 WinForms 控件，用于在 Windows Forms 应用程序中托管 Blazor 内容。</p>
+<h3 id="在窗体上添加-BlazorWebView"><a href="#在窗体上添加-BlazorWebView" class="headerlink" title="在窗体上添加 BlazorWebView"></a>在窗体上添加 <code>BlazorWebView</code></h3><ol>
+<li><p><strong>通过设计器</strong>:</p>
+<ul>
+<li>打开你的目标窗体 (如 <code>Form1.cs</code>) 的设计视图。</li>
+<li>打开 “工具箱” (View -&gt; Toolbox)。</li>
+<li><code>BlazorWebView</code> 控件应该出现在工具箱中 (通常在 “常规” 或 “所有 Windows Forms” 部分，可能需要构建项目后才显示)。</li>
+<li>将其拖放到窗体上，并调整其大小和 <code>Dock</code> 属性 (通常设为 <code>DockStyle.Fill</code>)。</li>
+</ul>
+</li>
+<li><p><strong>通过代码</strong>:<br>在窗体的构造函数或 <code>Load</code> 事件中动态创建和添加控件：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Form1.cs</span></span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Components.WebView.WindowsForms;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.DependencyInjection; <span class="comment">// Required for IServiceCollection</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">Form1</span> : <span class="title">Form</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> BlazorWebView blazorWebView;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Form1</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        InitializeComponent(); <span class="comment">// From designer</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> services = <span class="keyword">new</span> ServiceCollection();</span><br><span class="line">        services.AddWindowsFormsBlazorWebView();</span><br><span class="line">        services.AddBlazorWebViewDeveloperTools(); <span class="comment">// Optional: for dev tools</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Register your application-specific Blazor services</span></span><br><span class="line">        services.AddSingleton&lt;MyProject.Data.WeatherForecastService&gt;();</span><br><span class="line">        <span class="comment">// services.AddSingleton&lt;MyNativeInteractionService&gt;(sp =&gt; new MyNativeInteractionService(this));</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        blazorWebView = <span class="keyword">new</span> BlazorWebView()</span><br><span class="line">        &#123;</span><br><span class="line">            Dock = DockStyle.Fill,</span><br><span class="line">            HostPage = <span class="string">&quot;wwwroot\\index.html&quot;</span>, <span class="comment">// 确保路径正确</span></span><br><span class="line">            Services = services.BuildServiceProvider()</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        blazorWebView.RootComponents.Add&lt;Components.Routes&gt;(<span class="string">&quot;#app&quot;</span>);</span><br><span class="line">        <span class="comment">// Or for a single component without Routes.razor:</span></span><br><span class="line">        <span class="comment">// blazorWebView.RootComponents.Add&lt;Components.Pages.Counter&gt;(&quot;#app&quot;);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.Controls.Add(blazorWebView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:</strong> <code>HostPage</code> 的路径分隔符可能是 <code>\</code> 或 <code>/</code>，但使用 <code>Path.Combine</code> 或确保正确定位 <code>wwwroot</code> 文件夹更可靠。通常，如果 <code>wwwroot</code> 内容设置为 “Copy to Output Directory: Preserve newest”，则路径相对于可执行文件。</p>
+</li>
+</ol>
+<h3 id="HostPage-属性"><a href="#HostPage-属性" class="headerlink" title="HostPage 属性"></a><code>HostPage</code> 属性</h3><p>字符串类型，指定作为 Blazor 应用宿主的静态 HTML 文件的路径 (相对于应用程序的根目录或内容根目录)。通常是 <code>wwwroot/index.html</code>。</p>
+<h3 id="RootComponents-集合"><a href="#RootComponents-集合" class="headerlink" title="RootComponents 集合"></a><code>RootComponents</code> 集合</h3><p><code>RootComponentsCollection</code> 类型，用于定义哪些根 Blazor 组件将被加载到 <code>HostPage</code> 中。</p>
+<ul>
+<li><code>Add&lt;TComponent&gt;(string selector)</code>: 添加一个根组件。<ul>
+<li><code>TComponent</code>: 要渲染的根 Blazor 组件的类型。</li>
+<li><code>selector</code>: 一个 CSS 选择器，指定 <code>HostPage</code> 中根组件应渲染到的 HTML 元素 (通常是 <code>#app</code>)。</li>
+</ul>
+</li>
+<li><code>Add(RootComponent component)</code>: 添加一个预配置的 <code>RootComponent</code> 实例，允许传递参数。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example with parameters</span></span><br><span class="line"><span class="comment">// blazorWebView.RootComponents.Add(new RootComponent(&quot;#app&quot;, typeof(MyRootComponent), new Dictionary&lt;string, object?&gt;</span></span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line"><span class="comment">//    &#123; &quot;InitialMessage&quot;, &quot;Hello from WinForms!&quot; &#125;</span></span><br><span class="line"><span class="comment">// &#125;));</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Services-属性-依赖注入作用域"><a href="#Services-属性-依赖注入作用域" class="headerlink" title="Services 属性 (依赖注入作用域)"></a><code>Services</code> 属性 (依赖注入作用域)</h3><p><code>IServiceProvider</code> 类型。这是<strong>非常重要</strong>的属性。它定义了 <code>BlazorWebView</code> 实例内运行的 Blazor 组件的依赖注入 (DI) 服务作用域。你必须为此属性提供一个配置了所有必要 Blazor 服务 (包括 <code>AddWindowsFormsBlazorWebView()</code>) 和你的应用服务的 <code>IServiceProvider</code>。</p>
+<p>每个 <code>BlazorWebView</code> 实例都有其自己的服务提供者，这意味着它们有隔离的 Blazor 服务作用域。</p>
+<h2 id="6-配置服务-Program-cs-或窗体初始化"><a href="#6-配置服务-Program-cs-或窗体初始化" class="headerlink" title="6. 配置服务 (Program.cs 或窗体初始化)"></a>6. 配置服务 (<code>Program.cs</code> 或窗体初始化)</h2><h3 id="主-Program-cs-设置"><a href="#主-Program-cs-设置" class="headerlink" title="主 Program.cs 设置"></a>主 <code>Program.cs</code> 设置</h3><p>在 WinForms 应用中，<code>Program.cs</code> 通常很简单：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Program.cs</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyWinFormsBlazorApp</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">STAThread</span>]</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            ApplicationConfiguration.Initialize(); <span class="comment">// Standard WinForms init</span></span><br><span class="line">            <span class="comment">// Blazor services are typically configured per BlazorWebView instance</span></span><br><span class="line">            <span class="comment">// or if you have a global DI container for the app, it can be built here.</span></span><br><span class="line">            Application.Run(<span class="keyword">new</span> Form1());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于 Blazor WinForms，不像 ASP.NET Core 应用那样有一个集中的 <code>Startup.cs</code> 或 <code>builder.Services</code> 来配置所有服务。服务配置更倾向于与 <code>BlazorWebView</code> 实例关联。</p>
+<h3 id="在-BlazorWebView-实例上配置服务"><a href="#在-BlazorWebView-实例上配置服务" class="headerlink" title="在 BlazorWebView 实例上配置服务"></a>在 <code>BlazorWebView</code> 实例上配置服务</h3><p>如上面 “通过代码” 添加 <code>BlazorWebView</code> 的示例所示，你需要创建一个 <code>ServiceCollection</code>，添加 Blazor 和你自己的服务，然后构建 <code>ServiceProvider</code> 并将其分配给 <code>BlazorWebView.Services</code> 属性。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Inside Form constructor or Load event</span></span><br><span class="line"><span class="keyword">var</span> services = <span class="keyword">new</span> ServiceCollection();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. Add essential BlazorWebView services</span></span><br><span class="line">services.AddWindowsFormsBlazorWebView();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Add developer tools (optional, for debugging)</span></span><br><span class="line">services.AddBlazorWebViewDeveloperTools();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. Register your application-specific services that Blazor components will use</span></span><br><span class="line">services.AddSingleton&lt;Data.WeatherForecastService&gt;(); <span class="comment">// Example service</span></span><br><span class="line">services.AddScoped&lt;MyScopedService&gt;(); <span class="comment">// Scoped to this BlazorWebView instance</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If your service needs access to the Form instance (e.g., for showing dialogs)</span></span><br><span class="line"><span class="comment">// You can register it like this:</span></span><br><span class="line">services.AddSingleton&lt;NativeUIService&gt;(sp =&gt; <span class="keyword">new</span> NativeUIService(<span class="keyword">this</span>)); <span class="comment">// &#x27;this&#x27; is the Form instance</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Build the service provider</span></span><br><span class="line">blazorWebView.Services = services.BuildServiceProvider();</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-使用-Blazor-构建用户界面"><a href="#7-使用-Blazor-构建用户界面" class="headerlink" title="7. 使用 Blazor 构建用户界面"></a>7. 使用 Blazor 构建用户界面</h2><p>这部分与 .NET MAUI Blazor Hybrid 或标准 Blazor Web 应用非常相似。</p>
+<h3 id="Razor-组件-razor"><a href="#Razor-组件-razor" class="headerlink" title="Razor 组件 (.razor)"></a>Razor 组件 (<code>.razor</code>)</h3><p>UI 由可重用的 Razor 组件构成。</p>
+<h3 id="布局-Layouts"><a href="#布局-Layouts" class="headerlink" title="布局 (Layouts)"></a>布局 (Layouts)</h3><p>使用 <code>MainLayout.razor</code> 等布局组件。</p>
+<h3 id="路由-Routing"><a href="#路由-Routing" class="headerlink" title="路由 (Routing)"></a>路由 (Routing)</h3><p>使用 <code>@page</code> 指令和 <code>&lt;Router&gt;</code> 组件 (通常在 <code>Components/Routes.razor</code> 中) 进行导航。</p>
+<h3 id="数据绑定与事件处理"><a href="#数据绑定与事件处理" class="headerlink" title="数据绑定与事件处理"></a>数据绑定与事件处理</h3><p><code>@bind</code>, <code>@onclick</code> 等标准 Blazor 指令均可使用。</p>
+<h3 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入 (DI)"></a>依赖注入 (DI)</h3><p>使用 <code>@inject</code> 将通过 <code>BlazorWebView.Services</code> 注册的服务注入到组件中。</p>
+<h2 id="8-与-Windows-Forms-及原生-Windows-API-交互"><a href="#8-与-Windows-Forms-及原生-Windows-API-交互" class="headerlink" title="8. 与 Windows Forms 及原生 Windows API 交互"></a>8. 与 Windows Forms 及原生 Windows API 交互</h2><p>这是 Blazor WinForms Hybrid 的核心价值所在。</p>
+<h3 id="从-Blazor-调用-WinForms-原生功能"><a href="#从-Blazor-调用-WinForms-原生功能" class="headerlink" title="从 Blazor 调用 WinForms&#x2F;原生功能"></a>从 Blazor 调用 WinForms&#x2F;原生功能</h3><h4 id="方法-1-通过注入的服务"><a href="#方法-1-通过注入的服务" class="headerlink" title="方法 1: 通过注入的服务"></a>方法 1: 通过注入的服务</h4><p>这是推荐的方式。创建一个服务类，该类封装了与 WinForms UI 或原生 API 的交互逻辑。然后将此服务注册到 <code>BlazorWebView.Services</code> 中，并注入到需要它的 Blazor 组件中。</p>
+<h4 id="示例-从-Blazor-显示-WinForms-MessageBox"><a href="#示例-从-Blazor-显示-WinForms-MessageBox" class="headerlink" title="示例: 从 Blazor 显示 WinForms MessageBox"></a>示例: 从 Blazor 显示 WinForms <code>MessageBox</code></h4><ol>
+<li><p><strong>创建服务:</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Services/DialogService.cs</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DialogService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> Form _parentForm;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Constructor to receive the parent form instance</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DialogService</span>(<span class="params">Form parentForm</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _parentForm = parentForm ?? <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(parentForm));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowMessageBox</span>(<span class="params"><span class="built_in">string</span> title, <span class="built_in">string</span> message</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Ensure UI updates are on the WinForms UI thread</span></span><br><span class="line">        <span class="keyword">if</span> (_parentForm.InvokeRequired)</span><br><span class="line">        &#123;</span><br><span class="line">            _parentForm.Invoke(<span class="keyword">new</span> Action(() =&gt; MessageBox.Show(_parentForm, message, title)));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            MessageBox.Show(_parentForm, message, title);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DialogResult <span class="title">ShowConfirmationBox</span>(<span class="params"><span class="built_in">string</span> title, <span class="built_in">string</span> message</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        DialogResult result = DialogResult.Cancel; <span class="comment">// Default</span></span><br><span class="line">        <span class="keyword">if</span> (_parentForm.InvokeRequired)</span><br><span class="line">        &#123;</span><br><span class="line">            _parentForm.Invoke(<span class="keyword">new</span> Action(() =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                result = MessageBox.Show(_parentForm, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);</span><br><span class="line">            &#125;));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            result = MessageBox.Show(_parentForm, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在窗体中注册服务时传递窗体实例:</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Form1.cs, in the service configuration part</span></span><br><span class="line">services.AddSingleton&lt;DialogService&gt;(sp =&gt; <span class="keyword">new</span> DialogService(<span class="keyword">this</span>)); <span class="comment">// &#x27;this&#x27; is Form1 instance</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在 Blazor 组件中使用:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@page &quot;/native-dialogs&quot;</span><br><span class="line">@inject DialogService MyDialogService</span><br><span class="line"></span><br><span class="line">&lt;h3&gt;Native WinForms Dialogs from Blazor&lt;/h3&gt;</span><br><span class="line">&lt;button class=&quot;btn btn-primary&quot; @onclick=&quot;ShowInfo&quot;&gt;Show Info Message&lt;/button&gt;</span><br><span class="line">&lt;button class=&quot;btn btn-warning&quot; @onclick=&quot;AskConfirmation&quot;&gt;Ask Confirmation&lt;/button&gt;</span><br><span class="line">&lt;p&gt;Confirmation result: @confirmationResult&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">@code &#123;</span><br><span class="line">    private string confirmationResult = &quot;N/A&quot;;</span><br><span class="line"></span><br><span class="line">    private void ShowInfo()</span><br><span class="line">    &#123;</span><br><span class="line">        MyDialogService.ShowMessageBox(&quot;Blazor Info&quot;, &quot;This message is from a native WinForms MessageBox!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private async Task AskConfirmation() // Can be async if service method is async</span><br><span class="line">    &#123;</span><br><span class="line">        var result = MyDialogService.ShowConfirmationBox(&quot;Confirm&quot;, &quot;Are you sure you want to proceed?&quot;);</span><br><span class="line">        confirmationResult = result.ToString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="示例-从-Blazor-打开-WinForms-OpenFileDialog"><a href="#示例-从-Blazor-打开-WinForms-OpenFileDialog" class="headerlink" title="示例: 从 Blazor 打开 WinForms OpenFileDialog"></a>示例: 从 Blazor 打开 WinForms <code>OpenFileDialog</code></h4><p>类似地，创建一个服务来封装 <code>OpenFileDialog</code> 逻辑，确保在 UI 线程上执行，然后从 Blazor 调用。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Services/FilePickerService.cs</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FilePickerService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> Form _parentForm;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FilePickerService</span>(<span class="params">Form parentForm</span>)</span> &#123; _parentForm = parentForm; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span>? ShowOpenFileDialog(<span class="built_in">string</span> filter = <span class="string">&quot;All files (*.*)|*.*&quot;</span>, <span class="built_in">string</span> title = <span class="string">&quot;Open File&quot;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span>? selectedFile = <span class="literal">null</span>;</span><br><span class="line">        Thread staThread = <span class="keyword">new</span> Thread(() =&gt; <span class="comment">// OpenFileDialog must run on an STA thread</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> dialog = <span class="keyword">new</span> OpenFileDialog())</span><br><span class="line">            &#123;</span><br><span class="line">                dialog.Filter = filter;</span><br><span class="line">                dialog.Title = title;</span><br><span class="line">                <span class="keyword">if</span> (dialog.ShowDialog(_parentForm) == DialogResult.OK) <span class="comment">// Pass parent form for proper modal behavior</span></span><br><span class="line">                &#123;</span><br><span class="line">                    selectedFile = dialog.FileName;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        staThread.SetApartmentState(ApartmentState.STA);</span><br><span class="line">        staThread.Start();</span><br><span class="line">        staThread.Join(); <span class="comment">// Wait for the dialog to close</span></span><br><span class="line">        <span class="keyword">return</span> selectedFile;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Register in Form1.cs:</span></span><br><span class="line"><span class="comment">// services.AddSingleton&lt;FilePickerService&gt;(sp =&gt; new FilePickerService(this));</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Use in Blazor:</span></span><br><span class="line"><span class="comment">// @inject FilePickerService MyFilePicker</span></span><br><span class="line"><span class="comment">// private async Task SelectFile() &#123;</span></span><br><span class="line"><span class="comment">//    selectedPath = MyFilePicker.ShowOpenFileDialog(&quot;Text files (*.txt)|*.txt&quot;);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意 <code>STAThread</code></strong>: 某些 WinForms 对话框（如 <code>OpenFileDialog</code>）需要在单线程单元 (STA) 线程上创建和显示。如果 Blazor 的调用（尤其是在 <code>async</code> 方法之后）不在 STA 线程上，则需要如上所示显式地在新 STA 线程上运行对话框逻辑。或者，如果服务方法总是从 Blazor 的 UI 同步上下文中调用（不太可能在 <code>async</code> 操作后），则可以直接在 <code>_parentForm.Invoke</code> 中执行。</p>
+<h4 id="示例-访问-Windows-注册表-简化"><a href="#示例-访问-Windows-注册表-简化" class="headerlink" title="示例: 访问 Windows 注册表 (简化)"></a>示例: 访问 Windows 注册表 (简化)</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Services/RegistryService.cs</span></span><br><span class="line"><span class="keyword">using</span> Microsoft.Win32;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RegistryService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span>? ReadRegistryValue(<span class="built_in">string</span> keyPath, <span class="built_in">string</span> valueName)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Example: HKEY_CURRENT_USER\Software\MyApplication</span></span><br><span class="line">            <span class="comment">// keyPath = @&quot;Software\MyApplication&quot; (relative to HKCU)</span></span><br><span class="line">            <span class="keyword">using</span> (RegistryKey? key = Registry.CurrentUser.OpenSubKey(keyPath))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> key?.GetValue(valueName)?.ToString();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">$&quot;Error reading registry: <span class="subst">&#123;ex.Message&#125;</span>&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Register and use similarly.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-P-Invoke-调用原生-Windows-API"><a href="#使用-P-Invoke-调用原生-Windows-API" class="headerlink" title="使用 P&#x2F;Invoke 调用原生 Windows API"></a>使用 P&#x2F;Invoke 调用原生 Windows API</h4><p>对于 .NET 未直接封装的 Windows API，可以使用 Platform Invoke (P&#x2F;Invoke)。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Services/NativeApiService.cs</span></span><br><span class="line"><span class="keyword">using</span> System.Runtime.InteropServices;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NativeApiService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Import User32.dll ShowWindow function</span></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">bool</span> <span class="title">ShowWindow</span>(<span class="params">IntPtr hWnd, <span class="built_in">int</span> nCmdShow</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> SW_MAXIMIZE = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> SW_MINIMIZE = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> SW_RESTORE = <span class="number">9</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> Form _parentForm;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NativeApiService</span>(<span class="params">Form parentForm</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _parentForm = parentForm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MaximizeWindow</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _parentForm.Invoke(() =&gt; ShowWindow(_parentForm.Handle, SW_MAXIMIZE));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MinimizeWindow</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _parentForm.Invoke(() =&gt; ShowWindow(_parentForm.Handle, SW_MINIMIZE));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Register and use.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="从-WinForms-调用-Blazor-组件方法-高级"><a href="#从-WinForms-调用-Blazor-组件方法-高级" class="headerlink" title="从 WinForms 调用 Blazor 组件方法 (高级)"></a>从 WinForms 调用 Blazor 组件方法 (高级)</h3><p>这通常不直接发生。更常见和推荐的模式是：</p>
+<ol>
+<li><strong>WinForms 更新一个共享服务&#x2F;状态对象。</strong></li>
+<li><strong>Blazor 组件观察这个服务&#x2F;状态对象</strong> (例如，通过事件、<code>INotifyPropertyChanged</code>，或定期检查) 并相应地更新其 UI (调用 <code>StateHasChanged()</code> 如果需要)。</li>
+</ol>
+<p>如果确实需要直接调用，理论上可以：</p>
+<ul>
+<li>在 <code>BlazorWebView.RootComponents.Add()</code> 时，如果能获取到根组件的实例引用 (这不直接支持)，或者</li>
+<li>通过 JavaScript 互操作：WinForms 调用 JS，JS 再通过 <code>DotNet.invokeMethodAsync</code> 调用 Blazor 组件的 <code>[JSInvokable]</code> 方法。</li>
+</ul>
+<p>这种反向通信通常更复杂，应优先考虑基于共享服务的模式。</p>
+<h2 id="9-JavaScript-互操作-JS-Interop"><a href="#9-JavaScript-互操作-JS-Interop" class="headerlink" title="9. JavaScript 互操作 (JS Interop)"></a>9. JavaScript 互操作 (JS Interop)</h2><p>与 .NET MAUI Blazor Hybrid 或 Blazor Web 应用中的 JS Interop 工作方式完全相同。</p>
+<ul>
+<li>注入 <code>IJSRuntime</code> 到 Blazor 组件。</li>
+<li>使用 <code>InvokeVoidAsync</code> 或 <code>InvokeAsync&lt;T&gt;</code> 调用 <code>wwwroot</code> 中或全局可用的 JavaScript 函数。</li>
+<li>JavaScript 可以使用 <code>DotNet.invokeMethodAsync(&#39;AssemblyName&#39;, &#39;MethodName&#39;, ...args)</code> 调用 Blazor 组件中标记为 <code>[JSInvokable]</code> 的静态 C# 方法。</li>
+</ul>
+<h2 id="10-样式化应用"><a href="#10-样式化应用" class="headerlink" title="10. 样式化应用"></a>10. 样式化应用</h2><h3 id="全局-CSS-wwwroot-css"><a href="#全局-CSS-wwwroot-css" class="headerlink" title="全局 CSS (wwwroot/css)"></a>全局 CSS (<code>wwwroot/css</code>)</h3><p>在 <code>wwwroot</code> 文件夹下组织你的 CSS 文件，如 <code>app.css</code>，并在 <code>wwwroot/index.html</code> 中引用它们。可以使用 Bootstrap 等标准 CSS 框架。</p>
+<h3 id="组件作用域-CSS-razor-css"><a href="#组件作用域-CSS-razor-css" class="headerlink" title="组件作用域 CSS (.razor.css)"></a>组件作用域 CSS (<code>.razor.css</code>)</h3><p>Blazor 的 CSS 隔离功能在 WinForms Hybrid 中同样有效。为组件创建匹配的 <code>.razor.css</code> 文件，样式将仅应用于该组件。这些样式会被捆绑到 <code>YourProjectName.styles.css</code> 中。</p>
+<h2 id="11-代码共享策略"><a href="#11-代码共享策略" class="headerlink" title="11. 代码共享策略"></a>11. 代码共享策略</h2><ul>
+<li><strong>Razor 类库 (RCL)</strong>: 将共享的 Blazor UI 组件、布局和静态资源（RCL 项目中的 <code>wwwroot</code>）放入 RCL 中。然后，WinForms Blazor 应用、Blazor Web 应用或 .NET MAUI Blazor 应用都可以引用此 RCL。</li>
+<li><strong>标准 .NET 类库</strong>: 共享业务逻辑、模型和服务（不含 UI 的纯 C# 代码）。</li>
+</ul>
+<h2 id="12-线程注意事项"><a href="#12-线程注意事项" class="headerlink" title="12. 线程注意事项"></a>12. 线程注意事项</h2><p>Windows Forms 具有严格的单线程 UI 模型。<strong>所有与 WinForms UI 控件的交互都必须在创建这些控件的 UI 线程上进行。</strong></p>
+<ul>
+<li>从 Blazor 组件的 C# 代码（尤其是在 <code>await</code> 之后或后台线程回调中）与 WinForms 控件（如通过服务调用 <code>MessageBox.Show</code> 或修改窗体属性）交互时，必须将调用封送到 UI 线程。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">UpdateFormTitle</span>(<span class="params"><span class="built_in">string</span> newTitle</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (_parentForm.InvokeRequired)</span><br><span class="line">    &#123;</span><br><span class="line">        _parentForm.Invoke(<span class="keyword">new</span> Action(() =&gt; _parentForm.Text = newTitle));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        _parentForm.Text = newTitle;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Blazor 组件自身的状态更新和渲染由 Blazor 的同步上下文处理，通常不需要担心。但一旦跨越到 WinForms 对象，线程规则就必须遵守。</li>
+<li><code>BlazorWebView</code> 提供了一个 <code>Dispatcher</code> 服务，可以注入并用于在 Blazor 的同步上下文中执行代码（如果需要从非 Blazor 线程更新 Blazor UI）：<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @inject Microsoft.AspNetCore.Components.Dispatcher BDispatcher</span></span><br><span class="line"><span class="comment">// await BDispatcher.InvokeAsync(() =&gt; &#123; /* Blazor UI update */ &#125;);</span></span><br></pre></td></tr></table></figure>
+但这主要用于从外部线程更新 Blazor UI，而不是 Blazor 更新 WinForms UI。</li>
+</ul>
+<h2 id="13-WebView2-运行时"><a href="#13-WebView2-运行时" class="headerlink" title="13. WebView2 运行时"></a>13. WebView2 运行时</h2><p>BlazorWebView for Windows Forms 依赖于 Microsoft Edge WebView2 运行时。</p>
+<ul>
+<li><strong>分发</strong>:<ul>
+<li><strong>Evergreen Bootstrapper</strong>: 推荐。这是一个小型安装程序，会下载并安装与用户系统匹配的最新版 WebView2 运行时（如果尚未安装）。</li>
+<li><strong>Evergreen Standalone Installer</strong>: 包含特定位数的完整运行时。</li>
+<li><strong>Fixed Version</strong>: 将特定版本的 WebView2 运行时文件与你的应用程序一起打包。应用尺寸会增大，但能确保运行时版本的一致性。</li>
+</ul>
+</li>
+<li><strong>检查安装</strong>: 你的应用可以在启动时检查 WebView2 是否已安装，并引导用户安装（如果需要）。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Program.cs or Form Load</span></span><br><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> version = Microsoft.Web.WebView2.Core.CoreWebView2Environment.GetAvailableBrowserVersionString();</span><br><span class="line">    <span class="comment">// If this doesn&#x27;t throw, WebView2 is likely available.</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (Microsoft.Web.WebView2.Core.WebView2RuntimeNotFoundException)</span><br><span class="line">&#123;</span><br><span class="line">    MessageBox.Show(<span class="string">&quot;Microsoft Edge WebView2 Runtime is required to run this application. Please install it and try again.&quot;</span>, <span class="string">&quot;WebView2 Required&quot;</span>, MessageBoxButtons.OK, MessageBoxIcon.Error);</span><br><span class="line">    <span class="comment">// Optionally, launch the bootstrapper download page</span></span><br><span class="line">    <span class="comment">// System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(&quot;https://go.microsoft.com/fwlink/p/?LinkId=2124703&quot;) &#123; UseShellExecute = true &#125;);</span></span><br><span class="line">    Application.Exit();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="14-调试"><a href="#14-调试" class="headerlink" title="14. 调试"></a>14. 调试</h2><ul>
+<li><strong>C# 代码</strong>: Visual Studio 提供了对 Blazor 组件 C# 代码和 WinForms 代码的完整调试支持（断点、单步执行等）。</li>
+<li><strong>Web 内容 (HTML, CSS, JS)</strong>:<ul>
+<li>确保在服务配置中调用了 <code>services.AddBlazorWebViewDeveloperTools();</code>。</li>
+<li>运行应用后，通常可以在 <code>BlazorWebView</code> 控件上右键单击（如果上下文菜单启用）或使用键盘快捷键 (如 F12，但这可能不总是在 WinForms 中直接映射) 来尝试打开 WebView2 的开发者工具。</li>
+<li>更可靠的方式是：当应用和 <code>BlazorWebView</code> 运行时，打开 Microsoft Edge 浏览器，导航到 <code>edge://inspect</code>。你应该能在那里看到你的应用进程中的 WebView2 实例，并可以附加调试器。</li>
+</ul>
+</li>
+</ul>
+<h2 id="15-部署"><a href="#15-部署" class="headerlink" title="15. 部署"></a>15. 部署</h2><p>部署 Blazor WinForms Hybrid 应用与标准 WinForms 应用类似：</p>
+<ul>
+<li><strong>xcopy 部署</strong>: 直接复制 <code>bin/Release</code> 目录下的文件。</li>
+<li><strong>ClickOnce</strong>: 一种 .NET 部署技术，允许自动更新。</li>
+<li><strong>MSIX 打包</strong>: 现代 Windows 应用打包格式，支持通过 Microsoft Store 或其他方式分发。<br>确保包含 WebView2 运行时或引导用户安装它（除非使用 Fixed Version 部署）。</li>
+</ul>
+<h2 id="16-Blazor-WinForms-Hybrid-适用场景"><a href="#16-Blazor-WinForms-Hybrid-适用场景" class="headerlink" title="16. Blazor WinForms Hybrid 适用场景"></a>16. Blazor WinForms Hybrid 适用场景</h2><ul>
+<li><strong>逐步现代化大型、旧有 WinForms 应用</strong>: 用 Blazor 组件替换单个窗体或用户控件。</li>
+<li><strong>具有 Web 开发技能的团队构建 Windows 桌面应用</strong>: 复用现有技能和 Blazor 组件库。</li>
+<li><strong>需要丰富、现代 UI 但仍需深度 Windows 集成的应用</strong>: Blazor 提供 UI 灵活性，WinForms 提供原生访问。</li>
+<li><strong>内部业务线 (LOB) 应用</strong>: 对原生观感要求不高，但对功能和快速开发要求较高。</li>
+</ul>
+<h2 id="17-局限性与考量"><a href="#17-局限性与考量" class="headerlink" title="17. 局限性与考量"></a>17. 局限性与考量</h2><ul>
+<li><strong>Windows 平台中心</strong>: 主要为 Windows 设计。虽然 WinForms 在 Linux&#x2F;macOS 上通过 Mono 等有一定兼容性，但 BlazorWebView 对 WebView2 的依赖使其主要面向 Windows。</li>
+<li><strong>性能</strong>: WebView2 本身性能优越，但复杂的 Blazor UI 或大量的 JS Interop 仍可能影响感知性能，尤其是在资源受限的机器上。</li>
+<li><strong>内存占用</strong>: 同时运行 WinForms UI 框架、.NET 运行时以及内嵌的 Edge WebView2 进程，内存占用可能高于纯 WinForms 或纯 Web 应用。</li>
+<li><strong>原生观感与体验</strong>: Web UI 始终与平台原生控件在观感和行为上有所差异。混合使用时，可能需要精心设计以保持一致性。</li>
+<li><strong>Accessibility (A11y)</strong>: 需要同时考虑 Web 内容 (WCAG) 和 Windows 桌面应用 (如 UI Automation) 的可访问性标准。</li>
+<li><strong>打包与依赖</strong>: 需要处理 WebView2 运行时的依赖。</li>
+</ul>
+<h2 id="18-总结"><a href="#18-总结" class="headerlink" title="18. 总结"></a>18. 总结</h2><p>Blazor Windows Forms Hybrid 为拥有大量现有 WinForms 应用或希望使用 Web 技术构建功能强大的 Windows 桌面应用的团队提供了一条极具吸引力的路径。它成功地将 Blazor 现代化的 UI 开发能力与 Windows Forms 对 .NET 和 Windows 原生功能的完全访问权限结合起来。通过仔细规划服务架构、线程处理和原生交互，开发者可以创建出既现代又功能强大的桌面应用程序，同时最大限度地提高代码重用率并利用现有的 Web 开发技能。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Jackey Zhou</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/12/blazor-winforms%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/12/blazor-winforms%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/')">blazor winforms基础知识</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/12/blazor-winforms%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=blazor winforms基础知识&amp;url=http://example.com/2025/05/12/blazor-winforms%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Welcome To LifeTech's Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/csharp%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>csharp相关学习<span class="tagsPageCount">5</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/12/blazor-maui%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">blazor maui基础知识</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/12/ASP-NET-WEB-API/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ASP.NET WEB API</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/12/ASP-NET-WEB-API/" title="ASP.NET WEB API"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-12</div><div class="title">ASP.NET WEB API</div></div></a></div><div><a href="/2025/05/12/blazor-maui%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="blazor maui基础知识"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-12</div><div class="title">blazor maui基础知识</div></div></a></div><div><a href="/2025/05/12/blazor%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="blazor基础知识"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-12</div><div class="title">blazor基础知识</div></div></a></div><div><a href="/2025/05/12/csharp%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="csharp基础知识"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-12</div><div class="title">csharp基础知识</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">记录技术成长的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Blazor-WinForms-Hybrid-Learning-Directory"><span class="toc-number">1.</span> <span class="toc-text">Blazor WinForms Hybrid Learning Directory</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1. 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-Forms-WinForms-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">Windows Forms (WinForms) 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blazor-Hybrid-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.2.</span> <span class="toc-text">Blazor Hybrid 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blazor-WinForms-Hybrid-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Blazor WinForms Hybrid 的核心思想</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%BA%E4%BD%95%E9%80%89%E6%8B%A9-Blazor-WinForms-Hybrid-%E4%BC%98%E5%8A%BF"><span class="toc-number">1.2.</span> <span class="toc-text">2. 为何选择 Blazor WinForms Hybrid? (优势)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.3.</span> <span class="toc-text">3. 搭建开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA-Blazor-WinForms-%E5%BA%94%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">4. 创建第一个 Blazor WinForms 应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Visual-Studio-%E6%8E%A8%E8%8D%90"><span class="toc-number">1.4.1.</span> <span class="toc-text">使用 Visual Studio (推荐)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%B0%86-Blazor-Hybrid-%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%8E%B0%E6%9C%89-WinForms-%E9%A1%B9%E7%9B%AE-%E9%AB%98%E7%BA%A7"><span class="toc-number">1.4.2.</span> <span class="toc-text">手动将 Blazor Hybrid 添加到现有 WinForms 项目 (高级)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="toc-number">1.4.3.</span> <span class="toc-text">项目结构解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%A0%B8%E5%BF%83%E6%8E%A7%E4%BB%B6-Microsoft-AspNetCore-Components-WebView-WindowsForms-BlazorWebView"><span class="toc-number">1.5.</span> <span class="toc-text">5. 核心控件: Microsoft.AspNetCore.Components.WebView.WindowsForms.BlazorWebView</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%AA%97%E4%BD%93%E4%B8%8A%E6%B7%BB%E5%8A%A0-BlazorWebView"><span class="toc-number">1.5.1.</span> <span class="toc-text">在窗体上添加 BlazorWebView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HostPage-%E5%B1%9E%E6%80%A7"><span class="toc-number">1.5.2.</span> <span class="toc-text">HostPage 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RootComponents-%E9%9B%86%E5%90%88"><span class="toc-number">1.5.3.</span> <span class="toc-text">RootComponents 集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Services-%E5%B1%9E%E6%80%A7-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.5.4.</span> <span class="toc-text">Services 属性 (依赖注入作用域)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1-Program-cs-%E6%88%96%E7%AA%97%E4%BD%93%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.6.</span> <span class="toc-text">6. 配置服务 (Program.cs 或窗体初始化)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB-Program-cs-%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.6.1.</span> <span class="toc-text">主 Program.cs 设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-BlazorWebView-%E5%AE%9E%E4%BE%8B%E4%B8%8A%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.6.2.</span> <span class="toc-text">在 BlazorWebView 实例上配置服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%BD%BF%E7%94%A8-Blazor-%E6%9E%84%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2"><span class="toc-number">1.7.</span> <span class="toc-text">7. 使用 Blazor 构建用户界面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Razor-%E7%BB%84%E4%BB%B6-razor"><span class="toc-number">1.7.1.</span> <span class="toc-text">Razor 组件 (.razor)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B1%80-Layouts"><span class="toc-number">1.7.2.</span> <span class="toc-text">布局 (Layouts)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1-Routing"><span class="toc-number">1.7.3.</span> <span class="toc-text">路由 (Routing)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-number">1.7.4.</span> <span class="toc-text">数据绑定与事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5-DI"><span class="toc-number">1.7.5.</span> <span class="toc-text">依赖注入 (DI)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E4%B8%8E-Windows-Forms-%E5%8F%8A%E5%8E%9F%E7%94%9F-Windows-API-%E4%BA%A4%E4%BA%92"><span class="toc-number">1.8.</span> <span class="toc-text">8. 与 Windows Forms 及原生 Windows API 交互</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E-Blazor-%E8%B0%83%E7%94%A8-WinForms-%E5%8E%9F%E7%94%9F%E5%8A%9F%E8%83%BD"><span class="toc-number">1.8.1.</span> <span class="toc-text">从 Blazor 调用 WinForms&#x2F;原生功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95-1-%E9%80%9A%E8%BF%87%E6%B3%A8%E5%85%A5%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.8.1.1.</span> <span class="toc-text">方法 1: 通过注入的服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-%E4%BB%8E-Blazor-%E6%98%BE%E7%A4%BA-WinForms-MessageBox"><span class="toc-number">1.8.1.2.</span> <span class="toc-text">示例: 从 Blazor 显示 WinForms MessageBox</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-%E4%BB%8E-Blazor-%E6%89%93%E5%BC%80-WinForms-OpenFileDialog"><span class="toc-number">1.8.1.3.</span> <span class="toc-text">示例: 从 Blazor 打开 WinForms OpenFileDialog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-%E8%AE%BF%E9%97%AE-Windows-%E6%B3%A8%E5%86%8C%E8%A1%A8-%E7%AE%80%E5%8C%96"><span class="toc-number">1.8.1.4.</span> <span class="toc-text">示例: 访问 Windows 注册表 (简化)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-P-Invoke-%E8%B0%83%E7%94%A8%E5%8E%9F%E7%94%9F-Windows-API"><span class="toc-number">1.8.1.5.</span> <span class="toc-text">使用 P&#x2F;Invoke 调用原生 Windows API</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E-WinForms-%E8%B0%83%E7%94%A8-Blazor-%E7%BB%84%E4%BB%B6%E6%96%B9%E6%B3%95-%E9%AB%98%E7%BA%A7"><span class="toc-number">1.8.2.</span> <span class="toc-text">从 WinForms 调用 Blazor 组件方法 (高级)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-JavaScript-%E4%BA%92%E6%93%8D%E4%BD%9C-JS-Interop"><span class="toc-number">1.9.</span> <span class="toc-text">9. JavaScript 互操作 (JS Interop)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E6%A0%B7%E5%BC%8F%E5%8C%96%E5%BA%94%E7%94%A8"><span class="toc-number">1.10.</span> <span class="toc-text">10. 样式化应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80-CSS-wwwroot-css"><span class="toc-number">1.10.1.</span> <span class="toc-text">全局 CSS (wwwroot&#x2F;css)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F-CSS-razor-css"><span class="toc-number">1.10.2.</span> <span class="toc-text">组件作用域 CSS (.razor.css)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E4%BB%A3%E7%A0%81%E5%85%B1%E4%BA%AB%E7%AD%96%E7%95%A5"><span class="toc-number">1.11.</span> <span class="toc-text">11. 代码共享策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E7%BA%BF%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.12.</span> <span class="toc-text">12. 线程注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-WebView2-%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">1.13.</span> <span class="toc-text">13. WebView2 运行时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E8%B0%83%E8%AF%95"><span class="toc-number">1.14.</span> <span class="toc-text">14. 调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-%E9%83%A8%E7%BD%B2"><span class="toc-number">1.15.</span> <span class="toc-text">15. 部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-Blazor-WinForms-Hybrid-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.16.</span> <span class="toc-text">16. Blazor WinForms Hybrid 适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-%E5%B1%80%E9%99%90%E6%80%A7%E4%B8%8E%E8%80%83%E9%87%8F"><span class="toc-number">1.17.</span> <span class="toc-text">17. 局限性与考量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-%E6%80%BB%E7%BB%93"><span class="toc-number">1.18.</span> <span class="toc-text">18. 总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/" title="模型部署">模型部署</a><time datetime="2025-05-11T18:17:36.000Z" title="发表于 2025-05-12 02:17:36">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="数据科学与机器学习">数据科学与机器学习</a><time datetime="2025-05-11T18:17:28.000Z" title="发表于 2025-05-12 02:17:28">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/pytorch%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="pytorch基础知识">pytorch基础知识</a><time datetime="2025-05-11T18:17:15.000Z" title="发表于 2025-05-12 02:17:15">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="python基础知识">python基础知识</a><time datetime="2025-05-11T18:16:59.000Z" title="发表于 2025-05-12 02:16:59">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/ASP-NET-WEB-API/" title="ASP.NET WEB API">ASP.NET WEB API</a><time datetime="2025-05-11T18:16:40.000Z" title="发表于 2025-05-12 02:16:40">2025-05-12</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Jackey Zhou" target="_blank">Jackey Zhou</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">50</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">Rust基础知识<sup>21</sup></a><a href="/tags/csharp%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">csharp相关学习<sup>5</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/python%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">python相关学习<sup>4</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">个人学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 0.88rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 0.88rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Jackey Zhou 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

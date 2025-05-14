@@ -1,0 +1,517 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>tauri前后端交互 | Welcome To LifeTech's Blog</title><meta name="keywords" content="tauri基础知识"><meta name="author" content="Jackey Zhou"><meta name="copyright" content="Jackey Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="tauri前后端交互"><meta name="application-name" content="tauri前后端交互"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="tauri前后端交互"><meta property="og:url" content="http://example.com/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/index.html"><meta property="og:site_name" content="Welcome To LifeTech's Blog"><meta property="og:description" content="核心交互机制：命令 (Commands) 与事件 (Events) Tauri 应用中，前端 (Vue.js) 和后端 (Rust) 主要通过两种方式进行通信：  命令 (Commands): 前端调用后端函数并获取返回值。这是一种请求-响应模式。 用途: 当 Vue 需要 Rust 执行某些操作（"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Jackey Zhou"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="核心交互机制：命令 (Commands) 与事件 (Events) Tauri 应用中，前端 (Vue.js) 和后端 (Rust) 主要通过两种方式进行通信：  命令 (Commands): 前端调用后端函数并获取返回值。这是一种请求-响应模式。 用途: 当 Vue 需要 Rust 执行某些操作（"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Jackey Zhou","link":"链接: ","source":"来源: Welcome To LifeTech's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Welcome To LifeTech's Blog',
+  title: 'tauri前后端交互',
+  postAI: '',
+  pageFillDescription: '核心交互机制命令与事件应用中前端和后端主要通过两种方式进行通信命令前端调用后端函数并获取返回值这是一种请求响应模式用途当需要执行某些操作如计算文件操作数据库查询并通常期望得到一个结果时使用事件后端主动向前端发送消息或者前端监听后端发出的特定通知这是一种发布订阅模式用途用于后端状态变更通知长时间运行任务的进度更新或者任何后端需要主动通知前端的情况而无需前端显式请求命令调用函数这是最直接的交互方式步骤分解端定义和暴露命令宏在函数上方添加此宏会自动处理使其能够从调用的所有底层细节如序列化反序列化参数和返回值函数签名函数可以接受基本类型自定义结构体等作为参数这些参数将从传递过来函数可以返回基本类型用于可失败的操作或自定义结构体返回值会被序列化并发送回如果函数是异步的返回或类似也会处理它注册命令在的中使用来注册所有希望从前端调用的命令示例定义一个简单的结构体用于参数或返回值必须定义命令模拟异步操作和可能的失败实际应用中可能是数据库查询或调用注册命令端调用命令导入函数从导入调用第一个参数是命令的蛇形命名字符串例如第二个参数是一个对象其键值对应函数的参数名和值如果函数没有参数可以省略此对象或传递一个空对象处理返回一个如果函数成功返回例如直接返回值或会并带有该值如果函数失败例如或会并带有错误信息示例数据序列化反序列化幕后当调用时被序列化成字符串这个和命令名一起发送到后端的端接收到请求找到名为的已注册命令参数被反序列化成函数所期望的参数类型例如或自定义的结构体前提是该结构体实现了当命令返回时的返回值例如被序列化成如果是错误部分被序列化这个被发送回前端的函数接收到将其反序列化成对象或值并或关键点类型匹配传递的参数类型应能被函数的参数类型正确反序列化自定义结构体在端需要如果作为返回值则需要错误处理的非常适合可失败的操作会使会使这使得前端可以清晰地处理成功和失败的情况事件主动通知事件允许后端在任何时候向一个或多个前端窗口发送数据而无需前端发起请求步骤分解端发送事件获取或在钩子中可以通过获取在命令中可以接收或作为参数用于向所有窗口发送事件用于向特定窗口发送事件或方法第一个参数是事件名称一个字符串例如第二个参数可选是负载可以是任何可序列化为的数据需要后台任务中发送事件如果您有在后台线程中运行的任务例如通过或您需要将克隆并到线程闭包中以便从该线程发送事件示例之前的和命令定义必须导入才能使用等使用的克隆模拟工作向所有窗口发送进度更新如果发送失败例如没有窗口监听或者已关闭可以记录错误应用启动时发送一个欢迎事件使用的克隆注册新命令端监听事件导入函数从导入调用第一个参数是要监听的事件名称必须与中或使用的名称完全一致第二个参数是一个回调函数当发送匹配名称的事件时此回调会被执行包含了从发送过来的数据返回函数返回一个该为一个函数调用这个可以取消对该事件的监听这在组件卸载时非常重要以防止内存泄漏或不必要的处理类型化可以为提供一个泛型参数来指定的类型例如示例添加事件监听部分导入和之前的定义会非常频繁确保进度条满组件卸载时取消监听之前的函数作用域与目标将事件发送到所有打开的并且正在监听该事件名称的窗口将事件仅发送到调用此方法的特定实例前提是该窗口的前端代码正在监听此事件要获取特定窗口您可以在中使用其中是在中或创建窗口时指定的唯一标签安全性的角色所有这些交互都受到中的严格控制调用命令默认情况下前端不能调用任何命令您不需要在中列出每个命令的名称的注册本身就隐式地允许了这些命令的调用但的核心安全模型如消息校验仍然适用发送接收事件要使或工作前端的中需要允许特别是的能力通常设置为然后按需开启允许前端监听事件通常前端不需要直接向后端事件而是通过触发动作其他如等也在这里配置总结与的双向数据流请求数据或执行动作组件使用的数据通过序列化后发送给端对应的函数被执行接收反序列化后的参数函数处理逻辑返回结果或结果通过序列化后发送回端的或更新主动推送更新或通知端例如在后台线程钩子或某个命令执行完毕后获取或实例调用或通过序列化后发送给前端组件中通过的注册的监听器被触发回调函数中的包含反序列化后的数据更新这种结合了请求响应和发布订阅的模式为构建功能丰富的桌面应用提供了强大而灵活的通信基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-05-15 00:29:41',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">Welcome To LifeTech's Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">Rust基础知识<sup>21</sup></a><a href="/tags/csharp%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">csharp相关学习<sup>5</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/python%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">python相关学习<sup>4</sup></a><a href="/tags/tauri%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">tauri基础知识<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">个人学习<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">前端学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 1.05rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 1.05rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 1.05rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">32</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/tauri%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>tauri基础知识</span></a></span></div></div><h1 class="post-title" itemprop="name headline">tauri前后端交互</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-14T16:28:49.000Z" title="发表于 2025-05-15 00:28:49">2025-05-15</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-14T16:29:41.772Z" title="更新于 2025-05-15 00:29:41">2025-05-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为无锡"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>无锡</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/"><header><a href="/tags/tauri%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" tabindex="-1" itemprop="url">tauri基础知识</a><h1 id="CrawlerTitle" itemprop="name headline">tauri前后端交互</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Jackey Zhou</span><time itemprop="dateCreated datePublished" datetime="2025-05-14T16:28:49.000Z" title="发表于 2025-05-15 00:28:49">2025-05-15</time><time itemprop="dateCreated datePublished" datetime="2025-05-14T16:29:41.772Z" title="更新于 2025-05-15 00:29:41">2025-05-15</time></header><p><strong>核心交互机制：命令 (Commands) 与事件 (Events)</strong></p>
+<p>Tauri 应用中，前端 (Vue.js) 和后端 (Rust) 主要通过两种方式进行通信：</p>
+<ol>
+<li><strong>命令 (Commands):</strong> 前端调用后端函数并获取返回值。这是一种<strong>请求-响应</strong>模式。<ul>
+<li><strong>用途:</strong> 当 Vue 需要 Rust 执行某些操作（如计算、文件操作、数据库查询）并通常期望得到一个结果时使用。</li>
+</ul>
+</li>
+<li><strong>事件 (Events):</strong> 后端主动向前端发送消息，或者前端监听后端发出的特定通知。这是一种<strong>发布-订阅</strong>模式。<ul>
+<li><strong>用途:</strong> 用于后端状态变更通知、长时间运行任务的进度更新、或者任何后端需要主动通知前端的情况，而无需前端显式请求。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>1. 命令 (Commands) - Vue 调用 Rust 函数</strong></p>
+<p>这是最直接的交互方式。</p>
+<p><strong>步骤分解:</strong></p>
+<p><strong>(A) Rust 端：定义和暴露命令</strong></p>
+<ol>
+<li><strong><code>#[tauri::command]</code> 宏:</strong><ul>
+<li>在 Rust 函数上方添加此宏，Tauri 会自动处理使其能够从 JavaScript 调用的所有底层细节（如序列化&#x2F;反序列化参数和返回值）。</li>
+</ul>
+</li>
+<li><strong>函数签名:</strong><ul>
+<li>函数可以接受基本类型（<code>String</code>, <code>i32</code>, <code>bool</code>, <code>Vec&lt;T&gt;</code>, 自定义结构体等）作为参数。这些参数将从 JavaScript 传递过来。</li>
+<li>函数可以返回基本类型、<code>Result&lt;T, E&gt;</code>（用于可失败的操作）或自定义结构体。返回值会被序列化并发送回 JavaScript。</li>
+<li>如果函数是异步的 (返回 <code>async fn ... -&gt; Result&lt;T,String&gt;</code> 或类似)，Tauri 也会处理它。</li>
+</ul>
+</li>
+<li><strong>注册命令 (<code>invoke_handler</code>):</strong><ul>
+<li>在 <code>src-tauri/src/main.rs</code> 的 <code>tauri::Builder</code> 中，使用 <code>invoke_handler(tauri::generate_handler![rust_function_name1, rust_function_name2])</code> 来注册所有希望从前端调用的命令。</li>
+</ul>
+</li>
+</ol>
+<p><strong>Rust 示例 (<code>src-tauri/src/main.rs</code>):</strong></p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![cfg_attr(not(debug_assertions), windows_subsystem = <span class="string">&quot;windows&quot;</span>)]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 定义一个简单的结构体，用于参数或返回值</span></span><br><span class="line"><span class="meta">#[derive(serde::Serialize, serde::Deserialize, Debug)]</span> <span class="comment">// 必须 derive Serialize/Deserialize</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">UserProfile</span> &#123;</span><br><span class="line">    id: <span class="type">u32</span>,</span><br><span class="line">    name: <span class="type">String</span>,</span><br><span class="line">    is_active: <span class="type">bool</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义命令</span></span><br><span class="line"><span class="meta">#[tauri::command]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">simple_greet</span>(name: <span class="type">String</span>) <span class="punctuation">-&gt;</span> <span class="type">String</span> &#123;</span><br><span class="line">    <span class="built_in">format!</span>(<span class="string">&quot;Hello, &#123;&#125;! Rust says hi.&quot;</span>, name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[tauri::command]</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">fn</span> <span class="title function_">fetch_user_profile</span>(user_id: <span class="type">u32</span>) <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;UserProfile, <span class="type">String</span>&gt; &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;[Rust] Fetching profile for user_id: &#123;&#125;&quot;</span>, user_id);</span><br><span class="line">    <span class="comment">// 模拟异步操作和可能的失败</span></span><br><span class="line">    <span class="keyword">if</span> user_id == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="title function_ invoke__">Err</span>(<span class="string">&quot;User ID cannot be 0.&quot;</span>.<span class="title function_ invoke__">to_string</span>())</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 实际应用中可能是数据库查询或 API 调用</span></span><br><span class="line">        tokio::time::<span class="title function_ invoke__">sleep</span>(std::time::Duration::<span class="title function_ invoke__">from_millis</span>(<span class="number">500</span>)).<span class="keyword">await</span>;</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(UserProfile &#123;</span><br><span class="line">            id: user_id,</span><br><span class="line">            name: <span class="built_in">format!</span>(<span class="string">&quot;User_&#123;&#125;&quot;</span>, user_id),</span><br><span class="line">            is_active: <span class="literal">true</span>,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[tauri::command]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">process_data</span>(data: serde_json::Value) <span class="punctuation">-&gt;</span> serde_json::Value &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;[Rust] Received data: &#123;:?&#125;&quot;</span>, data);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">message</span> = <span class="built_in">format!</span>(<span class="string">&quot;Processed data with message: &#x27;&#123;&#125;&#x27;&quot;</span>, data.<span class="title function_ invoke__">get</span>(<span class="string">&quot;message&quot;</span>).<span class="title function_ invoke__">unwrap_or</span>(&amp;serde_json::Value::Null).<span class="title function_ invoke__">as_str</span>().<span class="title function_ invoke__">unwrap_or</span>(<span class="string">&quot;N/A&quot;</span>));</span><br><span class="line">    serde_json::json!(&#123; <span class="string">&quot;status&quot;</span>: <span class="string">&quot;success&quot;</span>, <span class="string">&quot;processed_message&quot;</span>: message &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    tauri::Builder::<span class="title function_ invoke__">default</span>()</span><br><span class="line">        <span class="comment">// 3. 注册命令</span></span><br><span class="line">        .<span class="title function_ invoke__">invoke_handler</span>(tauri::generate_handler![</span><br><span class="line">            simple_greet,</span><br><span class="line">            fetch_user_profile,</span><br><span class="line">            process_data</span><br><span class="line">        ])</span><br><span class="line">        .<span class="title function_ invoke__">run</span>(tauri::generate_context!())</span><br><span class="line">        .<span class="title function_ invoke__">expect</span>(<span class="string">&quot;error while running tauri application&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>(B) Vue.js 端：调用命令</strong></p>
+<ol>
+<li><strong>导入 <code>invoke</code> 函数:</strong><ul>
+<li>从 <code>@tauri-apps/api/tauri</code> 导入 <code>invoke</code>。</li>
+</ul>
+</li>
+<li><strong>调用 <code>invoke</code>:</strong><ul>
+<li>第一个参数是 Rust 命令的蛇形命名 (snake_case) 字符串 (例如，<code>Workspace_user_profile</code>)。</li>
+<li>第二个参数是一个对象，其键值对应 Rust 函数的参数名和值。如果 Rust 函数没有参数，可以省略此对象或传递一个空对象 <code>&#123;&#125;</code>。</li>
+</ul>
+</li>
+<li><strong>处理 Promise:</strong><ul>
+<li><code>invoke</code> 返回一个 Promise。</li>
+<li>如果 Rust 函数成功返回 (例如，直接返回值或 <code>Ok(value)</code> from <code>Result</code>)，Promise 会 resolve 并带有该值。</li>
+<li>如果 Rust 函数失败 (例如，<code>panic!</code> 或 <code>Err(error_message)</code> from <code>Result</code>)，Promise 会 reject 并带有错误信息。</li>
+</ul>
+</li>
+</ol>
+<p><strong>Vue 示例 (<code>src/components/MyComponent.vue</code>):</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h3&gt;Simple Greet&lt;/h3&gt;</span><br><span class="line">    &lt;input v-model=&quot;nameToGreet&quot; placeholder=&quot;Enter name&quot; /&gt;</span><br><span class="line">    &lt;button @click=&quot;callSimpleGreet&quot;&gt;Greet&lt;/button&gt;</span><br><span class="line">    &lt;p&gt;Rust says: &#123;&#123; greetMessage &#125;&#125;&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">    &lt;hr /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h3&gt;Fetch User Profile&lt;/h3&gt;</span><br><span class="line">    &lt;input v-model.number=&quot;userIdToFetch&quot; type=&quot;number&quot; placeholder=&quot;User ID&quot; /&gt;</span><br><span class="line">    &lt;button @click=&quot;callFetchUserProfile&quot;&gt;Fetch Profile&lt;/button&gt;</span><br><span class="line">    &lt;div v-if=&quot;userProfile&quot;&gt;</span><br><span class="line">      &lt;pre&gt;&#123;&#123; userProfile &#125;&#125;&lt;/pre&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;p v-if=&quot;profileError&quot; style=&quot;color: red&quot;&gt;&#123;&#123; profileError &#125;&#125;&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">    &lt;hr /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h3&gt;Process Data&lt;/h3&gt;</span><br><span class="line">    &lt;input v-model=&quot;dataMessage&quot; placeholder=&quot;Message for Rust&quot; /&gt;</span><br><span class="line">    &lt;button @click=&quot;callProcessData&quot;&gt;Process&lt;/button&gt;</span><br><span class="line">    &lt;p&gt;Rust processed: &#123;&#123; processedDataResponse &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123; ref &#125; from &quot;vue&quot;;</span><br><span class="line">import &#123; invoke &#125; from &quot;@tauri-apps/api/tauri&quot;;</span><br><span class="line"></span><br><span class="line">// For simple_greet</span><br><span class="line">const nameToGreet = ref&lt;string&gt;(&quot;Vue User&quot;);</span><br><span class="line">const greetMessage = ref&lt;string&gt;(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">async function callSimpleGreet() &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    // Rust: simple_greet(name: String)</span><br><span class="line">    greetMessage.value = await invoke(&quot;simple_greet&quot;, &#123;</span><br><span class="line">      name: nameToGreet.value,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    greetMessage.value = `Error: $&#123;e&#125;`;</span><br><span class="line">    console.error(&quot;Error calling simple_greet:&quot;, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// For fetch_user_profile</span><br><span class="line">const userIdToFetch = ref&lt;number&gt;(1);</span><br><span class="line">const userProfile = ref&lt;any&gt;(null); // Type should match UserProfile in Rust if known</span><br><span class="line">const profileError = ref&lt;string&gt;(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">async function callFetchUserProfile() &#123;</span><br><span class="line">  userProfile.value = null;</span><br><span class="line">  profileError.value = &quot;&quot;;</span><br><span class="line">  try &#123;</span><br><span class="line">    // Rust: fetch_user_profile(user_id: u32) -&gt; Result&lt;UserProfile, String&gt;</span><br><span class="line">    const result: any = await invoke(&quot;fetch_user_profile&quot;, &#123;</span><br><span class="line">      userId: userIdToFetch.value,</span><br><span class="line">    &#125;);</span><br><span class="line">    userProfile.value = result; // result will be the UserProfile object</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    profileError.value = `Error: $&#123;e&#125;`; // e will be the String from Err()</span><br><span class="line">    console.error(&quot;Error calling fetch_user_profile:&quot;, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// For process_data</span><br><span class="line">const dataMessage = ref&lt;string&gt;(&quot;Hello from Vue&quot;);</span><br><span class="line">const processedDataResponse = ref&lt;any&gt;(null);</span><br><span class="line"></span><br><span class="line">async function callProcessData() &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    // Rust: process_data(data: serde_json::Value) -&gt; serde_json::Value</span><br><span class="line">    const payload = &#123;</span><br><span class="line">      message: dataMessage.value,</span><br><span class="line">      timestamp: new Date().toISOString(),</span><br><span class="line">    &#125;;</span><br><span class="line">    processedDataResponse.value = await invoke(&quot;process_data&quot;, &#123;</span><br><span class="line">      data: payload,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    processedDataResponse.value = `Error: $&#123;e&#125;`;</span><br><span class="line">    console.error(&quot;Error calling process_data:&quot;, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>(C) 数据序列化&#x2F;反序列化 (幕后)</strong></p>
+<ul>
+<li>当 Vue 调用 <code>invoke(&#39;cmd&#39;, &#123; arg1: value1 &#125;)</code> 时：<ol>
+<li><code>&#123; arg1: value1 &#125;</code> 被序列化成 JSON 字符串。</li>
+<li>这个 JSON 和命令名一起发送到 Rust 后端。</li>
+<li>Tauri 的 Rust 端接收到请求，找到名为 <code>cmd</code> 的已注册命令。</li>
+<li>JSON 参数被反序列化成 Rust 函数 <code>cmd</code> 所期望的参数类型 (例如，<code>String</code>, <code>u32</code>, 或自定义的 <code>UserProfile</code> 结构体，前提是该结构体实现了 <code>serde::Deserialize</code>)。</li>
+</ol>
+</li>
+<li>当 Rust 命令返回时：<ol>
+<li>Rust 的返回值 (例如 <code>String</code>, <code>UserProfile</code>, <code>Result&lt;UserProfile, String&gt;</code>) 被序列化成 JSON。如果是 <code>Result::Err</code>, 错误部分被序列化。</li>
+<li>这个 JSON 被发送回 Vue 前端。</li>
+<li><code>@tauri-apps/api</code> 的 <code>invoke</code> 函数接收到 JSON，将其反序列化成 JavaScript 对象或值，并 resolve (或 reject) Promise。</li>
+</ol>
+</li>
+</ul>
+<p><strong>关键点:</strong></p>
+<ul>
+<li><strong>类型匹配:</strong> JavaScript 传递的参数类型应能被 Rust 函数的参数类型正确反序列化。自定义结构体在 Rust 端需要 <code>derive(serde::Deserialize)</code>，如果作为返回值则需要 <code>derive(serde::Serialize)</code>。</li>
+<li><strong>错误处理:</strong> Rust 的 <code>Result&lt;T, E&gt;</code> 非常适合可失败的操作。<code>Ok(value)</code> 会使 Promise resolve，<code>Err(error)</code> 会使 Promise reject。这使得前端可以清晰地处理成功和失败的情况。</li>
+</ul>
+<hr>
+<p><strong>2. 事件 (Events) - Rust 主动通知 Vue</strong></p>
+<p>事件允许 Rust 后端在任何时候向一个或多个前端窗口发送数据，而无需前端发起请求。</p>
+<p><strong>步骤分解:</strong></p>
+<p><strong>(A) Rust 端：发送事件</strong></p>
+<ol>
+<li><strong>获取 <code>AppHandle</code> 或 <code>Window</code>:</strong><ul>
+<li>在 <code>setup</code> 钩子中，可以通过 <code>app.handle()</code> 获取 <code>AppHandle</code>。</li>
+<li>在命令中，可以接收 <code>tauri::AppHandle</code> 或 <code>tauri::Window</code> 作为参数。</li>
+<li><code>AppHandle</code> 用于向所有窗口发送事件 (<code>app_handle.emit_all(&quot;event-name&quot;, payload)</code>).</li>
+<li><code>Window</code> 用于向特定窗口发送事件 (<code>window.emit(&quot;event-name&quot;, payload)</code>).</li>
+</ul>
+</li>
+<li><strong><code>emit_all</code> 或 <code>emit</code> 方法:</strong><ul>
+<li>第一个参数是事件名称 (一个字符串，例如 <code>&quot;backend-update&quot;</code>)。</li>
+<li>第二个参数 (可选) 是负载 (payload)，可以是任何可序列化为 JSON 的数据 (需要 <code>serde::Serialize</code>)。</li>
+</ul>
+</li>
+<li><strong>后台任务中发送事件:</strong> 如果您有在后台线程中运行的任务（例如，通过 <code>std::thread::spawn</code> 或 <code>tokio::spawn</code>），您需要将 <code>AppHandle</code> 克隆并 <code>move</code> 到线程闭包中，以便从该线程发送事件。</li>
+</ol>
+<p><strong>Rust 示例 (<code>src-tauri/src/main.rs</code>):</strong></p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... (之前的 UserProfile 和命令定义) ...</span></span><br><span class="line"><span class="keyword">use</span> tauri::Manager; <span class="comment">// 必须导入 Manager trait 才能使用 emit_all, get_window 等</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#[tauri::command]</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">start_long_task</span>(app_handle: tauri::AppHandle) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;[Rust] Starting long task...&quot;</span>);</span><br><span class="line">    std::thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123; <span class="comment">// 使用 app_handle 的克隆</span></span><br><span class="line">        <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="number">0</span>..=<span class="number">100</span> &#123;</span><br><span class="line">            std::thread::<span class="title function_ invoke__">sleep</span>(std::time::Duration::<span class="title function_ invoke__">from_millis</span>(<span class="number">50</span>)); <span class="comment">// 模拟工作</span></span><br><span class="line">            <span class="keyword">let</span> <span class="variable">payload</span> = serde_json::json!(&#123; <span class="string">&quot;progress&quot;</span>: i, <span class="string">&quot;message&quot;</span>: <span class="built_in">format!</span>(<span class="string">&quot;Processing item &#123;&#125;...&quot;</span>, i) &#125;);</span><br><span class="line">            <span class="comment">// 向所有窗口发送进度更新</span></span><br><span class="line">            <span class="keyword">if</span> app_handle.<span class="title function_ invoke__">emit_all</span>(<span class="string">&quot;task-progress&quot;</span>, payload).<span class="title function_ invoke__">is_err</span>() &#123;</span><br><span class="line">                <span class="comment">// 如果发送失败 (例如，没有窗口监听，或者 App 已关闭)，可以记录错误</span></span><br><span class="line">                <span class="built_in">eprintln!</span>(<span class="string">&quot;[Rust Thread] Failed to emit task-progress event&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> app_handle.<span class="title function_ invoke__">emit_all</span>(<span class="string">&quot;task-complete&quot;</span>, <span class="string">&quot;Long task finished!&quot;</span>).<span class="title function_ invoke__">is_err</span>() &#123;</span><br><span class="line">             <span class="built_in">eprintln!</span>(<span class="string">&quot;[Rust Thread] Failed to emit task-complete event&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    tauri::Builder::<span class="title function_ invoke__">default</span>()</span><br><span class="line">        .<span class="title function_ invoke__">setup</span>(|app| &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="variable">app_handle</span> = app.<span class="title function_ invoke__">handle</span>();</span><br><span class="line">            <span class="comment">// 应用启动时发送一个欢迎事件</span></span><br><span class="line">            std::thread::<span class="title function_ invoke__">spawn</span>(<span class="keyword">move</span> || &#123; <span class="comment">// 使用 app_handle 的克隆</span></span><br><span class="line">                std::thread::<span class="title function_ invoke__">sleep</span>(std::time::Duration::<span class="title function_ invoke__">from_secs</span>(<span class="number">2</span>));</span><br><span class="line">                app_handle.<span class="title function_ invoke__">emit_all</span>(<span class="string">&quot;app-ready&quot;</span>, serde_json::json!(&#123; <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Welcome! The app is ready from Rust setup.&quot;</span>&#125;)).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">invoke_handler</span>(tauri::generate_handler![</span><br><span class="line">            simple_greet,</span><br><span class="line">            fetch_user_profile,</span><br><span class="line">            process_data,</span><br><span class="line">            start_long_task <span class="comment">// 注册新命令</span></span><br><span class="line">        ])</span><br><span class="line">        .<span class="title function_ invoke__">run</span>(tauri::generate_context!())</span><br><span class="line">        .<span class="title function_ invoke__">expect</span>(<span class="string">&quot;error while running tauri application&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>(B) Vue.js 端：监听事件</strong></p>
+<ol>
+<li><strong>导入 <code>listen</code> 函数:</strong><ul>
+<li>从 <code>@tauri-apps/api/event</code> 导入 <code>listen</code>。</li>
+</ul>
+</li>
+<li><strong>调用 <code>listen</code>:</strong><ul>
+<li>第一个参数是要监听的事件名称 (必须与 Rust 中 <code>emit_all</code> 或 <code>emit</code> 使用的名称完全一致)。</li>
+<li>第二个参数是一个回调函数 <code>(event) =&gt; &#123; ... &#125;</code>。当 Rust 发送匹配名称的事件时，此回调会被执行。<code>event.payload</code> 包含了从 Rust 发送过来的数据。</li>
+</ul>
+</li>
+<li><strong>返回 <code>UnlistenFn</code>:</strong><ul>
+<li><code>listen</code> 函数返回一个 Promise，该 Promise resolve 为一个 <code>UnlistenFn</code> 函数。调用这个 <code>UnlistenFn</code> 可以取消对该事件的监听。这在组件卸载时非常重要，以防止内存泄漏或不必要的处理。</li>
+</ul>
+</li>
+<li><strong>类型化 Payload:</strong><ul>
+<li>可以为 <code>listen</code> 提供一个泛型参数来指定 <code>event.payload</code> 的类型，例如 <code>listen&lt;MyPayloadType&gt;(...)</code>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>Vue 示例 (<code>src/components/MyComponent.vue</code> - 添加事件监听部分):</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;hr /&gt;</span><br><span class="line">  &lt;h3&gt;Backend Events&lt;/h3&gt;</span><br><span class="line">  &lt;p&gt;App Ready Message: &#123;&#123; appReadyMessage &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;button @click=&quot;callStartLongTask&quot;&gt;Start Long Task&lt;/button&gt;</span><br><span class="line">  &lt;p&gt;Task Progress: &#123;&#123; taskProgress &#125;&#125;% - &#123;&#123; taskProgressMessage &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;p v-if=&quot;taskCompletedMessage&quot; style=&quot;color: green;&quot;&gt;</span><br><span class="line">    &#123;&#123; taskCompletedMessage &#125;&#125;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123; ref, onMounted, onUnmounted &#125; from &quot;vue&quot;;</span><br><span class="line">import &#123; invoke &#125; from &quot;@tauri-apps/api/tauri&quot;;</span><br><span class="line">import &#123; listen, UnlistenFn &#125; from &quot;@tauri-apps/api/event&quot;; // 导入 listen 和 UnlistenFn</span><br><span class="line"></span><br><span class="line">// ... (之前的 ref 定义) ...</span><br><span class="line"></span><br><span class="line">// For backend events</span><br><span class="line">const appReadyMessage = ref&lt;string&gt;(&quot;&quot;);</span><br><span class="line">const taskProgress = ref&lt;number&gt;(0);</span><br><span class="line">const taskProgressMessage = ref&lt;string&gt;(&quot;&quot;);</span><br><span class="line">const taskCompletedMessage = ref&lt;string&gt;(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">let unlistenAppReady: UnlistenFn | null = null;</span><br><span class="line">let unlistenTaskProgress: UnlistenFn | null = null;</span><br><span class="line">let unlistenTaskComplete: UnlistenFn | null = null;</span><br><span class="line"></span><br><span class="line">interface TaskProgressPayload &#123;</span><br><span class="line">  progress: number;</span><br><span class="line">  message: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">onMounted(async () =&gt; &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    unlistenAppReady = await listen&lt;&#123; message: string &#125;&gt;(</span><br><span class="line">      &quot;app-ready&quot;,</span><br><span class="line">      (event) =&gt; &#123;</span><br><span class="line">        console.log(&quot;Event &#x27;app-ready&#x27; received:&quot;, event.payload);</span><br><span class="line">        appReadyMessage.value = event.payload.message;</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    unlistenTaskProgress = await listen&lt;TaskProgressPayload&gt;(</span><br><span class="line">      &quot;task-progress&quot;,</span><br><span class="line">      (event) =&gt; &#123;</span><br><span class="line">        // console.log(&quot;Event &#x27;task-progress&#x27;:&quot;, event.payload); // 会非常频繁</span><br><span class="line">        taskProgress.value = event.payload.progress;</span><br><span class="line">        taskProgressMessage.value = event.payload.message;</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    unlistenTaskComplete = await listen&lt;string&gt;(&quot;task-complete&quot;, (event) =&gt; &#123;</span><br><span class="line">      console.log(&quot;Event &#x27;task-complete&#x27;:&quot;, event.payload);</span><br><span class="line">      taskCompletedMessage.value = event.payload;</span><br><span class="line">      taskProgress.value = 100; // 确保进度条满</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    console.error(&quot;Error setting up event listeners:&quot;, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">onUnmounted(() =&gt; &#123;</span><br><span class="line">  // 组件卸载时取消监听</span><br><span class="line">  if (unlistenAppReady) unlistenAppReady();</span><br><span class="line">  if (unlistenTaskProgress) unlistenTaskProgress();</span><br><span class="line">  if (unlistenTaskComplete) unlistenTaskComplete();</span><br><span class="line">  console.log(&quot;Event listeners unmounted.&quot;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">async function callStartLongTask() &#123;</span><br><span class="line">  taskProgress.value = 0;</span><br><span class="line">  taskProgressMessage.value = &quot;Starting...&quot;;</span><br><span class="line">  taskCompletedMessage.value = &quot;&quot;;</span><br><span class="line">  try &#123;</span><br><span class="line">    await invoke(&quot;start_long_task&quot;);</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    console.error(&quot;Error calling start_long_task:&quot;, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ... (之前的函数 callSimpleGreet, callFetchUserProfile, callProcessData) ...</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>(C) 作用域与目标</strong></p>
+<ul>
+<li><strong><code>app_handle.emit_all(&quot;event-name&quot;, payload)</code></strong>: 将事件发送到<strong>所有打开的、并且正在监听该事件名称的</strong> Tauri 窗口。</li>
+<li><strong><code>window.emit(&quot;event-name&quot;, payload)</code></strong>: 将事件仅发送到<strong>调用此方法的特定 <code>window</code> 实例</strong>，前提是该窗口的前端代码正在监听此事件。<ul>
+<li>要获取特定窗口，您可以在 Rust 中使用 <code>app_handle.get_window(&quot;window_label&quot;)</code>，其中 <code>&quot;window_label&quot;</code> 是在 <code>tauri.conf.json</code> 中或创建窗口时指定的唯一标签。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>3. 安全性: <code>allowlist</code> 的角色</strong></p>
+<p>所有这些交互都受到 <code>tauri.conf.json</code> 中 <code>allowlist</code> 的严格控制。</p>
+<ul>
+<li><strong>调用命令</strong>: 默认情况下，前端<strong>不能</strong>调用任何 Rust 命令。您不需要在 <code>allowlist</code> 中列出每个命令的名称。<code>invoke_handler</code> 的注册本身就隐式地允许了这些命令的调用，但 Tauri 的核心安全模型（如 IPC 消息校验）仍然适用。</li>
+<li><strong>发送&#x2F;接收事件</strong>:<ul>
+<li>要使 <code>app_handle.emit_all</code> 或 <code>window.emit</code> 工作，前端的 <code>allowlist</code> 中需要允许 <code>event</code> API，特别是 <code>event.listen</code> 的能力。</li>
+<li><code>src-tauri/tauri.conf.json</code>:<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;tauri&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;allowlist&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;event&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;all&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="comment">// 通常设置为 false，然后按需开启</span></span><br><span class="line">        <span class="attr">&quot;listen&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="comment">// 允许前端监听事件</span></span><br><span class="line">        <span class="attr">&quot;emit&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span> <span class="comment">// 通常前端不需要直接向 Rust 后端“emit”事件，而是通过 invoke 触发动作</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="comment">// ... 其他 API 如 dialog, fs, http, shell 等也在这里配置 ...</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>总结：Vue 与 Rust 的双向数据流</strong></p>
+<ul>
+<li><p><strong>Vue -&gt; Rust (请求数据或执行动作):</strong></p>
+<ol>
+<li>Vue 组件使用 <code>@tauri-apps/api/tauri</code> 的 <code>invoke(&#39;rust_command_name&#39;, &#123; args &#125;)</code>。</li>
+<li>数据通过 JSON 序列化后发送给 Rust。</li>
+<li>Rust 端对应的 <code>#[tauri::command]</code> 函数被执行，接收反序列化后的参数。</li>
+<li>Rust 函数处理逻辑，返回结果 (或 <code>Result&lt;T,E&gt;</code>)。</li>
+<li>结果通过 JSON 序列化后发送回 Vue。</li>
+<li>Vue 端 <code>invoke</code> 的 Promise resolve (或 reject)，Vue 更新 UI。</li>
+</ol>
+</li>
+<li><p><strong>Rust -&gt; Vue (主动推送更新或通知):</strong></p>
+<ol>
+<li>Rust 端（例如在后台线程、<code>setup</code> 钩子或某个命令执行完毕后）获取 <code>AppHandle</code> 或 <code>Window</code> 实例。</li>
+<li>调用 <code>app_handle.emit_all(&quot;event_name&quot;, payload)</code> 或 <code>window.emit(&quot;event_name&quot;, payload)</code>。</li>
+<li><code>payload</code> 通过 JSON 序列化后发送给前端。</li>
+<li>Vue 组件中，通过 <code>@tauri-apps/api/event</code> 的 <code>listen(&#39;event_name&#39;, callback)</code> 注册的监听器被触发。</li>
+<li>回调函数中的 <code>event.payload</code> 包含反序列化后的数据，Vue 更新 UI。</li>
+</ol>
+</li>
+</ul>
+<p>这种结合了请求-响应和发布-订阅的模式，为构建功能丰富的 Tauri + Vue 桌面应用提供了强大而灵活的通信基础。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Jackey Zhou</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/')">tauri前后端交互</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=tauri前后端交互&amp;url=http://example.com/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Welcome To LifeTech's Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/tauri%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>tauri基础知识<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2025/05/12/vue3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">vue3基础知识</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">记录技术成长的个人博客</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/15/tauri%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/" title="tauri前后端交互">tauri前后端交互</a><time datetime="2025-05-14T16:28:49.000Z" title="发表于 2025-05-15 00:28:49">2025-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/vue3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="vue3基础知识">vue3基础知识</a><time datetime="2025-05-12T15:28:53.000Z" title="发表于 2025-05-12 23:28:53">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/" title="模型部署">模型部署</a><time datetime="2025-05-11T18:17:36.000Z" title="发表于 2025-05-12 02:17:36">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="数据科学与机器学习">数据科学与机器学习</a><time datetime="2025-05-11T18:17:28.000Z" title="发表于 2025-05-12 02:17:28">2025-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/pytorch%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="pytorch基础知识">pytorch基础知识</a><time datetime="2025-05-11T18:17:15.000Z" title="发表于 2025-05-12 02:17:15">2025-05-12</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="Jackey Zhou" target="_blank">Jackey Zhou</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CSharp%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">CSharp学习<sup>3</sup></a><a href="/tags/IDE%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">IDE常用快捷键<sup>2</sup></a><a href="/tags/Rust%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">Rust基础知识<sup>21</sup></a><a href="/tags/csharp%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">csharp相关学习<sup>5</sup></a><a href="/tags/docker%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">docker学习<sup>1</sup></a><a href="/tags/hexo%E5%8D%9A%E5%AE%A2%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">hexo博客常见命令<sup>1</sup></a><a href="/tags/python%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">python相关学习<sup>4</sup></a><a href="/tags/tauri%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">tauri基础知识<sup>1</sup></a><a href="/tags/xmake%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">xmake学习<sup>3</sup></a><a href="/tags/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">个人学习<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">前端学习<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 0.88rem;">数据分析<sup>1</sup></a><a href="/tags/%E6%97%A0%E7%BA%BF%E8%B0%83%E8%AF%95/" style="font-size: 0.88rem;">无线调试<sup>1</sup></a><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">深度学习<sup>1</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">系统常用命令<sup>2</sup></a><a href="/tags/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 0.88rem;">系统常用快捷键<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Jackey Zhou 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
